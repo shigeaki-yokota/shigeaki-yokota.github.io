@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Ricci曲率をJacobi場、体積密度、第二変分、CD条件から眺める。計算を動かして学べる数学ノート。">
+<link rel="canonical" href="https://shigeaki-yokota.github.io/topics/ricci-curvature/">
+<link rel="stylesheet" href="../../assets/site.css">
+<title>Ricci曲率は何を数えているのか — Shigeaki Yokota</title>
+<style>
+
+/* Plain academic article, with small interactive figures embedded in the text. */
+.ricci-page { padding-top: 1.7rem; padding-bottom: 4.5rem; }
+.ricci-page article { max-width: 100%; }
+.ricci-page h1 { font-size: 1.9rem; font-weight: 600; line-height: 1.4; margin: .3rem 0 1.25rem; }
+.ricci-page .article-lead { font-size: 1.02rem; line-height: 1.9; margin-bottom: 1.6rem; }
+.ricci-page .page-status { font-size: .85rem; color: #5d6065; border-left: 3px solid #d0d4d7; padding: .35rem 0 .35rem .8rem; }
+.ricci-page .toc { border: 1px solid #c8ccd0; background: #f8f9fa; padding: .85rem 1.1rem; max-width: 440px; margin: 2rem 0; }
+.ricci-page .toc-title { font-weight: 600; font-size: .93rem; }
+.ricci-page .toc ol { margin: .4rem 0 0; padding-left: 1.7rem; }
+.ricci-page .toc li { margin: .25rem 0; font-size: .94rem; }
+.ricci-page .chapter { margin: 3.8rem 0 0; scroll-margin-top: 2rem; }
+.ricci-page .chapter-number { color: #656b72; font-size: .81rem; margin-bottom: .25rem; }
+.ricci-page .chapter h2 { font-size: 1.37rem; line-height: 1.5; margin: .2rem 0 1rem; padding-bottom: .25rem; }
+.ricci-page .chapter h3, .ricci-page .library h3 { font-size: 1.06rem; font-weight: 600; line-height: 1.45; margin: 1.4rem 0 .5rem; }
+.ricci-page .lead { font-size: 1.02rem; }
+.ricci-page .muted, .ricci-page .lab-warning, .ricci-page .controls-intro { color: #555; font-size: .91rem; }
+.ricci-page .inline-formula, .ricci-page .formula { font-family: Georgia, 'Times New Roman', 'Yu Mincho', serif; }
+.ricci-page .inline-formula { white-space: normal; }
+.ricci-page .formula { font-size: 1.11rem; line-height: 1.75; text-align: center; border: 1px solid #e0e1e2; background: #fafafa; padding: .7rem .5rem; overflow-x: auto; margin: 1rem 0; }
+.ricci-page .formula.compact { margin: .8rem 0; padding: .45rem; }
+.ricci-page .lab, .ricci-page .myers-board { background: #f8f9fa; border: 1px solid #b9c1c8; padding: 1.15rem; margin: 1.4rem 0; }
+.ricci-page .lab-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .4rem 1.3rem; padding-bottom: .5rem; border-bottom: 1px solid #ccd1d5; margin-bottom: 1rem; }
+.ricci-page .lab-head h3 { margin: 0; font-size: 1.1rem; }
+.ricci-page .lab-kicker { color: #555; font-size: .78rem; }
+.ricci-page .tag { font-size: .8rem; color: #52575b; }
+.ricci-page .lab-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1.5rem; }
+.ricci-page .control { padding-bottom: 1.2rem; }
+.ricci-page .control label, .ricci-page .myers-row { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.ricci-page .control label { font-size: .94rem; font-weight: 600; }
+.ricci-page output { font-variant-numeric: tabular-nums; }
+.ricci-page input[type=range] { width: 100%; margin: .65rem 0; accent-color: #1b628a; cursor: pointer; }
+.ricci-page .result { border: 1px solid #d1d5d8; background: #fff; padding: .7rem .9rem; margin-bottom: .85rem; }
+.ricci-page .result span { color: #5a5f63; display: block; font-size: .75rem; letter-spacing: .02em; }
+.ricci-page .result b { display: block; font-size: 2.1rem; line-height: 1.35; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ricci-page .result small { color: #555; display: block; font-size: .87rem; }
+.ricci-page .preset-row { display: flex; flex-wrap: wrap; gap: .35rem; }
+.ricci-page button.preset { color: #222; border: 1px solid #aab0b6; background: #fff; padding: .3rem .55rem; font: inherit; font-size: .82rem; cursor: pointer; }
+.ricci-page button.preset:hover { background: #eff3f7; }
+.ricci-page button:focus-visible, .ricci-page input:focus-visible, .ricci-page summary:focus-visible { outline: 2px solid #19558a; outline-offset: 3px; }
+.ricci-page .lab-warning, .ricci-page .nudge, .ricci-page .aside, .ricci-page .extra { border-left: 3px solid #bdc3c8; background: #f2f3f4; padding: .6rem .85rem; margin: 1rem 0; font-size: .92rem; }
+.ricci-page .lab-warning { margin-bottom: 0; }
+.ricci-page .graph { border: 1px solid #d0d4d8; background: #fff; padding: .5rem; }
+.ricci-page #chart { display: block; width: 100%; height: 295px; }
+.ricci-page .legend { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin-top: .6rem; font-size: .8rem; }
+.ricci-page .legend span { white-space: normal; }
+.ricci-page .legend i { display: inline-block; width: .9rem; height: .23rem; margin-right: .25rem; vertical-align: middle; }
+.ricci-page .proof { border: 1px solid #d2d5d8; border-left: 3px solid #aab1b6; background: #fcfcfc; padding: .8rem 1rem; margin: 1.2rem 0; }
+.ricci-page .proof-title { font-weight: 600; margin-bottom: .4rem; }
+.ricci-page .proof-ending { text-align: right; }
+.ricci-page .trail, .ricci-page .oddities { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .65rem; margin: 1rem 0; }
+.ricci-page .trail-card { color: inherit; border: 1px solid #d4d9dd; background: #fff; padding: .75rem; text-decoration: none; }
+.ricci-page .trail-card:hover { background: #f5f8fb; }
+.ricci-page .trail-card strong { font-size: .91rem; display: block; }
+.ricci-page .trail-card small, .ricci-page .trail-card p { font-size: .82rem; color: #555; }
+.ricci-page .trail-card span, .ricci-page .trail-card .arrow { font-size: .8rem; color: #19558a; }
+.ricci-page .oddities { grid-template-columns: 1fr 1fr; }
+.ricci-page .odd { border: 1px solid #d2d6da; background: #fafafa; }
+.ricci-page .odd summary { padding: .65rem .75rem; cursor: pointer; font-weight: 600; font-size: .9rem; }
+.ricci-page .odd-num { display: block; color: #686b70; font-size: .74rem; font-weight: 400; }
+.ricci-page .answer { border-top: 1px solid #ddd; padding: .2rem .75rem .65rem; font-size: .9rem; }
+.ricci-page .myers-row { font-size: .9rem; }
+.ricci-page .myers-big { font-size: 2rem; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; margin: .55rem 0 .15rem; }
+.ricci-page .myers-comment { color: #555; font-size: .85rem; margin-bottom: .7rem; }
+.ricci-page .threshold { border-left: 3px solid #aab1b6; background: #fff; padding: .55rem .65rem; font-size: .88rem; }
+.ricci-page .threshold.warn { border-left-color: #ac3030; }
+.ricci-page .library { border-top: 1px solid #bbb; margin-top: 3.5rem; padding-top: 1.2rem; }
+.ricci-page .library h2 { font-size: 1.23rem; margin: .5rem 0 1rem; }
+.ricci-page .book-stack { display: block; border-top: 1px solid #ddd; }
+.ricci-page .book { border-bottom: 1px solid #ddd; padding: .7rem 0; }
+.ricci-page .book small { color: #666; font-size: .78rem; }
+.ricci-page .book h3 { margin: .1rem 0; }
+.ricci-page .book p { font-size: .9rem; margin: .2rem 0; }
+.ricci-page .bibliography { margin-top: 1.7rem; font-size: .9rem; }
+.ricci-page .bibliography a { display: block; overflow-wrap: anywhere; padding: .15rem 0; }
+@media (max-width: 620px) {
+  .ricci-page .lab-grid, .ricci-page .trail, .ricci-page .oddities { grid-template-columns: 1fr; }
+  .ricci-page h1 { font-size: 1.6rem; }
+  .ricci-page .chapter h2 { font-size: 1.22rem; }
+  .ricci-page .lab, .ricci-page .myers-board { padding: .85rem; }
+  .ricci-page #chart { height: 240px; }
+  .ricci-page .formula { font-size: .96rem; }
+}
+@media print { .ricci-page .toc { break-inside: avoid; } .ricci-page .lab { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header"><div class="shell">
+<a class="identity" href="../../">Shigeaki Yokota / Mathematics</a>
+<nav aria-label="サイト内ナビゲーション"><a href="../../">Home</a><a href="../../#papers">Papers</a><a href="../../#topics">Topics</a></nav>
+</div></header>
+<main id="main" class="shell ricci-page">
+<article>
+<p class="eyebrow">Topics / Geometry / 解説と実験</p>
+<h1>Ricci曲率は何を数えているのか</h1>
+<p class="article-lead">「断面曲率の和」と言われても気持ちがわからない。曲率を動かし、Jacobi場を解き、体積密度と第二変分の計算を確かめる。ときどき変な脇道にも入る。</p>
+<p class="page-status">小さな数値実験はJacobi方程式を用いた理想模型のもの。曲率の一般論や実在する空間を二つの数字だけで再現するものではない。</p>
+<nav class="toc" aria-label="このページの目次"><div class="toc-title">目次</div><ol>
+<li><a href="#prologue">曲率をどう感じるか</a></li>
+<li><a href="#ricci">断面曲率を混ぜる</a></li>
+<li><a href="#volume">Jacobi場と体積密度</a></li>
+<li><a href="#proof">1/6が出てくる証明</a></li>
+<li><a href="#bridges">三つの接続</a></li>
+<li><a href="#myers">Bonnet–Myers</a></li>
+<li><a href="#cd">CD条件への入口</a></li>
+<li><a href="#odd">曲率の怪文書棚</a></li>
+<li><a href="#next">参考文献と今後の内容</a></li>
+</ol></nav>
+<section class="chapter" id="prologue"><div class="chapter-number">1 / 直観</div><h2>まず、曲率を「曲がり具合」だと思うのをやめてみる。</h2><p class="lead">曲率は、図形がどう曲がって見えるかだけの話ではない。<strong class="marker">近くを出発した測地線同士が、これからどう離れていくか</strong>という未来予測の数字として読める。</p><p>地図の上で一点を選び、そこから無数の最短経路を出発させる。Euclid空間なら測地線の束は素直に広がる。曲率があると、その束は期待より狭くなったり、広くなったりする。</p><p>では、進む方向を一本 <span class="inline-formula">v</span> に固定して、<span class="inline-formula">v</span> に垂直な微小断面の広がりを見るとどうなるのか。ここで、<strong>Ricci曲率が登場する。</strong></p><div class="page-quote">「一本の道に沿って、<br>　周囲の空間がどれほど集まるか。」</div><p class="muted">これは比喩だけれど、あとでJacobi場の行列式を計算すると、実際にかなり正確な説明になる。</p></section>
+<section class="chapter" id="ricci"><div class="chapter-number">2 / 断面曲率</div><h2>正のRicci曲率なのに、負の断面曲率がいてもいい。</h2><p class="lead">3次元で単位ベクトル <span class="inline-formula">v</span> を決めよう。直交する二つの方向 <span class="inline-formula">e₁, e₂</span> について、曲率演算子の固有方向を選べば、Ricci曲率は二つの断面曲率の和になる。</p><div class="formula math">Ric(v,v) = K(v,e₁) + K(v,e₂)</div><p>たった二つの数を足しただけなのに、幾何的な情報が一気に潰れる。ここを触ってみよう。</p>
+ <div class="lab"><div class="lab-head"><div><div class="lab-kicker">実験 1</div><h3>断面曲率ミキサー</h3></div><span class="tag">3次元 / 単位 v</span></div><div class="lab-grid"><div><div class="control"><label for="k1">K(v,e₁) <output id="k1out">−2.0</output></label><input id="k1" type="range" min="-3" max="3" step="0.1" value="-2" aria-label="第一の断面曲率"></div><div class="control"><label for="k2">K(v,e₂) <output id="k2out">＋3.0</output></label><input id="k2" type="range" min="-3" max="3" step="0.1" value="3" aria-label="第二の断面曲率"></div><div class="controls-intro">数字を動かすと、Ricci曲率と下の測地線模型が同時に変わる。</div></div><div><div class="result"><span>RICCI CURVATURE IN DIRECTION v</span><b id="ricout">＋1.0</b><small id="riccaption">一方は負。でも和は正。</small></div><div class="preset-row"><button class="preset" data-k1="-2" data-k2="3">負＋正＝正</button><button class="preset" data-k1="0.5" data-k2="0.5">同じRic・均等</button><button class="preset" data-k1="-3" data-k2="2">負が勝つ</button><button class="preset" data-k1="0" data-k2="0">ゼロ</button></div></div></div><div class="lab-warning">注意：このミキサーは、一点・一方向での曲率演算子の二つの固有値を扱う理想化した設定。任意の空間全体の曲率を、この二つの数字だけから復元できるわけではない。</div></div><p>そもそも、<span class="inline-formula">Ric(v,v)/(n−1)</span> が、進行方向 <span class="inline-formula">v</span> を含む断面曲率の平均にあたる。<strong>和が正だからといって、一つひとつが正とは限らない。</strong></p><div class="aside"><strong>本日の危険な直感：</strong>「Ricci曲率が正なら、あらゆる向きに曲がっている」は嘘。正しいのは、特定の方向へ進むとき、その方向に垂直な曲率の<strong>和</strong>が正ということ。</div></section>
+<section class="chapter" id="volume"><div class="chapter-number">3 / 測地線と体積</div><h2>測地線を育てると、体積密度の変化にRicciが現れる。</h2><p class="lead">曲率は測地線を曲げる。測地線が集まれば、同じ角度の束で運ばれる体積は小さくなる。では、その「集まり方」の最初の差は何が決める？</p><p>ここでは曲率演算子が、測地線に沿って一定で対角化できる模型を使う。先ほどの二つの曲率 <span class="inline-formula">k₁, k₂</span> を引き継ぎ、直交するJacobi場の長さを <span class="inline-formula">j₁(r), j₂(r)</span> とする。</p>
+<div class="formula math">jᵢ″(r) + kᵢ jᵢ(r) = 0,<br>jᵢ(0) = 0,&nbsp; jᵢ′(0) = 1</div><p>その横断面の面積密度は <span class="inline-formula">J(r)=j₁(r)j₂(r)</span>。Euclid空間なら <span class="inline-formula">J(r)=r²</span> なので、比 <span class="inline-formula">J(r)/r²</span> を表示する。</p>
+<div class="lab"><div class="lab-head"><div><div class="lab-kicker">実験 2</div><h3>体積密度の実験台</h3></div><span class="tag">上のミキサーと連動</span></div><div class="graph"><canvas id="chart" role="img" aria-label="測地線方向の体積密度比を曲率ごとに比較するグラフ">お使いのブラウザではグラフの描画に対応していないよ。</canvas></div><div class="legend"><span><i style="background:#1b628a"></i>選んだ模型</span><span><i style="background:#785b92"></i>同じRicの等方模型</span><span><i style="background:#b26924"></i>Ricだけの二次近似</span><span><i style="background:#777"></i>Euclid</span></div><div class="nudge"><span><strong>試してみて：</strong> 「負＋正＝正」と「同じRic・均等」を往復する。どちらもRicは +1。でも有限距離の曲線は少し違う。</span></div><div class="lab-warning"><b>重要：</b> 実線は「曲率演算子が測地線に沿って一定」という理想模型での<strong>厳密な計算</strong>。赤い線は原点付近の二次近似。一般のRiemann多様体で、Ricci曲率の一点の値から有限距離の密度を厳密に求められるという意味ではない。</div></div><h3>一体、何がわかったのか。</h3><p>グラフの原点付近では、曲率の配分を変えても同じRicci曲率なら同じ二次の振る舞いをする。つまりRicci曲率は、体積密度の<strong>最初の変形</strong>を記録している。</p><div class="formula math">J(r) / r² = 1 − (Ric(v,v) / 6) r² + O(r³)</div><p>これは一般の滑らかな3次元Riemann多様体でも、十分小さな <span class="inline-formula">r</span> について成立する（測地線極座標のJacobian）。ただし、ここで使用している一定係数の模型では余りを <span class="inline-formula">O(r⁴)</span> に強められる。</p><p><strong>同じRicciでも、その後の全過程は同じではない。</strong> 曲率の情報を和に圧縮したときに、何が残り、何が捨てられたかを体感できるはず。</p></section>
+<section class="chapter" id="proof"><div class="chapter-number">4 / 計算</div><h2>なぜここに <span class="inline-formula">1/6</span> が出てくる？</h2><p class="lead">数学の解説は、「なんとなく集まるから」で止めない。この係数を証明で取り出してしまおう。</p><div class="proof"><div class="proof-title">補題｜一定曲率演算子の模型でのJacobianの展開</div><p>上の模型で、各 <span class="inline-formula">jᵢ</span> は線形常微分方程式</p><div class="formula math compact">jᵢ″ + kᵢjᵢ=0,&nbsp; jᵢ(0)=0,&nbsp; jᵢ′(0)=1</div><p>を満たす。従って <span class="inline-formula">jᵢ″(0)=0</span>、微分して <span class="inline-formula">jᵢ‴(0)=−kᵢ</span> を得る。Taylor展開から</p><div class="formula math compact">jᵢ(r) = r − (kᵢ/6)r³ + O(r⁵).</div><p>ゆえに</p><div class="formula math compact">j₁(r)j₂(r) = r² − (k₁+k₂)r⁴/6 + O(r⁶).</div><p>最後に <span class="inline-formula">k₁+k₂=Ric(v,v)</span> を代入して</p><div class="formula math compact">J(r)/r² = 1 − Ric(v,v)r²/6 + O(r⁴).</div><div class="proof-ending">□</div></div><p>一般の場合はJacobi場をベクトル値で考え、曲率演算子の行列のtraceを取る。そのtraceがRicci曲率になる。<strong>「曲率の足し算」と「体積の変化」がここで合流する。</strong></p><div class="extra"><strong>裏路地メモ</strong><p>もし最初にRicci曲率の定義だけを聞いたら、traceを取る必然性はよくわからない。でも「近くの測地線たちが作る微小平行六面体の体積を知りたい」と考えると、行列式の微分でtraceが現れるのはむしろ自然。Ricciは、そのとき現れる名前だったのかもしれない。</p></div></section>
+<section class="chapter" id="bridges"><div class="chapter-number">5 / 周辺への道</div><h2>同じRicci曲率から、三つの違う物語が始まる。</h2><p>ここまででJacobi場・体積密度の話ができた。けれどRicci曲率はほかの場所にも出てくる。この接続をクリックできるのがウェブの楽しいところ。</p><div class="trail"><a class="trail-card" href="#myers"><small>DOOR 01 / GEOMETRY</small><strong>最短測地線はいつ終わる？</strong><span>第二変分から直径を制限する。Myersの定理。</span><span class="more">証明まで進む ↗</span></a><a class="trail-card" href="#cd"><small>DOOR 02 / TRANSPORT</small><strong>どうして確率測度に曲率がある？</strong><span>測地線の束を確率測度の輸送へ拡張する。</span><span class="more">CDへの入口 ↗</span></a><a class="trail-card" href="#heat"><small>DOOR 03 / ANALYSIS</small><strong>なぜ熱方程式にRicciがいる？</strong><span>Bochner公式の右辺に突然Ricciが現れる。</span><span class="more">寄り道する ↗</span></a></div><div id="heat" class="aside"><strong>熱の中に曲率が潜んでいる。</strong><br><span class="math" style="font-size:17px">½ Δ|∇f|² − ⟨∇f,∇Δf⟩ = |Hess f|² + Ric(∇f,∇f)</span><br>（Δ = div grad の符号規約。）なぜこれが成立するかを別のページで、局所正規座標の計算から丁寧に示したい。</div></section>
+<section class="chapter" id="myers"><div class="chapter-number">6 / 第二変分</div><h2>正のRicci曲率は、長すぎる最短経路を許さない。</h2><p class="lead">Bonnet–Myersの定理の不思議さは、各点の微分的な条件から、空間全体の直径が制限されるところにある。</p><div class="formula math">Ric ≥ (n−1)κg,&nbsp; κ&gt;0<br>⇒ diam M ≤ π/√κ</div><p>証明は測地線の第二変分から始まる。長さ <span class="inline-formula">L</span> の単位速度最短測地線 <span class="inline-formula">γ</span> に沿って、平行正規直交枠 <span class="inline-formula">E₁,…,Eₙ₋₁</span> を選ぶ。そして</p><div class="formula math compact">Vᵢ(t) = sin(πt/L) Eᵢ(t)</div><p>で変分する。このとき最短性から <span class="inline-formula">Σ I(Vᵢ,Vᵢ) ≥ 0</span>。しかしRicci下限から、同じ和は</p><div class="formula math compact">Σ I(Vᵢ,Vᵢ) ≤ ((n−1)L/2)(π²/L² − κ)</div><p>とも評価できる。長さが <span class="inline-formula">π/√κ</span> を超えると右辺は負！ つまり、最短だったはずの測地線が<strong>最短ではあり得ない</strong>という矛盾に達する。</p><div class="myers-board"><div class="myers-row"><span>MYERS TEST BENCH</span><span>κ = 1, n = 3</span></div><div class="myers-big" id="indexout">+0.00</div><div class="myers-comment">Σ I の上界 = π²/L − L</div><label for="length" class="myers-row"><span>仮の測地線の長さ L</span><strong id="lengthout">3.50</strong></label><input type="range" id="length" min="1.5" max="5" step="0.01" value="3.5"><div class="threshold" id="myersstatus">π ≈ 3.1416 を超えると上界が負になり、最短性と両立できない。</div></div><div class="proof"><div class="proof-title">証明｜Bonnet–Myers</div><p><span class="inline-formula">M</span> を完備連結な <span class="inline-formula">n ≥ 2</span> 次元Riemann多様体、<span class="inline-formula">Ric ≥ (n−1)κg</span>、<span class="inline-formula">κ &gt; 0</span> とする。Hopf–Rinowにより任意の二点を最短測地線で結べる。長さ <span class="inline-formula">L</span> のそれを単位速度でパラメータ化し、上記の変分場を取る。index formの非負性とRicci下限から</p><div class="formula math compact">0 ≤ ΣI(Vᵢ,Vᵢ) ≤ (n−1)L/2 · (π²/L² − κ).</div><p>従って <span class="inline-formula">L ≤ π/√κ</span>。二点は任意なので直径評価が従う。有界閉集合がコンパクトとなるHopf–Rinowの帰結より <span class="inline-formula">M</span> はコンパクトである。</p><div class="proof-ending">□</div></div><p class="muted">実験台が表示するのはindex formの「上界」。一般の多様体におけるindex formの正確な値そのものではない。この区別を曖昧にしないのも、遊べる教材の大事なところ。</p></section>
+<section class="chapter" id="cd"><div class="chapter-number">7 / CD条件</div><h2>CD条件は、「Ricci曲率」を微分なしで語るための言語。</h2><p class="lead">Ricciの意味を体積変化として見ると、次の疑問が自然に生まれる。微分ができない距離空間に、<strong>曲率の同じ気持ち</strong>を持ち込めないだろうか。</p><p>その一つの答えが、測度距離空間上での最適輸送とエントロピーの凸性。滑らかな多様体では、適切なWasserstein測地線 <span class="inline-formula">(μₜ)</span> に沿って、エントロピーの二階変分に</p><div class="formula math compact">∫ (|Hess φₜ|² + Ric(∇φₜ,∇φₜ)) dμₜ</div><p>が現れる。だからRicci曲率の下限は、エントロピーの凸性に結びつく。<a href="https://arxiv.org/abs/1009.3431" target="_blank" rel="noopener">太田慎一『Ricci curvature, entropy and optimal transport』</a> は、この橋渡しを学ぶためのよい出発点。</p><div class="explain-steps"><div class="step"><span>STEP 01</span><strong>Jacobi場</strong>測地線の束がどれほど膨らむか。</div><div class="step"><span>STEP 02</span><strong>最適輸送</strong>束を、確率測度の動きとして見る。</div><div class="step"><span>STEP 03</span><strong>CD(K,N)</strong>凸性・歪み係数を距離と測度だけで定式化する。</div></div><div class="aside"><strong>見落としがちな違い：</strong> 「CD(K,∞)でK&gt;0」と「有限のNでCD(K,N)」を混同してはいけない。標準Gaussian測度付きEuclid空間はCD(1,∞)を満たすが、台は非コンパクト。有限次元の仮定が合成的Myersの結論には決定的。</div><p>この章はまだ「橋の見取り図」。有限 <span class="inline-formula">N</span> の歪み係数とRényiエントロピー、滑らかな同値定理の完全な証明、FinslerとRCDの違いは、それぞれ長い独立ページにしたい。</p></section>
+<section class="chapter" id="odd"><div class="chapter-number">8 / 余談</div><h2>胡乱な数学・曲率の怪文書棚</h2><p class="lead">数学のサイトなら、脚注を踏んだ途端に別の世界へ転げ落ちてもいい。まずは、答えを開くまで少し考えたい小話を並べてみた。</p><div class="oddities">
+<details class="odd"><summary><span class="odd-num">QUESTION 001</span>Ricci曲率がゼロなら、空間は平坦？</summary><div class="answer"><p><strong>次元による！</strong> 3次元ではRicciテンソルがRiemann曲率テンソルを決めるため、Ric=0なら平坦。一方、4次元以上にはRicci-flatだが非平坦なRiemann多様体がある。K3曲面のCalabi–Yau計量は有名な例。</p></div></details>
+<details class="odd"><summary><span class="odd-num">QUESTION 002</span>Ricciが各点で正なら、空間はコンパクト？</summary><div class="answer"><p><strong>一様な正の下限が必要。</strong> ただ正だというだけでは足りない。非コンパクトな回転放物面は完備でGauss曲率が正。2次元ではRic=Kgだから、Ricが正で非コンパクトな例になる。</p></div></details>
+<details class="odd"><summary><span class="odd-num">QUESTION 003</span>正の曲率があれば、Gaussianは閉じ込められる？</summary><div class="answer"><p>標準Gaussian測度を備えたEuclid空間は <span class="inline-formula">Ric∞=I</span> を持ち、CD(1,∞)の典型例。しかし直径は無限。有限次元条件との違いが顔を出す。</p></div></details>
+<details class="odd"><summary><span class="odd-num">QUESTION 004</span>曲率って、どうしてtraceを取るの？</summary><div class="answer"><p>測地線変分の行列式が体積密度を与えるから。行列式の一階変分にtraceが現れる。Ricciは「いっぱいある断面曲率を雑に足した量」ではなく、体積という幾何量が選び取ったtraceとして眺められる。</p></div></details>
+<details class="odd"><summary><span class="odd-num">QUESTION 005</span>CD条件を満たせばRiemann的？</summary><div class="answer"><p>そうとは限らない。Finsler多様体も適切なCD条件を満たす。RCDでは無限小Hilbert性を追加して、非Riemann的なFinsler挙動を排除する。</p></div></details>
+<details class="odd"><summary><span class="odd-num">QUESTION 006</span>同じRicなら、測地線の集まり方も同じ？</summary><div class="answer"><p>原点付近の二次のずれは同じ。しかし、同じRicでも個々の断面曲率やその変化は異なり得る。上の実験室の二つの模型は、その違いを可視化している。</p></div></details>
+</div><div class="extra"><p><strong>こういうページを無限に増やしたい。</strong> 例えば「Bochner公式を計算で殴るページ」「Myersの定理の仮定を一個ずつ壊すページ」「重みを変えたらRicciはどう動く？」「2次元だけ許される奇跡」「証明の分岐を辿るゲーム」。本筋より寄り道が面白い日があってもいい。</p></div></section>
+<section class="library" id="next"><div class="library-inner"><span class="chapter-number">関連するページの構想</span><h2>続きを育てるための、本棚</h2><p class="muted">以下は次に作りたい独立記事の構想。今はまだリンク先を作っていない。</p><div class="book-stack"><div class="book"><small>VOLUME 02 / 構想中</small><h3>Ricci曲率の気持ち：7つの見方</h3><p>Jacobi場、体積、熱、最適輸送、Bishop、Bochner、Ricci flow。</p></div><div class="book"><small>VOLUME 03 / 構想中</small><h3>Myersの定理・変種・失敗例</h3><p>第二変分、最大直径、重み付き、MCP、どこまで弱められるか。</p></div><div class="book"><small>VOLUME 04 / 構想中</small><h3>CD(K,N)は何を一般化したのか</h3><p>有限次元歪み係数の由来からFinsler・RCDまで、証明付きで。</p></div></div><div class="bibliography"><strong>参考資料</strong><a href="https://arxiv.org/abs/1009.3431" target="_blank" rel="noopener">Shin-Ichi Ohta, Ricci curvature, entropy and optimal transport (arXiv:1009.3431)</a><a href="https://web.math.ucsb.edu/~wei/paper/08summer-lecture.pdf" target="_blank" rel="noopener">Guofang Wei, Comparison Geometry lecture notes（Jacobi場と体積密度）</a><a href="https://neckpinch.com/guide/metrics-connections-and-curvature/curvature-and-what-it-means/" target="_blank" rel="noopener">Neckpinch, Curvature and What It Means（曲率の直観的解説）</a><p class="muted">注：このページは教育用の試作。グラフはJacobi方程式の模型計算であり、一般の多様体を直接シミュレートするものではない。証明と参考文献は今後も補充する。</p></div></div></section>
+<p class="back-link"><a href="../../">← トップページへ戻る</a></p>
+</article>
+</main>
+<footer class="site-footer"><div class="shell"><small>© 2026 Shigeaki Yokota · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
+<script>
+(function(){'use strict';
+const $=id=>document.getElementById(id);
+const k1=$('k1'), k2=$('k2'), canvas=$('chart');
+const fmt=x=>(x>0?'＋':x<0?'−':'')+Math.abs(x).toFixed(1);
+const SN=(k,r)=> { if(Math.abs(k)<1e-9)return r; const a=Math.sqrt(Math.abs(k));return k>0?Math.sin(a*r)/a:Math.sinh(a*r)/a; };
+function ratio(a,b,r){if(r<1e-8)return 1;return SN(a,r)*SN(b,r)/(r*r)}
+function update(){const a=+k1.value,b=+k2.value,s=a+b;
+ $('k1out').textContent=fmt(a);$('k2out').textContent=fmt(b);$('ricout').textContent=fmt(s);
+ $('ricout').style.color=s>0?'#186340':s<0?'#a12a32':'#4b545b';
+ $('riccaption').textContent=(a*b<0?(s>0?'一方は負。でも和は正。':s<0?'一方は正。でも和は負。':'正負がちょうど打ち消す。'):s>0?'この方向の横断面は、近くで集まりやすい。':s<0?'この方向の横断面は、近くで広がりやすい。':'二次の体積のずれはゼロ。');
+ draw(a,b);
+}
+function draw(a,b){const rect=canvas.getBoundingClientRect(),w=rect.width||600,h=rect.height||290,dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
+ const m={l:52,r:20,t:26,b:44},pw=w-m.l-m.r,ph=h-m.t-m.b, xmax=1.05;
+ const values=[];for(let i=0;i<=125;i++){let r=xmax*i/125;values.push([ratio(a,b,r),ratio((a+b)/2,(a+b)/2,r),1-(a+b)*r*r/6])}
+ let vmin=Math.min(.98,...values.flat()),vmax=Math.max(1.02,...values.flat());vmin=Math.max(.20,Math.floor((vmin-.06)*10)/10);vmax=Math.min(2.6,Math.ceil((vmax+.06)*10)/10);if(vmax-vmin<.25){vmin-=.12;vmax+=.12}
+ const X=r=>m.l+(r/xmax)*pw,Y=v=>m.t+(vmax-v)/(vmax-vmin)*ph;
+ c.strokeStyle='#dce1e6';c.lineWidth=1;c.fillStyle='#54606c';c.font='11px system-ui,sans-serif';c.textAlign='right';
+ for(let i=0;i<=5;i++){let v=vmin+(vmax-vmin)*i/5;let y=Y(v);c.beginPath();c.moveTo(m.l,y);c.lineTo(w-m.r,y);c.stroke();c.fillText(v.toFixed(2),m.l-8,y+4)}
+ c.textAlign='center';for(let j=0;j<=5;j++){let r=xmax*j/5,x=X(r);c.beginPath();c.moveTo(x,m.t);c.lineTo(x,h-m.b);c.stroke();c.fillText(r.toFixed(1),x,h-m.b+20)}
+ c.textAlign='left';c.fillStyle='#354451';c.font='12px system-ui,sans-serif';c.fillText('J(r) / r²',14,17);c.textAlign='right';c.fillText('距離 r',w-16,h-8);
+ function stroke(fn,color,width,dash=[]){c.save();c.beginPath();c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);for(let i=0;i<=200;i++){let r=xmax*i/200,v=fn(r),x=X(r),y=Y(v);if(i===0)c.moveTo(x,y);else c.lineTo(x,y)}c.stroke();c.restore()}
+ stroke(_=>1,'#777',1.5,[2,6]);stroke(r=>1-(a+b)*r*r/6,'#b26924',1.7,[5,5]);stroke(r=>ratio((a+b)/2,(a+b)/2,r),'#785b92',2.5,[8,5]);stroke(r=>ratio(a,b,r),'#1b628a',3);
+}
+[k1,k2].forEach(e=>e.addEventListener('input',update));document.querySelectorAll('.preset').forEach(b=>b.addEventListener('click',()=>{k1.value=b.dataset.k1;k2.value=b.dataset.k2;update()}));
+const length=$('length');function updateMyers(){let L=+length.value,upper=Math.PI*Math.PI/L-L; $('lengthout').textContent=L.toFixed(2);$('indexout').textContent=(upper>=0?'+':'−')+Math.abs(upper).toFixed(3);let warning=upper<0;$('indexout').style.color=warning?'#a12a32':'#186340';$('myersstatus').classList.toggle('warn',warning);$('myersstatus').textContent=warning?'矛盾が発生！ 第二変分は非負であるべきなのに、その上界が負。最短測地線ではあり得ない。':'まだ上界は非負。この試験だけでは最短性に矛盾しない（最短とは限らない）。';length.setAttribute('aria-valuetext',L.toFixed(2))}
+length.addEventListener('input',updateMyers);window.addEventListener('resize',()=>draw(+k1.value,+k2.value));update();updateMyers();
+})();
+</script>
+</body></html>
