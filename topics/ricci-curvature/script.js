@@ -208,6 +208,24 @@ document.querySelectorAll('[data-pair]').forEach(button=>button.addEventListener
   const pair=button.dataset.pair.split(',');sectionOne.value=pair[0];sectionTwo.value=pair[1];drawRicci();
 }));
 const entropyK=byId('entropyK'),entropyCanvas=byId('entropyCanvas');
+const w2Time=byId('w2Time'),w2Demo=byId('w2Demo');
+function drawW2Demo(){
+  if(!w2Time||!w2Demo)return;
+  const t=Number(w2Time.value),positions=[0,1,2,3].map((start,i)=>start+(i+1)*t);
+  for(const point of w2Demo.querySelectorAll('[data-x0][data-x1]')){
+    const x0=Number(point.dataset.x0),x1=Number(point.dataset.x1),x=x0+(x1-x0)*t;
+    if(point.tagName.toLowerCase()==='line'){
+      point.setAttribute('x1',x0);point.setAttribute('x2',x);
+    }else point.setAttribute('cx',x);
+  }
+  setSpacedText(byId('w2TimeOut'),t.toFixed(2));
+  const distances=positions.map(x=>x.toFixed(2)).join('、');
+  const readout='t='+t.toFixed(2)+'。四点の位置は '+distances+'。W₂(μ₀,μₜ)='+(Math.sqrt(7.5)*t).toFixed(2)+'、W₂(μₜ,μ₁)='+(Math.sqrt(7.5)*(1-t)).toFixed(2)+'。';
+  setSpacedText(byId('w2DemoReadout'),readout);
+  w2Time.setAttribute('aria-valuetext',readout);
+  byId('w2Desc').textContent='時刻'+t.toFixed(2)+'。一次元上の四点の位置は'+distances+'。上段は三番目の点の普通の測地線、下段は四点の分布μtを示す。';
+}
+if(w2Time)w2Time.addEventListener('input',drawW2Demo);
 function drawEntropy(){
   const K=Number(entropyK.value),{c,w,h}=fitCanvas(entropyCanvas,entropyCanvas.getBoundingClientRect().height);
   setSpacedText(byId('entropyKOut'),(K>0?'+':'')+K.toFixed(1));
@@ -234,5 +252,5 @@ function drawEntropy(){
 }
 entropyK.addEventListener('input',drawEntropy);
 window.addEventListener('resize',()=>{drawCurve();drawFan();drawSurface();drawEntropy();});
-drawCurve();drawFan();drawSurface();drawRicci();drawEntropy();
+drawCurve();drawFan();drawSurface();drawRicci();drawW2Demo();drawEntropy();
 })();

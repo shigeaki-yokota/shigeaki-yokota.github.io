@@ -66,6 +66,17 @@
 .ricci-page .concept-figure { margin:1.2rem 0; padding:.8rem; border:1px solid var(--line); border-radius:9px; background:white; }
 .ricci-page .concept-figure svg { display:block; width:100%; height:auto; }
 .ricci-page .concept-figure figcaption { color:var(--muted); font-size:.9rem; margin-top:.45rem; }
+.ricci-page #w2Demo { display:block; width:100%; height:auto; max-height:210px; margin:.7rem 0; }
+.ricci-page #w2Demo .w2-label { fill:var(--ink); font:600 14px system-ui,sans-serif; }
+.ricci-page #w2Demo .w2-track { stroke:#c3ced7; stroke-width:2; stroke-dasharray:5 5; }
+.ricci-page #w2Demo .w2-highlight-track { stroke:var(--gold); stroke-width:3; }
+.ricci-page #w2Demo .w2-single { fill:var(--gold); stroke:#fff; stroke-width:2; }
+.ricci-page #w2Demo .w2-tracks line { stroke:#a8bbc9; stroke-width:2; }
+.ricci-page #w2Demo .w2-particles circle { fill:var(--blue); stroke:#fff; stroke-width:2; }
+.ricci-page #w2Demo .w2-particles circle:nth-child(3) { fill:var(--gold); }
+.ricci-page #w2Demo .w2-axis { stroke:#667b8a; stroke-width:1.5; }
+.ricci-page #w2Demo .w2-endpoint { fill:var(--muted); font:12px system-ui,sans-serif; }
+.ricci-page .transport-lab { margin:1.4rem 0; }
 .ricci-page .diagram-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
 .ricci-page .diagram-panel { min-width:0; border:1px solid var(--line); border-radius:8px; background:white; padding:.65rem; }
 .ricci-page .diagram-panel h3 { margin:.2rem 0 .4rem; font-size:1rem; }
