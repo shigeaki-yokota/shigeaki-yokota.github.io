@@ -129,6 +129,7 @@ p { margin: .6rem 0 1rem; }
   .site-header h1 { font-size: clamp(2.2rem, 11vw, 3rem); }
   .home-heading { align-items: flex-start; flex-direction: column; gap: .8rem; }
   .reader-header { align-items: flex-start; flex-direction: column; gap: .7rem; }
+  .site-options { align-self: flex-end; }
   .jp-name { display: block; margin-left: 0; }
   .site-header nav { gap: 1rem; }
   .profile-list { grid-template-columns: 1fr; row-gap: 0; }
