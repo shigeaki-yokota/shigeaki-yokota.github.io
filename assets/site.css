@@ -66,7 +66,7 @@ p { margin: .6rem 0 1rem; }
 .profile-list dd { margin: 0; }
 .entry-list { padding-left: 1.5rem; margin: .75rem 0 0; }
 .entry-list li { margin: .55rem 0; }
-.entry-list li span { margin-left: .35rem; font-size: .82rem; color: var(--muted); }
+.entry-list > li > span { margin-left: .35rem; font-size: .82rem; color: var(--muted); }
 .empty-state { font-size: .91rem; color: var(--muted); }
 
 .site-footer { border-top: 1px solid var(--line); padding: 1.2rem 0 2rem; color: var(--muted); }
