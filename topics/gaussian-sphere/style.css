@@ -60,7 +60,7 @@
 .gaussian-page .proof-blue { border-color:#9bb6c6; background:#f3f9fc; }
 .gaussian-page .proof-gold { border-color:#d7b68c; background:#fdf8f0; }
 .gaussian-page .proof-arrow { align-self:center; color:#71808b; font-size:1.1rem; }
-.gaussian-page { color:var(--ink); background:var(--paper); --canvas-ink:var(--ink); --canvas-muted:var(--muted); --canvas-blue:var(--blue); --canvas-gold:var(--gold); --canvas-axis:#9aaaba; }
+.gaussian-page { color:var(--ink); --canvas-ink:var(--ink); --canvas-muted:var(--muted); --canvas-blue:var(--blue); --canvas-gold:var(--gold); --canvas-axis:#9aaaba; }
 @media (prefers-color-scheme:dark) {
  .gaussian-page { --ink:#e4eaf0; --muted:#b0bdca; --line:#445567; --paper:#172330; --wash:#1e2e3e; --blue:#82c4ed; --gold:#efb46f; --gold-text:#efb46f; --canvas-axis:#8095a8; }
 }

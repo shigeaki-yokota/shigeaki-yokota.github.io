@@ -65,7 +65,7 @@
 @media(prefers-reduced-motion:reduce) { .gaussian-page * { scroll-behavior:auto !important; } }
 
 /* English candidate: keep panels, vector labels, and canvas palettes legible. */
-.gaussian-page { color:var(--ink); background:var(--paper); --canvas-ink:#243447; --canvas-muted:#526273; --canvas-blue:#246891; --canvas-gold:#ad681d; --canvas-green:#28734f; --canvas-line:#d7e0e8; --canvas-axis:#9aaaba; --canvas-grid:#8594a0; }
+.gaussian-page { color:var(--ink); --canvas-ink:#243447; --canvas-muted:#526273; --canvas-blue:#246891; --canvas-gold:#ad681d; --canvas-green:#28734f; --canvas-line:#d7e0e8; --canvas-axis:#9aaaba; --canvas-grid:#8594a0; }
 .gaussian-page a { color:var(--blue); }
 .gaussian-page input:focus-visible,.gaussian-page a:focus-visible,.gaussian-page summary:focus-visible { outline-color:var(--blue); }
 .gaussian-page button { color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:.45rem .7rem; cursor:pointer; }
