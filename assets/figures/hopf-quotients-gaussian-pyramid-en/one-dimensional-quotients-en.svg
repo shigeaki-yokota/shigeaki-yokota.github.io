@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-labelledby="title desc">
+  <title id="title">Real sign quotient and complex phase quotient</title>
+  <desc id="desc">In real dimension one, the two points −r and r correspond to a single radius r; in complex dimension one, the entire circle of radius r corresponds to that radius. Both quotient distances are the absolute difference of radii. The real quotient carries the half-normal distribution χ₁, and the complex quotient carries the χ₂ distribution. For positive radii their densities are √(2/π) exp(−r²/2) and r exp(−r²/2), respectively. ξ and η are independent standard normal variables. An original schematic based on §1.2 and Lemmas 2.12–2.13 of the fixed public arXiv v2.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#53616b"/>
+    </marker>
+    <style>
+      text { font-family: "Noto Sans JP", "Yu Gothic", sans-serif; fill: #25323b; font-size: 21px; }
+      .heading { font-size: 25px; font-weight: 600; }
+      .small { font-size: 19px; }
+      .axis { stroke: #75808a; stroke-width: 2; fill: none; }
+      .map { stroke: #53616b; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .orbit { stroke: #326c94; stroke-width: 3; fill: none; }
+      .point { fill: #326c94; }
+      .radius { stroke: #326c94; stroke-width: 2; stroke-dasharray: 6 5; }
+      .law { fill: #214e70; }
+    </style>
+  </defs>
+  <rect width="960" height="760" rx="12" fill="#fff"/>
+  <text x="36" y="46" class="heading">One-dimensional quotients: same half-line, different laws</text>
+  <text x="36" y="80" class="small">ξ, η independent N(0, 1) / r ≥ 0</text>
+
+  <rect x="24" y="108" width="912" height="270" rx="10" fill="#f5f8fa"/>
+  <text x="44" y="145" class="heading">Real dimension 1: forget sign</text>
+  <text x="44" y="176" class="small">Identify x and −x</text>
+  <line x1="66" y1="240" x2="364" y2="240" class="axis" marker-end="url(#arrow)"/>
+  <line x1="215" y1="234" x2="215" y2="246" class="axis"/>
+  <circle cx="125" cy="240" r="7" class="point"/>
+  <circle cx="305" cy="240" r="7" class="point"/>
+  <path d="M 125 220 Q 215 174 305 220" class="orbit" stroke-dasharray="5 5"/>
+  <text x="108" y="276">−r</text>
+  <text x="208" y="276">0</text>
+  <text x="300" y="276">r</text>
+  <text x="345" y="275" class="small">ℝ</text>
+  <path d="M 392 235 L 510 235" class="map"/>
+  <text x="400" y="211">x ↦ |x|</text>
+  <line x1="563" y1="240" x2="890" y2="240" class="axis" marker-end="url(#arrow)"/>
+  <circle cx="563" cy="240" r="4" fill="#75808a"/>
+  <circle cx="700" cy="240" r="7" class="point"/>
+  <text x="556" y="276">0</text>
+  <text x="696" y="276">r</text>
+  <text x="795" y="212">[0, ∞)</text>
+  <text x="558" y="318" class="law">χ₁: |ξ| law (half-normal)</text>
+  <text x="558" y="350" class="small law">Density: √(2/π) exp(−r²/2),  r &gt; 0</text>
+
+  <rect x="24" y="394" width="912" height="302" rx="10" fill="#f5f8fa"/>
+  <text x="44" y="431" class="heading">Complex dimension 1 (real dimension 2): forget phase</text>
+  <text x="44" y="462" class="small">Identify z and exp(iθ)z</text>
+  <line x1="77" y1="566" x2="361" y2="566" class="axis" marker-end="url(#arrow)"/>
+  <line x1="215" y1="666" x2="215" y2="476" class="axis" marker-end="url(#arrow)"/>
+  <circle cx="215" cy="566" r="72" class="orbit"/>
+  <line x1="215" y1="566" x2="271" y2="521" class="radius"/>
+  <circle cx="271" cy="521" r="6" class="point"/>
+  <text x="232" y="537">r</text>
+  <text x="193" y="592">0</text>
+  <text x="278" y="509" class="small">z</text>
+  <text x="326" y="596" class="small">Re</text>
+  <text x="228" y="493" class="small">Im</text>
+  <path d="M 392 560 L 510 560" class="map"/>
+  <text x="397" y="536">z ↦ |z|</text>
+  <line x1="563" y1="566" x2="890" y2="566" class="axis" marker-end="url(#arrow)"/>
+  <circle cx="563" cy="566" r="4" fill="#75808a"/>
+  <circle cx="700" cy="566" r="7" class="point"/>
+  <text x="556" y="601">0</text>
+  <text x="696" y="601">r</text>
+  <text x="795" y="538">[0, ∞)</text>
+  <text x="558" y="643" class="law">χ₂: law of √(ξ² + η²)</text>
+  <text x="558" y="675" class="small law">Density: r exp(−r²/2),  r &gt; 0</text>
+
+  <text x="36" y="735">Both quotient distances are |r − s|. Their probability laws differ.</text>
+</svg>
