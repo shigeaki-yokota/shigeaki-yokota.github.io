@@ -5,6 +5,7 @@
 .gaussian-page .lead { max-width:850px; font-size:1.08rem; line-height:1.9; }
 .gaussian-page .reader-contract,.gaussian-page .note { border-left:4px solid #9aaaba; background:var(--wash); padding:.75rem 1rem; margin:1.2rem 0; }
 .gaussian-page .reader-contract { max-width:850px; font-size:.94rem; }
+.gaussian-page .theorem-card { border:1px solid #9bb6c6; border-left:5px solid var(--blue); border-radius:8px; background:#f7fbfd; padding:1rem 1.15rem; margin:1.3rem 0; max-width:940px; line-height:1.9; }
 .gaussian-page .toc { max-width:690px; border:1px solid var(--line); border-radius:8px; background:var(--wash); padding:1rem 1.2rem; margin:1.5rem 0 2rem; }
 .gaussian-page .toc h2 { font-size:1rem; margin:0 0 .4rem; }
 .gaussian-page .toc ol { columns:2; column-gap:2rem; margin:.3rem 0 0; padding-left:1.5rem; }
@@ -21,6 +22,7 @@
 .gaussian-page .takeaway { border:1px solid #bdd0dc; border-radius:9px; background:#f8fbfd; padding:.9rem 1rem; margin:1.2rem 0; line-height:1.8; }
 .gaussian-page .takeaway strong { color:#174f79; }
 .gaussian-page .lab { border:1px solid #bccbd7; border-radius:10px; background:var(--wash); padding:1rem; margin:1.4rem 0; }
+.gaussian-page .control-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
 .gaussian-page .lab-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.3rem 1rem; border-bottom:1px solid var(--line); padding-bottom:.5rem; margin-bottom:.8rem; }
 .gaussian-page .lab-head h3 { margin:0; font-size:1.12rem; }
 .gaussian-page .lab-head small { color:var(--muted); }
@@ -31,11 +33,29 @@
 .gaussian-page input:focus-visible,.gaussian-page a:focus-visible,.gaussian-page summary:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
 .gaussian-page .chart-wrap { margin-top:.8rem; background:white; border:1px solid var(--line); border-radius:8px; padding:.4rem; }
 .gaussian-page #distributionCanvas { display:block; width:100%; height:330px; }
+.gaussian-page #clippingCanvas { display:block; width:100%; height:330px; }
 .gaussian-page .chart-alt { margin:.5rem 0; font-size:.92rem; color:var(--muted); }
 .gaussian-page details { border:1px solid var(--line); border-radius:8px; background:white; padding:.65rem .85rem; margin:1rem 0; }
 .gaussian-page summary { font-weight:650; cursor:pointer; }
 .gaussian-page .references { border-top:1px solid var(--line); margin-top:3.5rem; padding-top:1rem; }
 .gaussian-page .references li { margin:.55rem 0; }
+.gaussian-page .definition-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; margin:1rem 0 1.5rem; }
+.gaussian-page .definition-grid > div { border:1px solid var(--line); border-radius:8px; background:#fff; padding:.75rem .9rem; }
+.gaussian-page .definition-grid h3 { font-size:1rem; margin:.1rem 0 .35rem; }
+.gaussian-page .definition-grid p { font-size:.94rem; margin:.3rem 0; }
+.gaussian-page .proof-roadmap { display:flex; align-items:stretch; gap:.4rem; margin:1rem 0 1.4rem; }
+.gaussian-page .proof-step { flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:.25rem; border:1px solid var(--line); border-radius:8px; padding:.7rem; background:#fff; }
+.gaussian-page .proof-step span { color:var(--muted); font-size:.78rem; font-weight:700; }
+.gaussian-page .proof-step strong { font-size:.9rem; }
+.gaussian-page .proof-step small { color:var(--muted); line-height:1.5; }
+.gaussian-page .proof-blue { border-color:#9bb6c6; background:#f3f9fc; }
+.gaussian-page .proof-gold { border-color:#d7b68c; background:#fdf8f0; }
+.gaussian-page .proof-arrow { align-self:center; color:#71808b; font-size:1.1rem; }
+.gaussian-page .proof-list { padding-left:1.5rem; }
+.gaussian-page .proof-list li { padding-left:.2rem; margin:.75rem 0; }
+.gaussian-page details { line-height:1.85; }
 @media(max-width:760px) { .gaussian-page #distributionCanvas { height:390px; } .gaussian-page .toc ol { columns:1; } }
+@media(max-width:640px) { .gaussian-page .proof-roadmap { display:grid; grid-template-columns:1fr 1fr; } .gaussian-page .proof-step { min-height:88px; } .gaussian-page .proof-arrow { display:none; } .gaussian-page .proof-final { grid-column:1 / -1; } }
+@media(max-width:520px) { .gaussian-page .definition-grid,.gaussian-page .control-grid { grid-template-columns:1fr; } .gaussian-page #clippingCanvas { height:350px; } }
 @media(max-width:430px) { .gaussian-page section { margin-top:2.7rem; } .gaussian-page .lab { padding:.7rem; } .gaussian-page .equation-card { text-align:left; } .gaussian-page #distributionCanvas { height:420px; } }
 @media(prefers-reduced-motion:reduce) { .gaussian-page * { scroll-behavior:auto !important; } }
