@@ -15,13 +15,24 @@
       .point { fill: #326c94; }
       .radius { stroke: #326c94; stroke-width: 2; stroke-dasharray: 6 5; }
       .law { fill: #214e70; }
+      @media (prefers-color-scheme: dark) {
+        text { fill: #e5e7eb; }
+        .canvas-bg { fill: #17191c; }
+        .panel-bg { fill: #22262b; }
+        .axis { stroke: #9aa7b4; }
+        .map, marker path { stroke: #aeb9c4; fill: #aeb9c4; }
+        .neutral-point { fill: #9aa7b4; }
+        .orbit, .radius { stroke: #8fc5ff; }
+        .point { fill: #8fc5ff; }
+        .law { fill: #acd7f5; }
+      }
     </style>
   </defs>
-  <rect width="960" height="760" rx="12" fill="#fff"/>
+  <rect class="canvas-bg" width="960" height="760" rx="12" fill="#fff"/>
   <text x="36" y="46" class="heading">One-dimensional quotients: same half-line, different laws</text>
   <text x="36" y="80" class="small">ξ, η independent N(0, 1) / r ≥ 0</text>
 
-  <rect x="24" y="108" width="912" height="270" rx="10" fill="#f5f8fa"/>
+  <rect class="panel-bg" x="24" y="108" width="912" height="270" rx="10" fill="#f5f8fa"/>
   <text x="44" y="145" class="heading">Real dimension 1: forget sign</text>
   <text x="44" y="176" class="small">Identify x and −x</text>
   <line x1="66" y1="240" x2="364" y2="240" class="axis" marker-end="url(#arrow)"/>
@@ -36,7 +47,7 @@
   <path d="M 392 235 L 510 235" class="map"/>
   <text x="400" y="211">x ↦ |x|</text>
   <line x1="563" y1="240" x2="890" y2="240" class="axis" marker-end="url(#arrow)"/>
-  <circle cx="563" cy="240" r="4" fill="#75808a"/>
+  <circle class="neutral-point" cx="563" cy="240" r="4" fill="#75808a"/>
   <circle cx="700" cy="240" r="7" class="point"/>
   <text x="556" y="276">0</text>
   <text x="696" y="276">r</text>
@@ -44,7 +55,7 @@
   <text x="558" y="318" class="law">χ₁: |ξ| law (half-normal)</text>
   <text x="558" y="350" class="small law">Density: √(2/π) exp(−r²/2),  r &gt; 0</text>
 
-  <rect x="24" y="394" width="912" height="302" rx="10" fill="#f5f8fa"/>
+  <rect class="panel-bg" x="24" y="394" width="912" height="302" rx="10" fill="#f5f8fa"/>
   <text x="44" y="431" class="heading">Complex dimension 1 (real dimension 2): forget phase</text>
   <text x="44" y="462" class="small">Identify z and exp(iθ)z</text>
   <line x1="77" y1="566" x2="361" y2="566" class="axis" marker-end="url(#arrow)"/>
@@ -60,7 +71,7 @@
   <path d="M 392 560 L 510 560" class="map"/>
   <text x="397" y="536">z ↦ |z|</text>
   <line x1="563" y1="566" x2="890" y2="566" class="axis" marker-end="url(#arrow)"/>
-  <circle cx="563" cy="566" r="4" fill="#75808a"/>
+  <circle class="neutral-point" cx="563" cy="566" r="4" fill="#75808a"/>
   <circle cx="700" cy="566" r="7" class="point"/>
   <text x="556" y="601">0</text>
   <text x="696" y="601">r</text>
