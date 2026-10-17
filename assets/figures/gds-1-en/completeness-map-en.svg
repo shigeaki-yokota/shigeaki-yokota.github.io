@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc">
+  <title id="title">The completeness proof builds a limit from a summably close subsequence</title>
+  <desc id="desc">A Cauchy sequence yields a subsequence with summable box distances. Optimal couplings and good closed sets are glued into one probability space. Summable distortion controls the coordinate metrics on the eventual good-set tail, and the pulled-back feature families converge in Hausdorff Ky Fan distance. Quotienting by the limiting features and completing gives the limit geometric data set; compact high-mass sets then yield box convergence.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607d8b"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, sans-serif; fill: #26343d; }
+      .head { font-size: 18px; font-weight: 650; }
+      .body { font-size: 16px; }
+      .math { font-family: Georgia, 'Times New Roman', serif; font-size: 17px; font-weight: 600; }
+      .hint { font-size: 14px; fill: #53616a; }
+      .box { fill: #f5f8fa; stroke: #aebdc6; stroke-width: 2; }
+      .key { fill: #edf5f1; stroke: #82a996; stroke-width: 2; }
+      .last { fill: #f9f4ed; stroke: #c69b65; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="998" height="458" rx="14" fill="#fff" stroke="#d7dde1" stroke-width="2"/>
+  <text class="head" x="500" y="39" text-anchor="middle">Completeness: place separate spaces on one probability space</text>
+  <rect class="box" x="34" y="78" width="275" height="112" rx="12"/>
+  <text class="head" x="171" y="112" text-anchor="middle">Extract a subsequence</text>
+  <text class="math" x="171" y="145" text-anchor="middle">Σₙ □(Xₙ, Xₙ₊₁) &lt; ∞</text>
+  <text class="hint" x="171" y="171" text-anchor="middle">Make successive errors summable</text>
+  <line x1="310" y1="134" x2="355" y2="134" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="key" x="365" y="78" width="275" height="112" rx="12"/>
+  <text class="head" x="502" y="112" text-anchor="middle">Couplings and good sets Sₙ</text>
+  <text class="math" x="502" y="145" text-anchor="middle">1 − πₙ(Sₙ) ≤ □ₙ</text>
+  <text class="hint" x="502" y="171" text-anchor="middle">Feature errors are small on Sₙ</text>
+  <line x1="641" y1="134" x2="686" y2="134" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="box" x="696" y="78" width="270" height="112" rx="12"/>
+  <text class="head" x="831" y="112" text-anchor="middle">Glue the couplings</text>
+  <text class="math" x="831" y="145" text-anchor="middle">μ on ∏ₙ Xₙ</text>
+  <text class="hint" x="831" y="171" text-anchor="middle">Realize adjacent couplings jointly</text>
+  <path d="M831 192 V231 H171 V258" fill="none" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="box" x="34" y="268" width="275" height="112" rx="12"/>
+  <text class="head" x="171" y="302" text-anchor="middle">Control metric changes</text>
+  <text class="math" x="171" y="335" text-anchor="middle">On Sₙ: |dₙ − dₙ₊₁| ≤ □ₙ</text>
+  <text class="hint" x="171" y="361" text-anchor="middle">Σ□ₙ &lt; ∞ gives a common metric</text>
+  <line x1="310" y1="324" x2="355" y2="324" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="key" x="365" y="268" width="275" height="112" rx="12"/>
+  <text class="head" x="502" y="302" text-anchor="middle">Limit of feature families</text>
+  <text class="math" x="502" y="335" text-anchor="middle">Gₙ → F∞</text>
+  <text class="hint" x="502" y="361" text-anchor="middle">Hausdorff–Ky Fan convergence</text>
+  <line x1="641" y1="324" x2="686" y2="324" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect class="last" x="696" y="268" width="270" height="112" rx="12"/>
+  <text class="head" x="831" y="302" text-anchor="middle">The limiting data set</text>
+  <text class="math" x="831" y="335" text-anchor="middle">X∞ = W / F∞</text>
+  <text class="hint" x="831" y="361" text-anchor="middle">Complete the quotient to form X∞</text>
+  <text class="body" x="500" y="423" text-anchor="middle">Uniform approximation on compact sets K of large probability gives box-distance convergence.</text>
+</svg>

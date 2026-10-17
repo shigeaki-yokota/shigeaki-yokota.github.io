@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark"><meta name="description" content="Follow Gaussian vectors to uniform sphere points, coordinate limits, and convergence of metric-measure pyramids.">
+<link rel="canonical" href="https://shigeaki-yokota.github.io/en/topics/gaussian-sphere/">
+<link rel="stylesheet" href="../../../assets/site.css"><link rel="stylesheet" href="style.css">
+<title>A Gaussian View of High-Dimensional Spheres — Shigeaki Yokota</title></head><body>
+<a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell"><div class="reader-header"><a class="identity" href="/en/">Shigeaki Yokota</a><div class="site-options"><a href="/topics/gaussian-sphere/" lang="ja">日本語</a></div></div><nav aria-label="Site navigation"><a href="/en/">Home</a><a href="/en/#papers">Papers</a><a href="/en/#topics">Topics</a></nav></div></header>
+<main id="main" class="shell demo-off gaussian-page" lang="en">
+<article>
+<p class="eyebrow">Topics / Probability and geometry</p>
+<h1>A Gaussian view of high-dimensional spheres</h1>
+<p class="lead">A Gaussian vector has a uniformly distributed direction. Rescaling its length to √n gives an exactly uniform point on the sphere of radius √n. In large dimension, a few coordinates of this point approach a Gaussian distribution. Does the whole sphere approach a Gaussian space too?</p>
+<p class="demo-opt-in">JavaScript is not loaded on this page. <a href="interactive/">Open the interactive version</a> to use the diagrams and sample calculations; calculations begin only after an explicit action.</p>
+<div class="reader-contract"><strong>Starting here.</strong> The prerequisites are linear algebra, expectation and variance of random variables, and basic proof experience. Integration by parts is reviewed in the calculations. The first half follows the probability calculations step by step; the second separates the proof of Shioya's Theorem 1.1(3) into definitions, lemmas, and two inclusions. We state and cite the structural results needed, rather than rebuilding all of metric measure geometry.</div>
+<div class="theorem-card"><strong>The theorem followed here (Shioya, Theorem 1.1(3))</strong><br>Give the n-dimensional sphere of radius <var>r<sub>n</sub></var> its ambient Euclidean (chord) distance and normalized area measure. If <var>r<sub>n</sub>/√n→λ&gt;0</var>, its associated pyramids converge weakly to the virtual Gaussian pyramid of variance <var>λ<sup>2</sup></var>. We first prove the case <var>λ=1</var>, then restore the scale.</div>
+<nav class="toc" aria-label="Contents"><h2>The route through this page</h2><ol>
+<li><a href="#normalize">Make a uniform sphere point from a Gaussian</a></li><li><a href="#experiment">Explore coordinates and radius</a></li>
+<li><a href="#coordinate-error">Coordinate error and finite-dimensional limits</a></li><li><a href="#not-close">Relative and absolute fluctuations</a></li>
+<li><a href="#clipping">Distance estimates for clipping</a></li><li><a href="#limit">Identify the pyramid by two inclusions</a></li>
+</ol></nav>
+<section id="normalize">
+<p class="eyebrow">1 / Starting point</p><h2>Keep the Gaussian direction and adjust only its length</h2>
+<p>Let <var>S<sup>n</sup>(r)</var> be the sphere of radius <var>r</var> in <var>R<sup>n+1</sup></var>. Let <var>G=(G<sub>1</sub>,…,G<sub>n+1</sub>)</var> have independent standard normal coordinates, each with density <var>φ(t)=(2π)<sup>−1/2</sup>e<sup>−t²/2</sup></var>. Expectation <var>E[X]</var> is the mean, and variance <var>Var(X)=E[(X−E[X])<sup>2</sup>]</var> is the mean squared deviation. Put <var>R=|G|</var>.</p>
+<p>The joint density <var>(2π)<sup>−(n+1)/2</sup>e<sup>−|x|²/2</sup></var> does not depend on direction. In polar coordinates, volume is <var>r<sup>n</sup>dr dω</var>, so density times volume splits into a radial factor <var>r<sup>n</sup>e<sup>−r²/2</sup>dr</var> and uniform spherical area <var>dω</var>. Radius and direction are independent, and direction is uniform on the unit sphere. Consequently,</p>
+<div class="equation-card math" role="math" aria-label="U equals square root of n times G divided by R, uniformly distributed on the sphere of radius square root of n">U = (√n / R) G　∈　S<sup>n</sup>(√n)</div>
+<p>is exactly uniform on the sphere of radius √n. This step is exact. Passing from Gaussian to sphere changes length while keeping direction.</p>
+<details><summary>Check uniformity and independence in polar coordinates</summary>
+<p>The probability that radius lies in <var>[a,b]</var> and direction in a spherical set <var>A</var> is, for a constant <var>C<sub>n</sub></var>,</p>
+<div class="equation-card math">C<sub>n</sub>∫<sub>a</sub><sup>b</sup>r<sup>n</sup>e<sup>−r²/2</sup>dr · area(A).</div>
+<p>The product of a radial integral and a directional area gives the product of the event probabilities: independence. Direction has probability <var>area(A)/area(S<sup>n</sup>(1))</var>, precisely uniform distribution.</p></details>
+<figure class="concept-figure"><svg viewBox="0 0 720 210" role="img" aria-labelledby="radialTitle radialDesc">
+<title id="radialTitle">Radial normalization of a Gaussian vector</title><desc id="radialDesc">A schematic showing a Gaussian vector G from the origin shortened, without changing direction, to a point U on the circle of radius square root of n.</desc>
+<defs><marker id="gArrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5 0 9z" fill="#246891"/></marker><marker id="uArrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5 0 9z" fill="#bd7a36"/></marker></defs>
+<circle cx="185" cy="110" r="75" fill="#f7fafc" stroke="#9aafbd" stroke-width="2"/><circle cx="185" cy="110" r="3" fill="#243447"/>
+<line x1="185" y1="110" x2="315" y2="44" stroke="#246891" stroke-width="4" marker-end="url(#gArrow)"/><line x1="185" y1="110" x2="251" y2="76" stroke="#bd7a36" stroke-width="4" marker-end="url(#uArrow)"/>
+<text x="265" y="34" fill="#246891" font-size="17">G: length R</text><text x="250" y="105" fill="#8a531e" font-size="17">U: length √n</text>
+<text x="185" y="202" text-anchor="middle" fill="#526273" font-size="15">Direction unchanged</text><text x="470" y="85" fill="#243447" font-size="18">U = (√n/R) G</text><text x="470" y="118" fill="#526273" font-size="15">Adjust radius only</text><text x="470" y="150" fill="#526273" font-size="15">Circle: a schematic section</text>
+</svg><figcaption>A circle represents a high-dimensional sphere. Keep direction and normalize length.</figcaption></figure>
+<p>To study radial concentration, first compute the mean and variance of <var>R<sup>2</sup>=∑G<sub>i</sub><sup>2</sup></var>. Expand the calculation of the second and fourth normal moments below.</p>
+<details><summary>Derive second and fourth moments by integration by parts</summary>
+<p>The standard normal density satisfies <var>φ′(x)=−xφ(x)</var>. Since <var>x<sup>m</sup>φ(x)→0</var> at both ends, integration by parts for even <var>m≥2</var> gives</p>
+<div class="equation-card math">E[Z<sup>m</sup>]=∫x<sup>m</sup>φ(x)dx=(m−1)∫x<sup>m−2</sup>φ(x)dx=(m−1)E[Z<sup>m−2</sup>].</div>
+<p>Starting with <var>E[1]=1</var>, obtain <var>E[Z<sup>2</sup>]=1</var> and <var>E[Z<sup>4</sup>]=3</var>, hence <var>Var(Z<sup>2</sup>)=3−1<sup>2</sup>=2</var>. Independent variances add, giving mean <var>n+1</var> and variance <var>2(n+1)</var> for <var>R<sup>2</sup></var>.</p></details>
+<p>Our sphere has radius <var>√n</var>, so compare with <var>n</var> rather than the mean <var>n+1</var>. Expanding variance gives</p>
+<div class="equation-card math">E[(R<sup>2</sup>−n)<sup>2</sup>]=Var(R<sup>2</sup>)+(E[R<sup>2</sup>]−n)<sup>2</sup>=2(n+1)+1=2n+3.</div>
+<p>For <var>x=R<sup>2</sup>/n≥0</var>, use <var>√x+1≥1</var>:</p>
+<div class="equation-card math">|√x−1|=|x−1|/(√x+1)≤|x−1|.</div>
+<p>Square, take expectations, and substitute the preceding identity.</p>
+<div class="equation-card math" role="math" aria-label="The mean squared difference between R divided by square root of n and 1 tends to zero">E[(R/√n − 1)<sup>2</sup>] ≤ (2n+3)/n<sup>2</sup> → 0</div>
+<details><summary>Pass from a mean square bound to probability tending to one</summary>
+<p>For nonnegative <var>W</var>, <var>a·1<sub>{W≥a}</sub>≤W</var>. Taking expectations gives Markov's inequality <var>P(W≥a)≤E[W]/a</var>. With <var>W=(R/√n−1)<sup>2</sup></var>,</p>
+<div class="equation-card math">P(|R/√n−1|≥ε)≤(2n+3)/(n<sup>2</sup>ε<sup>2</sup>)→0　(ε&gt;0).</div>
+<p>This is convergence in probability. The probability of <var>R/√n</var> near 1 grows, but we have not shown that displacement <var>R−√n</var> in distance units becomes small.</p></details>
+<p>Thus the radial <strong>relative error</strong> becomes small. Gaussian points concentrate in a shell thin relative to radius √n.</p></section>
+<section id="experiment">
+<p class="eyebrow">2 / Explore</p><h2>Compare a few coordinates with radial displacement</h2>
+<p>The plots repeatedly sample Gaussian vectors, normalize length to √n, and show the first resulting coordinate and the original radial displacement. On the left, sphere coordinates approach the standard Gaussian bell curve. On the right is absolute radial displacement, different from a relative scale.</p>
+<div class="lab" aria-labelledby="labTitle"><div class="lab-head"><h3 id="labTitle">Change dimension</h3><small>Each sample uses a fixed random sequence to make comparisons between dimensions easier.</small></div>
+<button class="run-demo" type="button" data-run-demo="distribution">Run the sampling experiment</button>
+<div class="control"><label for="dimension">Dimension n <output id="dimensionOut">24</output></label><input id="dimension" type="range" min="2" max="160" step="1" value="24"></div>
+<div class="chart-wrap"><canvas id="distributionCanvas" role="img" aria-label="Experiment not yet run. Activate the button or change dimension to show coordinate and radial histograms."></canvas></div>
+<p class="chart-alt" id="chartAlt" aria-live="polite">Ready at n=24. Run the experiment or move the slider to calculate.</p>
+<p class="small">This numerical experiment uses 1,800 samples and is not a proof. Sphere coordinates are U<sub>1</sub>=√n G<sub>1</sub>/R. The right horizontal axis is R−√n in the original distance units. Nothing is calculated automatically on opening the page.</p></div>
+<p id="coordinate-error">Why does error in the first <var>k</var> coordinates vanish? Since <var>U</var> and <var>G</var> are constructed on the same probability space, their full distance is just radial difference.</p>
+<div class="equation-card math">|U−G|=|√n−R|,　　(R−√n)<sup>2</sup>=(R<sup>2</sup>−n)<sup>2</sup>/(R+√n)<sup>2</sup>≤(R<sup>2</sup>−n)<sup>2</sup>/n.</div>
+<p>The last inequality uses <var>R+√n≥√n</var>. Rotational symmetry of <var>U</var> and <var>G</var> makes mean squared coordinate errors equal. All <var>n+1</var> sum to full error, so the first <var>k</var> contribute the fraction <var>k/(n+1)</var>.</p>
+<div class="equation-card math">E[∑<sub>i=1</sub><sup>k</sup>(U<sub>i</sub>−G<sub>i</sub>)<sup>2</sup>]=k/(n+1)·E[|U−G|<sup>2</sup>].</div>
+<p>Substitute the distance bound and <var>E[(R<sup>2</sup>−n)<sup>2</sup>]=2n+3</var>:</p>
+<div class="equation-card math" role="math" aria-label="Mean squared error in the first k coordinates is at most 3k divided by n">E[ |(U<sub>1</sub>,…,U<sub>k</sub>) − (G<sub>1</sub>,…,G<sub>k</sub>)|<sup>2</sup> ] ≤ k(2n+3)/(n(n+1)) ≤ 3k/n.</div>
+<details><summary>From this estimate to convergence in distribution</summary>
+<p>For every <var>ε&gt;0</var>, Markov's inequality bounds the probability that the two <var>k</var>-vectors are more than <var>ε</var> apart by <var>3k/(nε<sup>2</sup>)</var>. In this coupling their distance tends to zero in probability. For any bounded 1-Lipschitz function <var>f</var>, satisfying <var>|f(x)−f(y)|≤|x−y|</var>,</p>
+<div class="equation-card math">|E f(U<sub>1:k</sub>)−E f(G<sub>1:k</sub>)|≤E|U<sub>1:k</sub>−G<sub>1:k</sub>|≤√(3k/n).</div>
+<p>Convergence of integrals of all bounded Lipschitz functions is equivalent to convergence in distribution on <var>R<sup>k</sup></var>. Thus for fixed <var>k</var>, the sphere's first <var>k</var> coordinates converge to standard Gaussian distribution. Shioya [Proposition 5.1] also states convergence of the densities themselves.</p></details>
+<p>This concerns observations of a fixed finite number of coordinates, not comparison of all coordinates at once.</p></section>
+<section id="coordinates"><p class="eyebrow">3 / What this gives</p><h2>Gaussian behavior survives coordinate observation</h2>
+<p>The coupling using one vector compares the first <var>k</var> coordinates of a uniform sphere point with a standard Gaussian <var>k</var>-vector in mean square. For fixed <var>k</var>, the error vanishes. Densities also become Gaussian, described in Shioya's paper as the Maxwell–Boltzmann distribution law. Convergence in distribution means convergence of averages measured by bounded continuous functions.</p>
+<div class="takeaway"><strong>The phenomenon</strong><br>The whole point lies on the sphere of radius √n, yet a fixed finite set of coordinates looks like independent standard Gaussians.</div>
+<p>This says what is visible in a few coordinates. Rotational symmetry allows another choice of coordinate directions, but does not make all directions and coordinates close simultaneously.</p></section>
+<section id="not-close"><p class="eyebrow">4 / An essential boundary</p><h2>Sphere and Gaussian measures need not be close in the same ambient space</h2>
+<p><var>U</var> lies on the sphere of radius √n, while <var>G</var> spreads through ambient space. The coordinate estimate becomes small only when observing <var>k</var> coordinates. Substituting <var>k=n+1</var> does not make its right side small. It therefore does not imply that the measures approach each other in the same Euclidean space.</p>
+<p>In fact the Gaussian radial width around √n does not vanish in distance units. A shell thin relative to its radius need not have thickness zero. We next compare distance-nonincreasing (1-Lipschitz) observations while retaining this radial difference.</p>
+<details><summary>Check that absolute radial fluctuations do not vanish</summary>
+<p>Polar volume gives the radius density <var>q<sub>n</sub>(r)=c<sub>n</sub>r<sup>n</sup>e<sup>−r²/2</sup></var>, with <var>c<sub>n</sub>&gt;0</var>. Its maximum is at <var>r=√n</var>. For <var>s≥0</var>,</p>
+<div class="equation-card math">q<sub>n</sub>(√n+s)/q<sub>n</sub>(√n)=(1+s/√n)<sup>n</sup>e<sup>−√n s−s<sup>2</sup>/2</sup>.</div>
+<p>Set <var>t=s/√n</var> and use <var>log(1+t)≥t−t<sup>2</sup>/2</var>. The logarithm of this ratio is at least <var>−s<sup>2</sup></var>, so</p>
+<div class="equation-card math" role="math" aria-label="Radial density s beyond square root of n is at least its maximum times exp of minus s squared">q<sub>n</sub>(√n+s) ≥ q<sub>n</sub>(√n)e<sup>−s²</sup>.</div>
+<p>Integrate over <var>s≥0</var>. Total probability 1 gives <var>1≥q<sub>n</sub>(√n)∫<sub>0</sub><sup>∞</sup>e<sup>−s²</sup>ds=q<sub>n</sub>(√n)√π/2</var>, hence <var>q<sub>n</sub>(√n)≤2/√π</var>. Bounding density by its maximum on <var>[√n−1/4,√n+1/4]</var>,</p>
+<div class="equation-card math" role="math" aria-label="Probability that radius is within one quarter of square root of n is at most one over square root of pi">P(|R−√n|≤1/4) ≤ 1/√π.</div>
+<p>Thus with probability at least 1−1/√π (about 0.43), radius differs from √n by more than 1/4. Relative fluctuations vanish; absolute distance fluctuations do not.</p></details>
+<div class="note"><strong>Keep these separate.</strong> Finite-coordinate convergence, closeness of measures in one ambient space, and pyramid convergence are different claims, each requiring its own argument.</div></section>
+<section id="clipping"><p class="eyebrow">5 / The decisive map</p><h2>Contract only the exterior toward a sphere</h2>
+<p>Direct Gaussian normalization to a sphere may greatly separate points near the origin, making it unsuitable as a nonexpanding observation. Instead leave the ball of radius <var>a</var> unchanged and contract only its exterior to the sphere.</p>
+<div class="equation-card math" role="math" aria-label="T a is identity at radius at most a, and otherwise projects radially to radius a">T<sub>a</sub>(x) = x　(|x|≤a),　　T<sub>a</sub>(x)=a x/|x|　(|x|&gt;a).</div>
+<p><strong>1-Lipschitz</strong> means that for all <var>x,y</var>, |T<sub>a</sub>(x)−T<sub>a</sub>(y)|≤|x−y|. Writing points as <var>ru</var>, <var>sv</var>, squared distance is (r−s)<sup>2</sup>+rs|u−v|<sup>2</sup>. Replacing radii by min(r,a), min(s,a) enlarges neither the radial difference nor the angular term.</p>
+<details><summary>Prove nonexpansion by separating the two terms</summary><p>Write <var>x=ru</var>, <var>y=sv</var>, with <var>r,s≥0</var> and <var>|u|=|v|=1</var>. At the origin choose any direction. Expanding the inner product gives</p>
+<div class="equation-card math">|ru−sv|<sup>2</sup>=(r−s)<sup>2</sup>+rs|u−v|<sup>2</sup>.</div>
+<p>Put <var>r′=min(r,a)</var>, <var>s′=min(s,a)</var>. The function <var>t↦min(t,a)</var> has slope 0 or 1, so <var>|r′−s′|≤|r−s|</var>, and <var>r′s′≤rs</var>. Therefore</p>
+<div class="equation-card math">|T<sub>a</sub>(x)−T<sub>a</sub>(y)|<sup>2</sup>=(r′−s′)<sup>2</sup>+r′s′|u−v|<sup>2</sup>≤|x−y|<sup>2</sup>.</div>
+<p>Both sides are nonnegative, so square roots preserve the inequality. No pair of points is pulled farther apart.</p></details>
+<div class="lab" aria-labelledby="clipLabTitle"><div class="lab-head"><h3 id="clipLabTitle">Move two points and check contraction</h3><small>The circle represents a section; radii use √n units.</small></div>
+<button class="run-demo" type="button" data-run-demo="clipping">Draw the clipping diagram</button>
+<div class="control-grid">
+<div class="control"><label for="clipTheta">Clipping radius θ <output id="clipThetaOut">0.80</output></label><input id="clipTheta" type="range" min="0.50" max="0.99" step="0.01" value="0.80"></div>
+<div class="control"><label for="clipR">Point x radius r/√n <output id="clipROut">1.25</output></label><input id="clipR" type="range" min="0" max="1.80" step="0.05" value="1.25"></div>
+<div class="control"><label for="clipS">Point y radius s/√n <output id="clipSOut">0.90</output></label><input id="clipS" type="range" min="0" max="1.80" step="0.05" value="0.90"></div>
+<div class="control"><label for="clipAngle">Angle φ <output id="clipAngleOut">1.20</output></label><input id="clipAngle" type="range" min="0" max="3.14" step="0.05" value="1.20"></div></div>
+<div class="chart-wrap"><canvas id="clippingCanvas" role="img" aria-label="Clipping diagram not yet drawn. Activate the button or adjust a control to draw."></canvas></div>
+<p class="chart-alt" id="clippingAlt" aria-live="polite">Ready. Draw the diagram or adjust a control to compare distances.</p>
+<p class="small">This is a two-dimensional schematic, not sample data. Distances are calculated exactly from the polar-coordinate identity.</p></div>
+<p>Fix <var>a=θ√n</var>, <var>0&lt;θ&lt;1</var>. Since <var>R/√n→1</var> in probability,</p>
+<div class="equation-card math">p<sub>n</sub>:=P(R&lt;θ√n)→0.</div>
+<p>More explicitly, for large <var>n</var>, <var>n+1−θ<sup>2</sup>n≥(1−θ<sup>2</sup>)n</var>. Chebyshev gives</p>
+<div class="equation-card math">p<sub>n</sub>≤2(n+1)/((1−θ<sup>2</sup>)<sup>2</sup>n<sup>2</sup>).</div>
+<p>With probability <var>1−p<sub>n</sub></var>, Gaussian points lie outside the clipping ball and <var>T<sub>a</sub></var> moves them to radius <var>θ√n</var>. Only the exceptional interior mass stays inside.</p>
+<div class="takeaway"><strong>The idea</strong><br>Exact radial agreement is unnecessary. A nonexpanding contraction onto a slightly smaller sphere captures almost all Gaussian points.</div></section>
+<section id="limit"><p class="eyebrow">6 / The meaning of convergence</p><h2>From close coordinates to a limit of spaces</h2>
+<p>This is the paper's geometric part. We compare spaces carrying metrics and probabilities together. First establish notation, then split the proof into “contains the Gaussian pyramid” and “contains nothing beyond it.”</p>
+<div class="definition-grid">
+<div><h3>mm-spaces and push-forward</h3><p>An <strong>mm-space</strong> consists of a complete (Cauchy sequences converge) separable (countably many points approximate it densely) metric space <var>(X,d)</var> and a probability measure <var>μ</var> on its Borel sets, generated by open sets. For a Borel map <var>f:X→Y</var>, the transported measure is <var>f<sub>*</sub>μ(B)=μ(f<sup>−1</sup>(B))</var>: sample an original point and record its image.</p></div>
+<div><h3>Nonexpanding maps</h3><p><var>Y≺X</var> means there is a 1-Lipschitz map from <var>X</var> to <var>Y</var> transporting its probability exactly to that of <var>Y</var>. The direction matters: the larger space <var>X</var> produces observation <var>Y</var>.</p></div>
+<div><h3>Associated pyramid</h3><p><var>P<sub>X</sub></var> collects all mm-spaces obtainable this way and is closed under box-distance limits. It records possible nonexpanding observations of a space.</p></div>
+<div><h3>The finite-dimensional Gaussian candidate</h3><p>Let <var>Γ<sup>k</sup>=(R<sup>k</sup>,|·|,γ<sup>k</sup>)</var> be standard Gaussian space. The paper's <var>P<sub>Γ<sup>∞</sup></sub></var> is the box closure of the union of <var>P<sub>Γ<sup>k</sup></sub></var> for <var>k=1,2,…</var>. This is a <strong>pyramid</strong>, not the usual infinite-dimensional Gaussian probability space itself.</p></div></div>
+<details><summary>The definitions of box distance and weak convergence</summary>
+<p>Represent each mm-space by a Borel parameter sending uniform measure on [0,1) to its probability measure. Box distance <var>□</var> chooses two parameters and a Borel <var>A⊂[0,1)</var> to make distances for <strong>all pairs</strong> uniformly close, while minimizing discarded probability and distance error. Precisely, take the infimum of <var>ε≥0</var> with <var>Leb(A)≥1−ε</var> and <var>|d<sub>X</sub>(φ(s),φ(t))−d<sub>Y</sub>(ψ(s),ψ(t))|≤ε</var> for all <var>s,t∈A</var>. Here <var>Leb</var> is uniform measure on [0,1). Set <var>□(X,Q)=inf<sub>Y∈Q</sub>□(X,Y)</var>.</p>
+<p>Weak convergence of <var>Q<sub>n</sub></var> to <var>Q</var> has two conditions: (i) each <var>X∈Q</var> approaches some member of <var>Q<sub>n</sub></var> in box distance; (ii) each space outside <var>Q</var> stays a positive distance away. Both inclusions and exclusions matter.</p>
+<p>Formal definitions: Shioya [Definitions 2.13, 2.14, 2.19, 2.20]. We extract the forms used in the proof.</p></details>
+<h3>The proof's route</h3>
+<div class="proof-roadmap" role="img" aria-label="Finite-coordinate projections put the Gaussian pyramid in the limit; clipping shows the limit is no larger; combine both inclusions.">
+<div class="proof-step"><span>Start</span><strong>Construct sphere points</strong><small>Normalize Gaussian length to √n</small></div><div class="proof-arrow" aria-hidden="true">→</div>
+<div class="proof-step proof-blue"><span>One inclusion</span><strong>Project finite coordinates</strong><small>The limit contains every Γ<sup>k</sup></small></div><div class="proof-arrow" aria-hidden="true">＋</div>
+<div class="proof-step proof-gold"><span>The reverse</span><strong>Clip radially</strong><small>The limit lies in the Gaussian pyramid</small></div><div class="proof-arrow" aria-hidden="true">→</div>
+<div class="proof-step proof-final"><span>Conclusion</span><strong>Both inclusions</strong><small>The limiting pyramids agree</small></div></div>
+<div class="equation-card math">P<sub>S<sup>n</sup>(√n)</sub> ⇀ P<sub>Γ<sup>∞</sup></sub>, with chord distance.</div>
+<h3>Preparation: close measures give close pyramids</h3>
+<p>Prokhorov distance <var>d<sub>P</sub></var> between probability measures <var>μ,ν</var> on the same metric space measures closeness allowing small movements and small mass exceptions. Shioya's Propositions 2.15, 2.18 and Theorem 1.2 give</p>
+<div class="equation-card math">ρ(P<sub>(X,μ)</sub>,P<sub>(X,ν)</sub>)≤d<sub>conc</sub>((X,μ),(X,ν))≤□((X,μ),(X,ν))≤2d<sub>P</sub>(μ,ν).</div>
+<p>From left to right: pyramid distance <var>ρ</var>, observable distance, box distance, and Prokhorov distance of measures. The last inequality uses the same underlying metric space <var>X</var>. Closeness of clipped Gaussian and sphere measures therefore gives closeness of their pyramids.</p>
+<h3>First inclusion: the limit contains the Gaussian pyramid</h3>
+<ol class="proof-list">
+<li><strong>Extract a limit.</strong> The space <var>Π</var> of pyramids is compact for weak convergence (Shioya, Theorem 2.21; Proposition 3.5). If sphere pyramids did not converge to the target, a subsequence <var>n<sub>j</sub>→∞</var> would stay a fixed positive distance away and admit another limit <var>P</var>: <var>P<sub>S<sup>n<sub>j</sub></sup>(√n<sub>j</sub>)</sub>⇀P</var>.</li>
+<li><strong>Project coordinates.</strong> Projection to the first <var>k</var> coordinates is 1-Lipschitz and sends sphere measure to <var>μ<sub>n<sub>j</sub>,k</sub></var>. Our calculation gives <var>μ<sub>n<sub>j</sub>,k</sub>⇒γ<sup>k</sup></var>. In finite dimension, weak convergence is convergence in Prokhorov distance. Proposition 2.15 therefore gives <var>□((R<sup>k</sup>,μ<sub>n<sub>j</sub>,k</sub>),Γ<sup>k</sup>)→0</var>.</li>
+<li><strong>Apply weak convergence.</strong> Each projected space belongs to its sphere's pyramid. Thus <var>Γ<sup>k</sup>∈P</var>. Otherwise condition (ii) would keep it a positive box distance from the sphere pyramids, contradicting the distance tending to zero.</li></ol>
+<p>Every <var>Γ<sup>k</sup></var> belongs to <var>P</var>. Downward and box closedness give</p>
+<div class="equation-card math">P<sub>Γ<sup>∞</sup></sub>⊂P.</div>
+<h3>Second inclusion: the limit is no larger than the Gaussian pyramid</h3>
+<p>Scale each mm-space's metric by <var>θ</var> without changing its measure to define <var>θP={(X,θd,μ):(X,d,μ)∈P}</var>.</p>
+<p>First note the following closedness property. If pyramids <var>Q<sub>n</sub>⊂G</var>, with <var>G</var> box-closed, converge weakly to <var>Q</var>, then <var>Q⊂G</var>. Indeed, <var>X∈Q</var> outside <var>G</var> would have <var>□(X,G)&gt;0</var>, hence the same positive lower bound for <var>□(X,Q<sub>n</sub>)</var>, contrary to condition (i) (Shioya, Definition 2.20).</p>
+<ol class="proof-list">
+<li><strong>Fix the clipping radius.</strong> Fix <var>θ∈(0,1)</var> and set <var>a<sub>j</sub>=θ√n<sub>j</sub></var>. Since <var>T<sub>a<sub>j</sub></sub></var> is 1-Lipschitz, observations from the clipped Gaussian are observations from the original Gaussian.</li>
+<li><strong>Only exceptional mass contributes measure error.</strong> For Gaussian radius <var>R<sub>j</sub></var> in <var>R<sup>n<sub>j</sub>+1</sup></var>, let <var>p<sub>j</sub>=P(R<sub>j</sub>&lt;a<sub>j</sub>)→0</var>. With probability <var>1−p<sub>j</sub></var>, clipping yields a uniform point on the radius-<var>a<sub>j</sub></var> sphere. Replace the exceptional interior point by an independent uniform sphere point. This couples the measures with disagreement probability at most <var>p<sub>j</sub></var>, so <var>d<sub>P</sub>≤p<sub>j</sub></var>. The prepared chain makes their pyramid distance tend to zero.</li>
+<li><strong>Restore the scale last.</strong> The sphere pyramids with radius <var>√n<sub>j</sub></var> converge to <var>P</var>, so those with radius <var>θ√n<sub>j</sub></var> converge to <var>θP</var> (Shioya, Lemma 6.2). Let <var>Q<sub>j</sub></var> be the clipped Gaussian pyramids. The chain gives <var>ρ(Q<sub>j</sub>,P<sub>S<sup>n<sub>j</sub></sup>(θ√n<sub>j</sub>)</sub>)→0</var>; thus <var>Q<sub>j</sub>⇀θP</var> by the triangle inequality. Nonexpansion gives <var>Q<sub>j</sub>⊂P<sub>Γ<sup>∞</sup></sub></var>, so the preceding closedness property gives <var>θP⊂P<sub>Γ<sup>∞</sup></sub></var>.</li></ol>
+<p>This holds for every <var>θ&lt;1</var>. Choose <var>θ<sub>j</sub>↑1</var>. Lemma 6.2 gives <var>θ<sub>j</sub>P⇀P</var>, and the same closedness property yields <var>P⊂P<sub>Γ<sup>∞</sup></sub></var>. Both inclusions give equality, contradicting the choice of a different limit. Hence the entire sphere-pyramid sequence converges weakly to the Gaussian pyramid.</p>
+<details><summary>Write the exceptional-mass comparison as a formula</summary>
+<p>Let <var>μ<sub>n</sub>=(T<sub>a</sub>)<sub>*</sub>γ<sup>n+1</sup></var> and let <var>σ<sub>a</sub></var> be uniform sphere measure of radius <var>a</var>. Independence of radius and direction makes the projected exterior distribution <var>σ<sub>a</sub></var>. With interior probability <var>p<sub>n</sub></var> and conditional interior distribution <var>ν<sub>n</sub></var>,</p>
+<div class="equation-card math">μ<sub>n</sub>=(1−p<sub>n</sub>)σ<sub>a</sub>+p<sub>n</sub>ν<sub>n</sub>.</div>
+<p>This mixture couples the two measures identically outside probability <var>p<sub>n</sub></var>, giving <var>d<sub>P</sub>(μ<sub>n</sub>,σ<sub>a</sub>)≤p<sub>n</sub></var> directly from the Prokhorov definition.</p></details>
+<details><summary>Generalize to radii r<sub>n</sub>/√n→λ</summary>
+<p>Put <var>λ<sub>n</sub>=r<sub>n</sub>/√n</var>. Then <var>S<sup>n</sup>(r<sub>n</sub>)=λ<sub>n</sub>S<sup>n</sup>(√n)</var>, meaning metric scaling. A variance-<var>λ<sup>2</sup></var> Gaussian is the standard Gaussian with distances scaled by <var>λ</var>. From <var>λ<sub>n</sub>→λ&gt;0</var> and Shioya's Lemma 6.2, continuity of scaling for weak convergence gives</p>
+<div class="equation-card math">P<sub>S<sup>n</sup>(r<sub>n</sub>)</sub> ⇀ P<sub>Γ<sup>∞</sup><sub>λ²</sub></sub>.</div>
+<p>This is Theorem 1.1(3), for <strong>chord distance</strong>. Kazukawa [Theorem 1.7] proves the corresponding result for standard spherical Riemannian distance by another metric-transform method.</p></details>
+<div class="note"><strong>What was derived here.</strong> Normalization, moments, coordinate errors, clipping, and measure comparison were derived on the page. The remaining background inputs are metrization of finite-dimensional weak convergence by Prokhorov distance, compactness of pyramid space (Shioya, Theorem 2.21 / Proposition 3.5), and continuity of scaling (Lemma 6.2). The full theorem's proof connects them in the order above.</div></section>
+<section class="references" id="references"><h2>References</h2><ol>
+<li>T. Shioya, <a href="https://arxiv.org/abs/1402.0611v1">Metric measure limits of spheres and complex projective spaces</a>, arXiv:1402.0611v1 (2014). In particular Definitions 2.13–2.20, Theorems 2.21 and 1.2, Proposition 2.15, Proposition 5.1, Lemmas 6.1–6.2, and the proof of Theorem 1.1(3).</li>
+<li>D. Kazukawa, <a href="https://arxiv.org/abs/2008.04038v1">Convergence of metric transformed spaces</a>, arXiv:2008.04038v1 (2020), especially Theorem 1.7.</li></ol>
+<p class="footer-note">Circles schematically represent high-dimensional spheres. Numerical experiments help illustrate the mechanism and do not prove the limit theorem.</p></section>
+</article></main>
+
+<footer class="site-footer"><div class="shell"><small>© 2026 Shigeaki Yokota · Mathematics · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
+</body></html>
