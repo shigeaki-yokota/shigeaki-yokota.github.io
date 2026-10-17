@@ -34,7 +34,7 @@
 .ricci-page input[type=range] { display:block; width:100%; margin:.55rem 0 .1rem; accent-color:var(--blue); }
 .ricci-page button { font:inherit; color:var(--ink); border:1px solid #9baebc; background:#fff; border-radius:6px; padding:.42rem .65rem; cursor:pointer; }
 .ricci-page button:hover { background:#edf4f8; }
-.ricci-page button:focus-visible,.ricci-page input:focus-visible,.ricci-page a:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
+.ricci-page button:focus-visible,.ricci-page input:focus-visible,.ricci-page a:focus-visible,.ricci-page summary:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
 .ricci-page .preset-row,.ricci-page .turn-row { display:flex; flex-wrap:wrap; gap:.4rem; }
 .ricci-page .live-readout { border:1px solid #c4d4df; border-radius:7px; background:white; padding:.7rem .8rem; }
 .ricci-page .live-readout strong { font-size:1.3rem; font-variant-numeric:tabular-nums; }
@@ -48,6 +48,12 @@
 .ricci-page .checklist li { margin:.35rem 0; }
 .ricci-page .curve-lab { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.75fr); gap:1rem; align-items:center; }
 .ricci-page #curveCanvas { display:block; width:100%; height:230px; border:1px solid var(--line); border-radius:8px; background:white; }
+.ricci-page #fanCanvas { display:block; width:100%; height:360px; margin-top:.8rem; border:1px solid var(--line); border-radius:8px; background:white; }
+.ricci-page .fan-table-wrap { overflow-x:auto; }
+.ricci-page .fan-table { width:100%; border-collapse:collapse; background:white; font-variant-numeric:tabular-nums; }
+.ricci-page .fan-table caption { text-align:left; color:var(--muted); font-size:.9rem; padding:.4rem 0; }
+.ricci-page .fan-table th,.ricci-page .fan-table td { text-align:left; padding:.45rem .6rem; border-bottom:1px solid var(--line); white-space:nowrap; }
+.ricci-page .fan-table thead th { font-size:.9rem; }
 .ricci-page .ricci-mixer { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.8fr); gap:1rem; }
 .ricci-page .ricci-result { background:#fff; border:1px solid var(--line); border-radius:8px; padding:.8rem 1rem; }
 .ricci-page .ricci-result .sum { display:block; font-size:2rem; line-height:1.35; font-variant-numeric:tabular-nums; }

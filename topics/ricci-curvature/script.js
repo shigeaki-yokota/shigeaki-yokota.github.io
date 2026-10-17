@@ -24,21 +24,77 @@ function fitCanvas(canvas, cssHeight) {
 }
 const radius=byId('radius'), curveCanvas=byId('curveCanvas');
 function drawCurve(){
-  const R=Number(radius.value),{c,w,h}=fitCanvas(curveCanvas);
+  const R=Number(radius.value),s=1,turn=s/R,{c,w,h}=fitCanvas(curveCanvas);
   setSpacedText(byId('radiusOut'),R.toFixed(1));
   setSpacedText(byId('curveValue'),'κ = '+(1/R).toFixed(2));
-  setSpacedText(byId('curveWords'),'半径'+R.toFixed(1)+'の円。曲率は半径の逆数。');
-  c.clearRect(0,0,w,h);c.strokeStyle='#d6e0e8';c.lineWidth=1;
-  c.beginPath();c.moveTo(20,h*.72);c.lineTo(w-20,h*.72);c.stroke();
-  const scale=Math.min((w-54)/(2*3.2),(h-35)/6),cx=w/2,cy=h*.72;
-  c.beginPath();c.arc(cx,cy,R*scale,Math.PI,Math.PI*1.5);
+  const description='弧の長さs=1、半径R='+R.toFixed(1)+'。向きはs/R='+turn.toFixed(2)+'ラジアン（約'+(turn*180/Math.PI).toFixed(0)+'度）変わる。';
+  setSpacedText(byId('curveWords'),description);
+  radius.setAttribute('aria-valuetext','半径'+R.toFixed(1)+'。向きの変化'+turn.toFixed(2)+'ラジアン');
+  curveCanvas.setAttribute('aria-label',description+'橙の矢印が始点、緑の矢印が終点での単位接ベクトル。');
+  c.clearRect(0,0,w,h);
+  const scale=Math.min((w-76)/2.1,(h-100)/1.65),start={x:36,y:h-42};
+  const end={x:start.x+R*Math.sin(turn)*scale,y:start.y-R*(1-Math.cos(turn))*scale};
+  c.beginPath();c.arc(start.x,start.y-R*scale,R*scale,Math.PI/2,Math.PI/2-turn,true);
   c.strokeStyle='#246891';c.lineWidth=4;c.stroke();
-  c.fillStyle='#243447';c.beginPath();c.arc(cx,cy,3,0,Math.PI*2);c.fill();
-  c.fillStyle='#243447';c.font='14px system-ui,sans-serif';c.textAlign='left';
-  c.fillText('R = '+R.toFixed(1),cx+R*scale*.72,cy-R*scale*.72);
-  c.fillText('κ = 1/R = '+(1/R).toFixed(2),18,24);
+  function tangent(p,angle,color,label){
+    const dx=Math.cos(angle),dy=-Math.sin(angle),x=p.x+scale*dx,y=p.y+scale*dy;
+    c.strokeStyle=color;c.lineWidth=2;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(x,y);
+    c.moveTo(x-8*dx-4*dy,y-8*dy+4*dx);c.lineTo(x,y);c.lineTo(x-8*dx+4*dy,y-8*dy-4*dx);c.stroke();
+    c.fillStyle=color;c.fillText(label,x+4,y+(angle===0?18:-8));
+  }
+  c.font='13px system-ui,sans-serif';c.textAlign='left';
+  tangent(start,0,'#ad681d','T(0)');tangent(end,turn,'#28734f','T(s)');
+  c.fillStyle='#243447';
+  for(const p of [start,end]){c.beginPath();c.arc(p.x,p.y,3,0,Math.PI*2);c.fill();}
+  c.fillText('始点',start.x-14,start.y+20);c.fillText('終点',end.x-30,end.y-10);
+  c.fillText('s = 1   /   向きの変化 s/R = '+turn.toFixed(2)+' rad',14,24);
 }
 radius.addEventListener('input',drawCurve);
+
+const fanDistance=byId('fanDistance'),fanCanvas=byId('fanCanvas');
+function drawFan(){
+  const r=Number(fanDistance.value),{c,w,h}=fitCanvas(fanCanvas);
+  const models=[
+    {label:'K = +1',fn:Math.sin,color:'#246891',widthId:'fanPositive',ratioId:'fanPositiveRatio',formula:'sin(r)'},
+    {label:'K = 0',fn:t=>t,color:'#526273',widthId:'fanFlat',ratioId:'fanFlatRatio',formula:'r'},
+    {label:'K = −1',fn:Math.sinh,color:'#ad681d',widthId:'fanNegative',ratioId:'fanNegativeRatio',formula:'sinh(r)'}
+  ];
+  setSpacedText(byId('fanDistanceOut'),r.toFixed(1));
+  fanDistance.setAttribute('aria-valuetext','距離'+r.toFixed(1)+'、曲率半径を1とした単位');
+  c.clearRect(0,0,w,h);c.font='12px system-ui,sans-serif';c.textAlign='left';
+  const left=76,right=w-20,top=23,rowHeight=(h-48)/3;
+  // The two edges plot ±j(t)/2, not a surface embedding. All rows use the same scales.
+  const widthScale=(rowHeight-20)/Math.sinh(3),xAt=t=>left+t/Math.PI*(right-left);
+  models.forEach((model,index)=>{
+    const center=top+rowHeight*(index+.5),width=model.fn(r),ratio=width/r;
+    setSpacedText(byId(model.widthId),model.formula+' = '+width.toFixed(3));
+    setSpacedText(byId(model.ratioId),ratio.toFixed(3));
+    c.fillStyle=model.color;c.fillText(model.label,5,center+4);
+    c.strokeStyle='#d7e0e8';c.lineWidth=1;c.beginPath();c.moveTo(left,center);c.lineTo(right,center);c.stroke();
+    function edges(fn,color,dashed){
+      c.strokeStyle=color;c.lineWidth=dashed?1.5:2;c.setLineDash(dashed?[4,4]:[]);
+      for(const sign of [-1,1]){
+        c.beginPath();
+        for(let i=0;i<=80;i++){
+          const t=r*i/80,x=xAt(t),y=center+sign*fn(t)*widthScale/2;
+          if(i===0)c.moveTo(x,y);else c.lineTo(x,y);
+        }
+        c.stroke();
+      }
+    }
+    edges(model.fn,model.color,false);edges(t=>t,'#8594a0',true);c.setLineDash([]);
+    c.strokeStyle=model.color;c.lineWidth=4;c.beginPath();
+    c.moveTo(xAt(r),center-width*widthScale/2);c.lineTo(xAt(r),center+width*widthScale/2);c.stroke();
+    c.fillStyle='#243447';c.beginPath();c.arc(left,center,2.5,0,Math.PI*2);c.fill();
+  });
+  c.fillStyle='#526273';c.fillText('同じ出発点',left,14);
+  c.textAlign='right';c.fillText('横軸：距離 r（縦横は別縮尺）',right,h-7);
+  c.textAlign='center';c.fillText('0',left,h-23);c.fillText(r.toFixed(1),xAt(r),h-23);
+  const description='距離r='+r.toFixed(1)+'での平面に対する幅の比は、正の曲率で'+(Math.sin(r)/r).toFixed(3)+'、平面で1、負の曲率で'+(Math.sinh(r)/r).toFixed(3)+'。';
+  setSpacedText(byId('fanReadout'),description);
+  fanCanvas.setAttribute('aria-label',description+'各段は同じ初期角度幅の扇の横断幅を表す模式図。破線は平面の幅。');
+}
+fanDistance.addEventListener('input',drawFan);
 
 const kOne=byId('kOne'),kTwo=byId('kTwo'),surface=byId('surfaceCanvas');
 let angleX=-0.55,angleY=0.72,drag=null;
@@ -177,6 +233,6 @@ function drawEntropy(){
   c.stroke();
 }
 entropyK.addEventListener('input',drawEntropy);
-window.addEventListener('resize',()=>{drawCurve();drawSurface();drawEntropy();});
-drawCurve();drawSurface();drawRicci();drawEntropy();
+window.addEventListener('resize',()=>{drawCurve();drawFan();drawSurface();drawEntropy();});
+drawCurve();drawFan();drawSurface();drawRicci();drawEntropy();
 })();
