@@ -84,7 +84,7 @@
 .ricci-page #entropyCanvas { display:block; width:100%; height:260px; border:1px solid var(--line); border-radius:8px; background:white; }
 .ricci-page .bound-readout { border:1px solid var(--line); border-radius:8px; background:white; padding:.75rem; }
 .ricci-page .bound-readout strong { font-variant-numeric:tabular-nums; }
-.ricci-page { color:var(--ink); background:var(--paper); --canvas-ink:var(--ink); --canvas-muted:var(--muted); --canvas-blue:var(--blue); --canvas-gold:var(--gold); --canvas-green:var(--green); --canvas-line:var(--line); --canvas-axis:#9aaaba; --canvas-grid:#8594a0; --canvas-top:#fafdff; --canvas-bottom:#eaf1f6; }
+.ricci-page { color:var(--ink); background:transparent; --canvas-ink:var(--ink); --canvas-muted:var(--muted); --canvas-blue:var(--blue); --canvas-gold:var(--gold); --canvas-green:var(--green); --canvas-line:var(--line); --canvas-axis:#9aaaba; --canvas-grid:#8594a0; --canvas-top:#fafdff; --canvas-bottom:#eaf1f6; }
 @media (prefers-color-scheme:dark) {
  .ricci-page { --ink:#e4eaf0; --muted:#b0bdca; --line:#445567; --paper:#172330; --wash:#1e2e3e; --blue:#82c4ed; --gold:#efb46f; --green:#7fcea4; --canvas-ink:#e4eaf0; --canvas-muted:#b0bdca; --canvas-blue:#82c4ed; --canvas-gold:#efb46f; --canvas-green:#7fcea4; --canvas-line:#445567; --canvas-axis:#8095a8; --canvas-grid:#8196a8; --canvas-top:#223545; --canvas-bottom:#192936; }
 }
