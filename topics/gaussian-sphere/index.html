@@ -5,13 +5,12 @@
 <link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="style.css">
 <title>高次元の球面からGaussianが見える — 横田滋亮</title></head><body>
 <a class="skip-link" href="#main">本文へ移動</a><header class="site-header"><div class="shell"><div class="reader-header"><a class="identity" href="/">横田滋亮</a><div class="site-options"><a href="/en/topics/gaussian-sphere/" lang="en">English</a></div></div><nav aria-label="サイト内ナビゲーション"><a href="/">トップ</a><a href="/#papers">論文</a><a href="/#topics">数学トピック</a></nav></div></header>
-<main id="main" class="shell demo-off gaussian-page">
+<main id="main" class="shell gaussian-page">
 <article>
 <p class="eyebrow">Topics / Probability and geometry</p>
 <h1>高次元の球面から<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>が見える</h1>
 <p class="lead">Gaussian<span class="japanese-european-space" aria-hidden="true"></span>ベクトルの向きは球面上一様。長さを半径√n<span class="japanese-european-space" aria-hidden="true"></span>にそろえると、できあがるのは半径√n<span class="japanese-european-space" aria-hidden="true"></span>の球面上一様な点そのものだ。次元が大きくなると、その点の少数の座標は<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>に近づく。では、球面全体も<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>に近いのだろうか？</p>
-<p class="demo-opt-in">このページでは<span class="japanese-european-space" aria-hidden="true"></span>JavaScript<span class="japanese-european-space" aria-hidden="true"></span>を読み込まない。操作図や標本計算を使う場合だけ<a href="interactive/">操作版を開く</a>。計算は操作後に始まる。</p>
-<p class="small">操作図や標本計算はページを開いただけでは始まらない。スライダーを動かすと必要な計算が走る。</p>
+<p class="small">図は標準設定で表示される。つまみを動かすと、選んだ次元や点に応じて更新される。</p>
 <div class="reader-contract"><strong>ここから始める人へ。</strong>線形代数、確率変数の期待値・分散、基本的な証明を前提にする。積分 by parts は式の中で復習する。前半は確率計算を一行ずつ追い、後半は<span class="japanese-european-space" aria-hidden="true"></span>Shioya<span class="japanese-european-space" aria-hidden="true"></span>の定理<span class="japanese-european-space" aria-hidden="true"></span>1.1(3)の証明を、使う定義・補題・二つの包含に分解する。距離測度幾何の枠組み全体を再構築するのではなく、必要な構造定理は正確な形と出典を示して使う。</div>
 <div class="theorem-card"><strong>このページで追う定理（Shioya, Theorem 1.1(3)）</strong><br>半径<var><span class="japanese-european-space" aria-hidden="true"></span>r<sub>n</sub></var><span class="japanese-european-space" aria-hidden="true"></span>の<var><span class="japanese-european-space" aria-hidden="true"></span>n</var><span class="japanese-european-space" aria-hidden="true"></span>次元球面に、周囲のユークリッド距離（弦距離）と正規化面積を入れる。<var>r<sub>n</sub>/√n→λ&gt;0</var><span class="japanese-european-space" aria-hidden="true"></span>なら、その関連ピラミッドは分散<var>λ<sup>2</sup></var><span class="japanese-european-space" aria-hidden="true"></span>の仮想<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>ピラミッドへ弱収束する。最初は<var>λ=1</var><span class="japanese-european-space" aria-hidden="true"></span>を証明し、最後に尺度を戻す。</div>
 <nav class="toc" aria-label="目次"><h2>このページの道順</h2><ol>
@@ -217,4 +216,4 @@
 </main>
 
 <footer class="site-footer"><div class="shell"><small>© 2026 横田滋亮 · 数学 · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
-</body></html>
+<script src="script.js" defer></script></body></html>

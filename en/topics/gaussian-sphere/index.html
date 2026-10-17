@@ -5,12 +5,11 @@
 <link rel="stylesheet" href="../../../assets/site.css"><link rel="stylesheet" href="style.css">
 <title>A Gaussian View of High-Dimensional Spheres — Shigeaki Yokota</title></head><body>
 <a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell"><div class="reader-header"><a class="identity" href="/en/">Shigeaki Yokota</a><div class="site-options"><a href="/topics/gaussian-sphere/" lang="ja">日本語</a></div></div><nav aria-label="Site navigation"><a href="/en/">Home</a><a href="/en/#papers">Papers</a><a href="/en/#topics">Topics</a></nav></div></header>
-<main id="main" class="shell demo-off gaussian-page" lang="en">
+<main id="main" class="shell gaussian-page" lang="en">
 <article>
 <p class="eyebrow">Topics / Probability and geometry</p>
 <h1>A Gaussian view of high-dimensional spheres</h1>
 <p class="lead">A Gaussian vector has a uniformly distributed direction. Rescaling its length to √n gives an exactly uniform point on the sphere of radius √n. In large dimension, a few coordinates of this point approach a Gaussian distribution. Does the whole sphere approach a Gaussian space too?</p>
-<p class="demo-opt-in">JavaScript is not loaded on this page. <a href="interactive/">Open the interactive version</a> to use the diagrams and sample calculations; calculations begin only after an explicit action.</p>
 <div class="reader-contract"><strong>Starting here.</strong> The prerequisites are linear algebra, expectation and variance of random variables, and basic proof experience. Integration by parts is reviewed in the calculations. The first half follows the probability calculations step by step; the second separates the proof of Shioya's Theorem 1.1(3) into definitions, lemmas, and two inclusions. We state and cite the structural results needed, rather than rebuilding all of metric measure geometry.</div>
 <div class="theorem-card"><strong>The theorem followed here (Shioya, Theorem 1.1(3))</strong><br>Give the n-dimensional sphere of radius <var>r<sub>n</sub></var> its ambient Euclidean (chord) distance and normalized area measure. If <var>r<sub>n</sub>/√n→λ&gt;0</var>, its associated pyramids converge weakly to the virtual Gaussian pyramid of variance <var>λ<sup>2</sup></var>. We first prove the case <var>λ=1</var>, then restore the scale.</div>
 <nav class="toc" aria-label="Contents"><h2>The route through this page</h2><ol>
@@ -56,10 +55,9 @@
 <p class="eyebrow">2 / Explore</p><h2>Compare a few coordinates with radial displacement</h2>
 <p>The plots repeatedly sample Gaussian vectors, normalize length to √n, and show the first resulting coordinate and the original radial displacement. On the left, sphere coordinates approach the standard Gaussian bell curve. On the right is absolute radial displacement, different from a relative scale.</p>
 <div class="lab" aria-labelledby="labTitle"><div class="lab-head"><h3 id="labTitle">Change dimension</h3><small>Each sample uses a fixed random sequence to make comparisons between dimensions easier.</small></div>
-<button class="run-demo" type="button" data-run-demo="distribution">Run the sampling experiment</button>
 <div class="control"><label for="dimension">Dimension n <output id="dimensionOut">24</output></label><input id="dimension" type="range" min="2" max="160" step="1" value="24"></div>
-<div class="chart-wrap"><canvas id="distributionCanvas" role="img" aria-label="Experiment not yet run. Activate the button or change dimension to show coordinate and radial histograms."></canvas></div>
-<p class="chart-alt" id="chartAlt" aria-live="polite">Ready at n=24. Run the experiment or move the slider to calculate.</p>
+<div class="chart-wrap"><canvas id="distributionCanvas" role="img" aria-label="Histogram of the first sphere coordinate and Gaussian radial displacement at n=24; the plot updates when dimension changes."></canvas></div>
+<p class="chart-alt" id="chartAlt" aria-live="polite">At n=24, the chart shows a sample of the first sphere coordinate and the Gaussian radial displacement.</p>
 <p class="small">This numerical experiment uses 1,800 samples and is not a proof. Sphere coordinates are U<sub>1</sub>=√n G<sub>1</sub>/R. The right horizontal axis is R−√n in the original distance units. Nothing is calculated automatically on opening the page.</p></div>
 <p id="coordinate-error">Why does error in the first <var>k</var> coordinates vanish? Since <var>U</var> and <var>G</var> are constructed on the same probability space, their full distance is just radial difference.</p>
 <div class="equation-card math">|U−G|=|√n−R|,　　(R−√n)<sup>2</sup>=(R<sup>2</sup>−n)<sup>2</sup>/(R+√n)<sup>2</sup>≤(R<sup>2</sup>−n)<sup>2</sup>/n.</div>
@@ -98,13 +96,12 @@
 <div class="equation-card math">|T<sub>a</sub>(x)−T<sub>a</sub>(y)|<sup>2</sup>=(r′−s′)<sup>2</sup>+r′s′|u−v|<sup>2</sup>≤|x−y|<sup>2</sup>.</div>
 <p>Both sides are nonnegative, so square roots preserve the inequality. No pair of points is pulled farther apart.</p></details>
 <div class="lab" aria-labelledby="clipLabTitle"><div class="lab-head"><h3 id="clipLabTitle">Move two points and check contraction</h3><small>The circle represents a section; radii use √n units.</small></div>
-<button class="run-demo" type="button" data-run-demo="clipping">Draw the clipping diagram</button>
 <div class="control-grid">
 <div class="control"><label for="clipTheta">Clipping radius θ <output id="clipThetaOut">0.80</output></label><input id="clipTheta" type="range" min="0.50" max="0.99" step="0.01" value="0.80"></div>
 <div class="control"><label for="clipR">Point x radius r/√n <output id="clipROut">1.25</output></label><input id="clipR" type="range" min="0" max="1.80" step="0.05" value="1.25"></div>
 <div class="control"><label for="clipS">Point y radius s/√n <output id="clipSOut">0.90</output></label><input id="clipS" type="range" min="0" max="1.80" step="0.05" value="0.90"></div>
 <div class="control"><label for="clipAngle">Angle φ <output id="clipAngleOut">1.20</output></label><input id="clipAngle" type="range" min="0" max="3.14" step="0.05" value="1.20"></div></div>
-<div class="chart-wrap"><canvas id="clippingCanvas" role="img" aria-label="Clipping diagram not yet drawn. Activate the button or adjust a control to draw."></canvas></div>
+<div class="chart-wrap"><canvas id="clippingCanvas" role="img" aria-label="Diagram of two points before and after radial clipping; distances update when controls change."></canvas></div>
 <p class="chart-alt" id="clippingAlt" aria-live="polite">Ready. Draw the diagram or adjust a control to compare distances.</p>
 <p class="small">This is a two-dimensional schematic, not sample data. Distances are calculated exactly from the polar-coordinate identity.</p></div>
 <p>Fix <var>a=θ√n</var>, <var>0&lt;θ&lt;1</var>. Since <var>R/√n→1</var> in probability,</p>
@@ -166,4 +163,4 @@
 </article></main>
 
 <footer class="site-footer"><div class="shell"><small>© 2026 Shigeaki Yokota · Mathematics · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
-</body></html>
+<script src="script.js" defer></script></body></html>

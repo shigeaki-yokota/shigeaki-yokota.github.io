@@ -1,7 +1,5 @@
 .gaussian-page { --ink:#243447; --muted:#526273; --line:#d7e0e8; --paper:#fff; --wash:#f4f7fa; --blue:#246891; --gold:#ad681d; --gold-text:#8a531e; }
 .gaussian-page { padding:1.5rem 0 4rem; }
-.gaussian-page.demo-off .lab { display:none; }
-.gaussian-page.demo-on .demo-opt-in { display:none; }
 .gaussian-page article { max-width:100%; }
 .gaussian-page h1 { max-width:850px; font-size:clamp(1.8rem,4vw,2.55rem); line-height:1.35; margin:.2rem 0 1rem; }
 .gaussian-page .lead { max-width:850px; font-size:1.08rem; line-height:1.9; }
@@ -72,7 +70,6 @@
 .gaussian-page input:focus-visible,.gaussian-page a:focus-visible,.gaussian-page summary:focus-visible { outline-color:var(--blue); }
 .gaussian-page button { color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:.45rem .7rem; cursor:pointer; }
 .gaussian-page button:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
-.gaussian-page .run-demo { margin:.5rem 0; }
 .gaussian-page canvas { color:var(--ink); }
 .gaussian-page svg [fill="#243447"],.gaussian-page svg [fill="#526273"],.gaussian-page svg [fill="#8a531e"] { fill:var(--ink); }
 .gaussian-page svg text[fill="#8a531e"] { fill:var(--gold-text); }

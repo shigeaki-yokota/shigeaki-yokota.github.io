@@ -1,8 +1,5 @@
 :root { --ink:#243447; --muted:#526273; --line:#d7e0e8; --paper:#fff; --wash:#f4f7fa; --blue:#246891; --gold:#ad681d; --green:#28734f; }
 .ricci-page { padding:1.5rem 0 4rem; }
-.ricci-page.demo-off .lab { display:none; }
-.ricci-page.demo-off .control,.ricci-page.demo-off #entropyKWords { display:none; }
-.ricci-page.demo-on .demo-opt-in { display:none; }
 .ricci-page article { max-width:100%; }
 .ricci-page h1 { max-width:850px; font-size:clamp(1.8rem,4vw,2.55rem); line-height:1.35; margin:.2rem 0 1rem; }
 .ricci-page .lead { max-width:850px; font-size:1.08rem; line-height:1.9; }

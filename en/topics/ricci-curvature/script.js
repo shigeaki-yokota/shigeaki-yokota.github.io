@@ -244,10 +244,10 @@ entropyK.addEventListener('input',()=>runDemo('entropy'));
 const demos={curve:drawCurve,fan:drawFan,surface:drawSurface,ricci:drawRicci,w2:drawW2Demo,entropy:drawEntropy};
 const activeDemos=new Set();
 function runDemo(name){const draw=demos[name];if(draw){activeDemos.add(name);draw();}}
-document.querySelectorAll('[data-run-demo]').forEach(button=>button.addEventListener('click',()=>runDemo(button.dataset.runDemo)));
+for(const name of Object.keys(demos))runDemo(name);
 function redrawActive(){for(const name of activeDemos)demos[name]?.();}
 window.addEventListener('resize',redrawActive);
 if(typeof MutationObserver!=='undefined'){const observer=new MutationObserver(redrawActive);for(const target of [document.documentElement,document.body])observer.observe(target,{attributes:true,attributeFilter:['class','data-theme']});}
 if(typeof matchMedia==='function')matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',redrawActive);
-// No drawing, calculation, timer, animation, or sampling runs on page load.
+// Draw each useful default state once; controls redraw only their own demo.
 })();

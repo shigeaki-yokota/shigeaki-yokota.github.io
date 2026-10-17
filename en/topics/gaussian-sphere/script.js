@@ -52,11 +52,10 @@ const demos={distribution:draw,clipping:drawClipping},activeDemos=new Set();
 function runDemo(name){const drawDemo=demos[name];if(drawDemo){activeDemos.add(name);drawDemo();}}
 slider.addEventListener('input',()=>runDemo('distribution'));
 for(const id of ['clipTheta','clipR','clipS','clipAngle'])byId(id).addEventListener('input',()=>runDemo('clipping'));
-document.querySelector('[data-run-demo="distribution"]').addEventListener('click',()=>runDemo('distribution'));
-document.querySelector('[data-run-demo="clipping"]').addEventListener('click',()=>runDemo('clipping'));
+runDemo('distribution');runDemo('clipping');
 function redrawActive(){for(const name of activeDemos)demos[name]?.();}
 window.addEventListener('resize',redrawActive);
 if(typeof MutationObserver!=='undefined'){const observer=new MutationObserver(redrawActive);for(const target of [document.documentElement,document.body])observer.observe(target,{attributes:true,attributeFilter:['class','data-theme']});}
 if(typeof matchMedia==='function')matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',redrawActive);
-// No sampling, drawing, calculation, animation, or timer starts on page load.
+// Draw the fixed-size sample and clipping schematic once; later updates follow controls.
 })();

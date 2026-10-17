@@ -5,12 +5,11 @@
 <link rel="stylesheet" href="../../../assets/site.css"><link rel="stylesheet" href="style.css">
 <title>What Does Ricci Curvature Add Up? — Shigeaki Yokota</title></head><body>
 <a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="shell"><div class="reader-header"><a class="identity" href="/en/">Shigeaki Yokota</a><div class="site-options"><a href="/topics/ricci-curvature/" lang="ja">日本語</a></div></div><nav aria-label="Site navigation"><a href="/en/">Home</a><a href="/en/#papers">Papers</a><a href="/en/#topics">Topics</a></nav></div></header>
-<main id="main" class="shell demo-off ricci-page" lang="en">
+<main id="main" class="shell ricci-page" lang="en">
 <article>
 <p class="eyebrow">Topics / Geometry / A first look at curvature</p>
 <h1>What does Ricci curvature add up?</h1>
 <p class="lead">Ricci curvature adds the sectional curvatures transverse to a chosen direction of travel. But what is negative in negative curvature? Separating the curvature of a curve, the two principal bendings of a surface, and sectional curvature reveals what the Ricci sum means.</p>
-<p class="demo-opt-in">JavaScript is not loaded on this page. <a href="interactive/">Open the interactive version</a> to use the diagrams; calculations begin only after an explicit action.</p>
 <div class="reader-contract"><strong>Starting here.</strong> You need vector lengths, inner products, and the ability to read function graphs. Derivatives are introduced as rates of change over very small steps. Connections and curvature tensors appear later, with their meanings and roles explained there.</div>
 <nav class="toc" aria-label="Contents"><h2>The route through this page</h2><ol>
 <li><a href="#curve">The sign of curvature for curves</a></li><li><a href="#surface">Positive, negative, and zero for surfaces</a></li>
@@ -24,11 +23,10 @@
 <div class="display-math math">Curvature = change of direction / distance traveled; for a circle, κ = 1/R</div>
 <p>Define the ratio by a limit as distance becomes arbitrarily small. For distance <span class="math">Δs</span> and change of unit tangent <span class="math">ΔT</span>, consider <span class="math">|ΔT|/Δs</span> and its limit as the step shrinks. Parametrize a smooth curve by arc length <var>s</var>; its unit tangent <var>T(s)</var> is the direction of travel, of length 1. Curvature magnitude is <span class="math">κ(s)=|dT/ds|</span>, where the derivative denotes that rate of change. Around a circle, the tangent turns through angle <span class="math">2π</span> over arc length <span class="math">2πR</span>, giving <span class="math">1/R</span>.</p>
 <div class="lab"><div class="lab-head"><h3>Explore: walk the same distance along a circle</h3><small>Fix arc length s=1. How does changing radius change the turn?</small></div>
-<button class="run-demo" type="button" data-run-demo="curve">Draw the circle experiment</button>
-<div class="curve-lab"><canvas id="curveCanvas" role="img" aria-describedby="curveCaption curveWords" aria-label="Circle experiment ready. Activate the button or change radius to draw the arc and its unit tangents."></canvas>
+<div class="curve-lab"><canvas id="curveCanvas" role="img" aria-describedby="curveCaption curveWords" aria-label="Circle-arc diagram for fixed length s=1 and radius R=1.5, with initial and final unit tangents."></canvas>
 <div><div class="control"><label for="radius">Circle radius R <output id="radiusOut">1.5</output></label><input id="radius" type="range" min="0.7" max="3" step="0.1" value="1.5" aria-describedby="curveCaption"></div>
-<div class="live-readout"><span>Curvature and change of direction</span><strong id="curveValue">κ = 0.67</strong><p id="curveWords" aria-live="polite">Ready: arc length s=1 and radius R=1.5. Draw or adjust the control to calculate.</p></div></div></div>
-<p class="small" id="curveCaption">Walk the blue arc from start to end. Orange T(0) and green T(s) both have length 1. Fixing distance s makes the direction change s/R larger for a smaller circle. Calculations do not run automatically on opening the page.</p></div>
+<div class="live-readout"><span>Curvature and change of direction</span><strong id="curveValue">κ = 0.67</strong><p id="curveWords" aria-live="polite">Arc length s=1, radius R=1.5. Direction changes by s/R=0.67 radians (about 38 degrees).</p></div></div></div>
+<p class="small" id="curveCaption">Walk the blue arc from start to end. Orange T(0) and green T(s) both have length 1. Fixing distance s makes the direction change s/R larger for a smaller circle.</p></div>
 <p>Here <span class="math">κ=|dT/ds|</span> is a <strong>magnitude</strong>, so it cannot be negative. A <strong>signed curvature</strong> can be defined by choosing a normal and calling bending toward that normal positive. Bending the other way is negative. This describes bending relative to the chosen normal.</p>
 <div class="equation-card"><strong>Distinguish three quantities:</strong><ul>
 <li>Curve curvature magnitude <span class="math">κ</span> is nonnegative. Signed curvature has a sign relative to a chosen normal.</li>
@@ -42,7 +40,6 @@
 <p>To see why these directions exist, align the tangent plane with the <var>xy</var> plane and write the surface locally as <span class="math">z=f(x,y)</span>. Choose coordinates so height and slope vanish at the point. With our sign convention, the second derivative in a direction gives its normal curvature there: it measures change of slope. For <span class="math">z=x²−y²</span> at the origin, the <var>x</var> direction bends upward and the <var>y</var> direction downward. The second-derivative matrix <span class="math">[[f<sub>xx</sub>,f<sub>xy</sub>],[f<sub>xy</sub>,f<sub>yy</sub>]]</span> is symmetric, since smooth functions satisfy <span class="math">f<sub>xy</sub>=f<sub>yx</sub></span>. Linear algebra diagonalizes a symmetric matrix in perpendicular axes. Those axes are the principal directions and the diagonal entries are <span class="math">k₁,k₂</span>.</p>
 <p>On an ordinary sphere, both principal directions bend to the same side. At a saddle's center, one direction is bowl-shaped and its perpendicular is hill-shaped: opposite bendings.</p>
 <div class="lab" id="surfaceLab"><div class="lab-head"><h3>Experiment: build a surface from two curvatures</h3><small>Use sliders, drag the diagram, select it and use arrow keys, or use the view buttons.</small></div>
-<button class="run-demo" type="button" data-run-demo="surface">Draw the surface</button>
 <div class="surface-layout"><div class="surface-view"><canvas id="surfaceCanvas" role="img" tabindex="0" aria-label="Local surface ready. Draw, drag, or use arrow keys to view and rotate it."></canvas>
 <p class="surface-alt" id="surfaceAlt" aria-live="polite">Initially bowl-shaped at the center. The product of principal curvatures is Gaussian curvature.</p></div>
 <div class="controls">
@@ -79,7 +76,6 @@
 <p>In dimensions three and above, more tangent directions leave a point <var>p</var>. Choose a unit direction <var>v</var> of travel. The curvature of each plane containing it is <strong>sectional curvature</strong>.</p>
 <p>In three dimensions the perpendicular complement of <var>v</var> is a plane. Choose perpendicular unit basis vectors <var>e₁,e₂</var>, and examine the curvatures of the planes spanned by <var>v,e₁</var> and <var>v,e₂</var>.</p>
 <div class="lab"><div class="lab-head"><h3>Experiment: add transverse curvatures</h3><small>Fix one point and one travel direction v in three dimensions.</small></div>
-<button class="run-demo" type="button" data-run-demo="ricci">Calculate the Ricci sum</button>
 <div class="ricci-mixer"><div><div class="control"><label for="sectionOne">Sectional curvature of (v,e₁) <output id="sectionOneOut">−2.0</output></label><input id="sectionOne" type="range" min="-3" max="3" step="0.1" value="-2"></div>
 <div class="control"><label for="sectionTwo">Sectional curvature of (v,e₂) <output id="sectionTwoOut">+3.0</output></label><input id="sectionTwo" type="range" min="-3" max="3" step="0.1" value="3"></div>
 <p class="small">The sliders represent sectional curvatures of different tangent planes in three dimensions. They illustrate the defining sum; they do not select complete curvature data realized on a single three-dimensional manifold.</p></div>
@@ -116,9 +112,8 @@
 <p>Send geodesics from <var>p</var> at equal speeds in slightly different directions. A geodesic generalizes a locally shortest surface path. The displacement of neighboring paths from a reference path is described by a vector field called a Jacobi field.</p>
 <p>First in two dimensions, fix the initial angular spread and distance traveled. Measure transverse width along the geodesic circle of radius <var>r</var> between two paths starting at the same point. In the plane it grows proportionally to <var>r</var>; curvature changes that rate.</p>
 <div class="lab" id="fanLab"><div class="lab-head"><h3>Explore: geodesic fans with the same initial angle</h3><small>Compare constant curvatures K=+1, 0, −1 at the same distance r.</small></div>
-<button class="run-demo" type="button" data-run-demo="fan">Draw the geodesic fans</button>
 <div class="control"><label for="fanDistance">Distance traveled r <output id="fanDistanceOut">2.0</output></label><input id="fanDistance" type="range" min="0.1" max="3" step="0.1" value="2" aria-describedby="fanNormalization fanCaption"></div>
-<canvas id="fanCanvas" role="img" aria-describedby="fanCaption fanReadout" aria-label="Geodesic-fan comparison ready. Activate the button or change distance to draw."></canvas>
+<canvas id="fanCanvas" role="img" aria-describedby="fanCaption fanReadout" aria-label="Geodesic-fan comparison at distance r=2; the curves update when distance changes."></canvas>
 <p class="small" id="fanCaption">Each row schematically shows <strong>transverse width</strong> for the same initial angular spread. Horizontal and vertical axes use different scales. The colored vertical segment is width at the selected distance; dashes show the planar case. These are neither surface embeddings nor distance-preserving plane diagrams.</p>
 <div class="fan-table-wrap"><table class="fan-table"><caption>Transverse width j(r) per unit initial angle and its ratio to planar width</caption><thead><tr><th scope="col">Sectional curvature</th><th scope="col">Width j(r)</th><th scope="col">Planar ratio j(r)/r</th></tr></thead><tbody>
 <tr><th scope="row">K=+1</th><td id="fanPositive">sin(r) = 0.909</td><td id="fanPositiveRatio">0.455</td></tr><tr><th scope="row">K=0</th><td id="fanFlat">r = 2.000</td><td id="fanFlatRatio">1.000</td></tr><tr><th scope="row">K=−1</th><td id="fanNegative">sinh(r) = 3.627</td><td id="fanNegativeRatio">1.813</td></tr></tbody></table></div>
@@ -160,7 +155,6 @@
 <p>Both ends equal <var>D</var>, so every intermediate upper bound is equality. In particular <span class="math">W₂(μ<sub>s</sub>,μ<sub>t</sub>)=(t−s)D</span>. Reverse the times for <span class="math">s&gt;t</span>. This proves shortest constant-speed motion in measure space.</p>
 <p class="small">Optimal couplings and <span class="math">W₂</span>: <a href="https://arxiv.org/html/math/0412127v4#S1.SS3">Lott–Villani v4, §1.3</a>. Distance estimates from pairing two times on one path: §2.1, Lemma 2.4. Existence of dynamical plans: §2.2, Proposition 2.6. Representation of arbitrary W₂-geodesics by dynamical plans: §2.3, Proposition 2.10.</p>
 <div class="lab transport-lab"><div class="lab-head"><h3>Compare a point path with a distribution path</h3><small>An explanatory model on the real line.</small></div>
-<button class="run-demo" type="button" data-run-demo="w2">Update the transport model</button>
 <svg id="w2Demo" viewBox="0 0 560 178" role="img" aria-labelledby="w2Title w2Desc"><title id="w2Title">Ordinary geodesics and W2-geodesics</title><desc id="w2Desc">Four equally weighted points move optimally at constant speed on a line. Top: the third point's ordinary geodesic. Bottom: the distribution mu t of all four points.</desc>
 <text x="14" y="43" class="w2-label">Path γ(t)</text><line x1="135" y1="40" x2="460" y2="40" class="w2-track"/><line x1="230" y1="40" x2="350" y2="40" class="w2-highlight-track"/><circle class="w2-single" cx="230" cy="40" r="7" data-x0="230" data-x1="350"/>
 <text x="14" y="117" class="w2-label">Measure μₜ</text><g class="w2-tracks"><line x1="150" y1="112" x2="190" y2="112" data-x0="150" data-x1="190"/><line x1="190" y1="112" x2="270" y2="112" data-x0="190" data-x1="270"/><line x1="230" y1="112" x2="350" y2="112" data-x0="230" data-x1="350"/><line x1="270" y1="112" x2="430" y2="112" data-x0="270" data-x1="430"/></g>
@@ -175,8 +169,7 @@
 <div class="control"><label for="entropyK">Ricci lower bound K₀ <output id="entropyKOut">0.0</output></label><input id="entropyK" type="range" min="-2" max="2" step="0.1" value="0"></div>
 <p class="small" id="entropyKWords" aria-live="polite">For K₀=0, the entropy upper bound joins the endpoints by a straight line.</p></div>
 <div class="lab"><div class="lab-head"><h3>Explore: how does the lower bound bend the entropy bound?</h3><small>A schematic with endpoint entropies 0 and W₂=1.</small></div>
-<button class="run-demo" type="button" data-run-demo="entropy">Draw the entropy bound</button>
-<canvas id="entropyCanvas" role="img" aria-label="Entropy-bound diagram ready. Activate the button or adjust K0 to draw, with endpoint entropies zero and W2 equal to one."></canvas>
+<canvas id="entropyCanvas" role="img" aria-label="Entropy-bound diagram at K0=0, with endpoint entropies zero and W2 equal to one."></canvas>
 <p class="small">Blue is the inequality's right side, the allowed upper bound; dashes join the endpoints. Positive <var>K₀</var> moves it below the line, negative <var>K₀</var> above. It displays the condition's shape and does not calculate actual entropy.</p></div></div>
 <p>Return to curvature. On a smooth manifold the transport paths <span class="math">x↦F<sub>t</sub>(x)</span> follow geodesics. Varying the starting point produces a Jacobi field, so Ricci controls their spreading. Mass conservation also gives <span class="math">ρ<sub>t</sub>(F<sub>t</sub>(x)) J<sub>t</sub>(x)=ρ₀(x)</span> almost everywhere, with <span class="math">J<sub>t</sub></span> the transport Jacobian, its volume multiplier. Control volume through Jacobi fields, translate to density by mass conservation, then integrate to estimate entropy: this is the route from a Ricci bound to entropy convexity. The converse recovers small-scale volume change and Ricci bounds from inequalities for uniform measures on small balls. Ohta's Theorem 4.6 and its proof outline give the details.</p>
 <p>For example, let the manifold be <strong>smooth, connected, complete, and without boundary</strong>, with <span class="math">m=vol<sub>g</sub></span>. Choose compactly supported, finite-entropy absolutely continuous endpoint probabilities <span class="math">μᵢ=ρᵢm</span>. Optimal transport and the W₂-geodesic are unique in this setting. Then <span class="math">Ric≥K₀g</span> is equivalent to the following inequality for every such endpoint pair:</p>
@@ -212,4 +205,4 @@
 </article></main>
 
 <footer class="site-footer"><div class="shell"><small>© 2026 Shigeaki Yokota · Mathematics · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
-</body></html>
+<script src="script.js" defer></script></body></html>
