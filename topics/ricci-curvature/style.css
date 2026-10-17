@@ -1,0 +1,83 @@
+:root { --ink:#243447; --muted:#526273; --line:#d7e0e8; --paper:#fff; --wash:#f4f7fa; --blue:#246891; --gold:#ad681d; --green:#28734f; }
+.ricci-page { padding:1.5rem 0 4rem; }
+.ricci-page article { max-width:100%; }
+.ricci-page h1 { max-width:850px; font-size:clamp(1.8rem,4vw,2.55rem); line-height:1.35; margin:.2rem 0 1rem; }
+.ricci-page .lead { max-width:850px; font-size:1.08rem; line-height:1.9; }
+.ricci-page .reader-contract,.ricci-page .note { border-left:4px solid #9aaaba; background:var(--wash); padding:.75rem 1rem; margin:1.2rem 0; }
+.ricci-page .reader-contract { max-width:850px; font-size:.94rem; }
+.ricci-page .toc { max-width:690px; border:1px solid var(--line); border-radius:8px; background:var(--wash); padding:1rem 1.2rem; margin:1.5rem 0 2rem; }
+.ricci-page .toc h2 { font-size:1rem; margin:0 0 .4rem; }
+.ricci-page .toc ol { columns:2; column-gap:2rem; margin:.3rem 0 0; padding-left:1.5rem; }
+.ricci-page .toc li { break-inside:avoid; margin:.25rem 0; }
+.ricci-page section { margin:3.5rem 0 0; scroll-margin-top:1.5rem; }
+.ricci-page section h2 { font-size:clamp(1.25rem,3vw,1.65rem); line-height:1.5; border-bottom:1px solid var(--line); padding-bottom:.35rem; }
+.ricci-page section h3 { font-size:1.12rem; margin:1.8rem 0 .5rem; }
+.ricci-page p,.ricci-page li { line-height:1.9; }
+.ricci-page .math { font-family:Georgia,"Times New Roman","Yu Mincho",serif; font-size:1.1rem; line-height:1.85; }
+.ricci-page .display-math { overflow-x:auto; text-align:center; background:var(--wash); border:1px solid var(--line); border-radius:8px; padding:.85rem .65rem; margin:1rem 0; }
+.ricci-page .small { color:var(--muted); font-size:.91rem; }
+.ricci-page .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.7rem; margin:1rem 0; }
+.ricci-page .step { border:1px solid var(--line); border-radius:8px; padding:.8rem; background:var(--paper); }
+.ricci-page .step b { display:block; color:var(--blue); margin-bottom:.25rem; }
+.ricci-page .lab { border:1px solid #bccbd7; border-radius:10px; background:var(--wash); padding:1rem; margin:1.4rem 0; }
+.ricci-page .lab-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.3rem 1rem; border-bottom:1px solid var(--line); padding-bottom:.5rem; margin-bottom:.8rem; }
+.ricci-page .lab-head h3 { margin:0; font-size:1.12rem; }
+.ricci-page .lab-head small { color:var(--muted); }
+.ricci-page .surface-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr); gap:1rem; align-items:start; }
+.ricci-page .surface-view { min-width:0; }
+.ricci-page #surfaceCanvas { display:block; width:100%; height:390px; border:1px solid var(--line); border-radius:8px; background:linear-gradient(#fafdff,#eaf1f6); touch-action:none; }
+.ricci-page #surfaceCanvas:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
+.ricci-page .controls { display:grid; gap:.65rem; }
+.ricci-page .control { background:#fff; border:1px solid var(--line); border-radius:7px; padding:.65rem .75rem; }
+.ricci-page .control label { display:flex; justify-content:space-between; align-items:baseline; gap:.6rem; font-weight:600; }
+.ricci-page .control output { font-variant-numeric:tabular-nums; }
+.ricci-page input[type=range] { display:block; width:100%; margin:.55rem 0 .1rem; accent-color:var(--blue); }
+.ricci-page button { font:inherit; color:var(--ink); border:1px solid #9baebc; background:#fff; border-radius:6px; padding:.42rem .65rem; cursor:pointer; }
+.ricci-page button:hover { background:#edf4f8; }
+.ricci-page button:focus-visible,.ricci-page input:focus-visible,.ricci-page a:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
+.ricci-page .preset-row,.ricci-page .turn-row { display:flex; flex-wrap:wrap; gap:.4rem; }
+.ricci-page .live-readout { border:1px solid #c4d4df; border-radius:7px; background:white; padding:.7rem .8rem; }
+.ricci-page .live-readout strong { font-size:1.3rem; font-variant-numeric:tabular-nums; }
+.ricci-page .live-readout p { margin:.2rem 0 0; font-size:.92rem; }
+.ricci-page .surface-alt { margin:.5rem 0 0; font-size:.9rem; color:var(--muted); }
+.ricci-page .equation-card { border:1px solid var(--line); background:white; border-radius:8px; padding:.8rem 1rem; margin:1rem 0; }
+.ricci-page .equation-card p { margin:.35rem 0; }
+.ricci-page .definition { border:2px solid #9fb6c7; border-radius:9px; background:#f8fbfd; padding:1rem 1.15rem; margin:1rem 0; }
+.ricci-page .definition-title { font-weight:700; color:#174f79; }
+.ricci-page .checklist { padding-left:1.3rem; }
+.ricci-page .checklist li { margin:.35rem 0; }
+.ricci-page .curve-lab { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.75fr); gap:1rem; align-items:center; }
+.ricci-page #curveCanvas { display:block; width:100%; height:230px; border:1px solid var(--line); border-radius:8px; background:white; }
+.ricci-page .ricci-mixer { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.8fr); gap:1rem; }
+.ricci-page .ricci-result { background:#fff; border:1px solid var(--line); border-radius:8px; padding:.8rem 1rem; }
+.ricci-page .ricci-result .sum { display:block; font-size:2rem; line-height:1.35; font-variant-numeric:tabular-nums; }
+.ricci-page .ricci-result .average { color:var(--muted); }
+.ricci-page details { border:1px solid var(--line); border-radius:8px; background:white; padding:.65rem .85rem; margin:1rem 0; }
+.ricci-page summary { font-weight:650; cursor:pointer; }
+.ricci-page .references { border-top:1px solid var(--line); margin-top:3.5rem; padding-top:1rem; }
+.ricci-page .references li { margin:.45rem 0; }
+.ricci-page .footer-note { color:var(--muted); font-size:.88rem; }
+.ricci-page .concept-figure { margin:1.2rem 0; padding:.8rem; border:1px solid var(--line); border-radius:9px; background:white; }
+.ricci-page .concept-figure svg { display:block; width:100%; height:auto; }
+.ricci-page .concept-figure figcaption { color:var(--muted); font-size:.9rem; margin-top:.45rem; }
+.ricci-page .diagram-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+.ricci-page .diagram-panel { min-width:0; border:1px solid var(--line); border-radius:8px; background:white; padding:.65rem; }
+.ricci-page .diagram-panel h3 { margin:.2rem 0 .4rem; font-size:1rem; }
+.ricci-page .cd-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,.9fr); gap:1rem; align-items:center; }
+.ricci-page #entropyCanvas { display:block; width:100%; height:260px; border:1px solid var(--line); border-radius:8px; background:white; }
+.ricci-page .bound-readout { border:1px solid var(--line); border-radius:8px; background:white; padding:.75rem; }
+.ricci-page .bound-readout strong { font-variant-numeric:tabular-nums; }
+@media(max-width:760px) {
+ .ricci-page .surface-layout,.ricci-page .curve-lab,.ricci-page .ricci-mixer { grid-template-columns:1fr; }
+ .ricci-page .diagram-grid,.ricci-page .cd-layout { grid-template-columns:1fr; }
+ .ricci-page #surfaceCanvas { height:310px; }
+ .ricci-page #entropyCanvas { height:230px; }
+ .ricci-page .toc ol { columns:1; }
+ .ricci-page .steps { grid-template-columns:1fr; }
+}
+@media(max-width:430px) {
+ .ricci-page #surfaceCanvas { height:270px; }
+ .ricci-page section { margin-top:2.7rem; }
+ .ricci-page .lab { padding:.75rem; }
+ .ricci-page .display-math { text-align:left; }
+}

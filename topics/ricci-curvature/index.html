@@ -1,103 +1,21 @@
 <!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<meta name="description" content="曲線の曲がりから始めて、曲面のGaussian曲率、測地線、断面曲率を経由し、Ricci曲率の定義と体積の意味までたどる入門ノート。">
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><meta name="description" content="曲線と曲面の曲率からRicci曲率の定義・下界へ進み、測地線束の体積とCD条件を図やスライダーで学ぶ入門ノート。">
 <link rel="canonical" href="https://shigeaki-yokota.github.io/topics/ricci-curvature/">
-<link rel="stylesheet" href="../../assets/site.css">
-<title>Ricci曲率は何を数えているのか — Shigeaki Yokota</title>
-<style>
-:root { --ink:#243447; --muted:#526273; --line:#d7e0e8; --paper:#fff; --wash:#f4f7fa; --blue:#246891; --gold:#ad681d; --green:#28734f; }
-.ricci-page { padding:1.5rem 0 4rem; }
-.ricci-page article { max-width:100%; }
-.ricci-page h1 { max-width:850px; font-size:clamp(1.8rem,4vw,2.55rem); line-height:1.35; margin:.2rem 0 1rem; }
-.ricci-page .lead { max-width:850px; font-size:1.08rem; line-height:1.9; }
-.ricci-page .reader-contract,.ricci-page .note { border-left:4px solid #9aaaba; background:var(--wash); padding:.75rem 1rem; margin:1.2rem 0; }
-.ricci-page .reader-contract { max-width:850px; font-size:.94rem; }
-.ricci-page .toc { max-width:690px; border:1px solid var(--line); border-radius:8px; background:var(--wash); padding:1rem 1.2rem; margin:1.5rem 0 2rem; }
-.ricci-page .toc h2 { font-size:1rem; margin:0 0 .4rem; }
-.ricci-page .toc ol { columns:2; column-gap:2rem; margin:.3rem 0 0; padding-left:1.5rem; }
-.ricci-page .toc li { break-inside:avoid; margin:.25rem 0; }
-.ricci-page section { margin:3.5rem 0 0; scroll-margin-top:1.5rem; }
-.ricci-page section h2 { font-size:clamp(1.25rem,3vw,1.65rem); line-height:1.5; border-bottom:1px solid var(--line); padding-bottom:.35rem; }
-.ricci-page section h3 { font-size:1.12rem; margin:1.8rem 0 .5rem; }
-.ricci-page p,.ricci-page li { line-height:1.9; }
-.ricci-page .math { font-family:Georgia,"Times New Roman","Yu Mincho",serif; font-size:1.1rem; line-height:1.85; }
-.ricci-page .display-math { overflow-x:auto; text-align:center; background:var(--wash); border:1px solid var(--line); border-radius:8px; padding:.85rem .65rem; margin:1rem 0; }
-.ricci-page .small { color:var(--muted); font-size:.91rem; }
-.ricci-page .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.7rem; margin:1rem 0; }
-.ricci-page .step { border:1px solid var(--line); border-radius:8px; padding:.8rem; background:var(--paper); }
-.ricci-page .step b { display:block; color:var(--blue); margin-bottom:.25rem; }
-.ricci-page .lab { border:1px solid #bccbd7; border-radius:10px; background:var(--wash); padding:1rem; margin:1.4rem 0; }
-.ricci-page .lab-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.3rem 1rem; border-bottom:1px solid var(--line); padding-bottom:.5rem; margin-bottom:.8rem; }
-.ricci-page .lab-head h3 { margin:0; font-size:1.12rem; }
-.ricci-page .lab-head small { color:var(--muted); }
-.ricci-page .surface-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr); gap:1rem; align-items:start; }
-.ricci-page .surface-view { min-width:0; }
-.ricci-page #surfaceCanvas { display:block; width:100%; height:390px; border:1px solid var(--line); border-radius:8px; background:linear-gradient(#fafdff,#eaf1f6); touch-action:none; }
-.ricci-page #surfaceCanvas:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
-.ricci-page .controls { display:grid; gap:.65rem; }
-.ricci-page .control { background:#fff; border:1px solid var(--line); border-radius:7px; padding:.65rem .75rem; }
-.ricci-page .control label { display:flex; justify-content:space-between; align-items:baseline; gap:.6rem; font-weight:600; }
-.ricci-page .control output { font-variant-numeric:tabular-nums; }
-.ricci-page input[type=range] { display:block; width:100%; margin:.55rem 0 .1rem; accent-color:var(--blue); }
-.ricci-page button { font:inherit; color:var(--ink); border:1px solid #9baebc; background:#fff; border-radius:6px; padding:.42rem .65rem; cursor:pointer; }
-.ricci-page button:hover { background:#edf4f8; }
-.ricci-page button:focus-visible,.ricci-page input:focus-visible,.ricci-page a:focus-visible { outline:3px solid #174f79; outline-offset:3px; }
-.ricci-page .preset-row,.ricci-page .turn-row { display:flex; flex-wrap:wrap; gap:.4rem; }
-.ricci-page .live-readout { border:1px solid #c4d4df; border-radius:7px; background:white; padding:.7rem .8rem; }
-.ricci-page .live-readout strong { font-size:1.3rem; font-variant-numeric:tabular-nums; }
-.ricci-page .live-readout p { margin:.2rem 0 0; font-size:.92rem; }
-.ricci-page .surface-alt { margin:.5rem 0 0; font-size:.9rem; color:var(--muted); }
-.ricci-page .equation-card { border:1px solid var(--line); background:white; border-radius:8px; padding:.8rem 1rem; margin:1rem 0; }
-.ricci-page .equation-card p { margin:.35rem 0; }
-.ricci-page .definition { border:2px solid #9fb6c7; border-radius:9px; background:#f8fbfd; padding:1rem 1.15rem; margin:1rem 0; }
-.ricci-page .definition-title { font-weight:700; color:#174f79; }
-.ricci-page .checklist { padding-left:1.3rem; }
-.ricci-page .checklist li { margin:.35rem 0; }
-.ricci-page .curve-lab { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.75fr); gap:1rem; align-items:center; }
-.ricci-page #curveCanvas { display:block; width:100%; height:230px; border:1px solid var(--line); border-radius:8px; background:white; }
-.ricci-page .ricci-mixer { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.8fr); gap:1rem; }
-.ricci-page .ricci-result { background:#fff; border:1px solid var(--line); border-radius:8px; padding:.8rem 1rem; }
-.ricci-page .ricci-result .sum { display:block; font-size:2rem; line-height:1.35; font-variant-numeric:tabular-nums; }
-.ricci-page .ricci-result .average { color:var(--muted); }
-.ricci-page details { border:1px solid var(--line); border-radius:8px; background:white; padding:.65rem .85rem; margin:1rem 0; }
-.ricci-page summary { font-weight:650; cursor:pointer; }
-.ricci-page .references { border-top:1px solid var(--line); margin-top:3.5rem; padding-top:1rem; }
-.ricci-page .references li { margin:.45rem 0; }
-.ricci-page .footer-note { color:var(--muted); font-size:.88rem; }
-@media(max-width:760px) {
- .ricci-page .surface-layout,.ricci-page .curve-lab,.ricci-page .ricci-mixer { grid-template-columns:1fr; }
- .ricci-page #surfaceCanvas { height:310px; }
- .ricci-page .toc ol { columns:1; }
- .ricci-page .steps { grid-template-columns:1fr; }
-}
-@media(max-width:430px) {
- .ricci-page #surfaceCanvas { height:270px; }
- .ricci-page section { margin-top:2.7rem; }
- .ricci-page .lab { padding:.75rem; }
- .ricci-page .display-math { text-align:left; }
-}
-</style>
-</head>
-<body>
-<a class="skip-link" href="#main">本文へ移動</a>
-<header class="site-header"><div class="shell">
-<a class="identity" href="../../">Shigeaki Yokota / Mathematics</a>
-<nav aria-label="サイト内ナビゲーション"><a href="../../">Home</a><a href="../../#papers">Papers</a><a href="../../#topics">Topics</a></nav>
-</div></header>
+<link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="style.css">
+<title>Ricci曲率は何を数えているのか — 横田滋亮 / 数学</title></head><body>
+<a class="skip-link" href="#main">本文へ移動</a><header class="site-header"><div class="shell"><a class="identity" href="../../">横田滋亮 / 数学</a><nav aria-label="サイト内ナビゲーション"><a href="../../">トップ</a><a href="../../#papers">論文</a><a href="../../#topics">数学トピック</a></nav></div></header>
 <main id="main" class="shell ricci-page">
 <article>
 <p class="eyebrow">Topics / Geometry / はじめての曲率</p>
-<h1>Ricci曲率は何を数えているのか</h1>
-<p class="lead">先に答えを言うと、Ricci曲率は「ある方向に進むとき、その横向きの曲がりを全部足した量」。ただし、何を足すのかは少しずつ準備してから定義する。曲線の曲がり、曲面の曲がり、曲面上の距離、そして一般の空間の曲率へ進もう。</p>
+<h1>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は何を数えているのか</h1>
+<p class="lead">Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は「ある方向へ進むとき、横向きの断面曲率を全部足した量」。でも、負の曲率とは何が負なのか。曲線の曲率、曲面の二方向の曲がり、空間の断面曲率を分けると、その足し算と<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>の意味が見えてくる。</p>
 <div class="reader-contract"><strong>ここから始める人へ。</strong>必要なのは、ベクトルの長さ・内積と、関数のグラフを読む力。微分は「とても小さく進んだときの変化率」として途中で導入する。最後に出てくる接続や曲率テンソルは、その場で意味と役割を説明する。</div>
 <nav class="toc" aria-label="目次"><h2>このページの道順</h2><ol>
-<li><a href="#curve">曲線の「曲がる」</a></li><li><a href="#surface">曲面の二方向</a></li>
-<li><a href="#intrinsic">見た目と、表面の中の距離</a></li><li><a href="#sectional">進む方向と断面曲率</a></li>
-<li><a href="#definition">曲率テンソルからRicci曲率へ</a></li><li><a href="#meaning">どうして足し算が体積を表す？</a></li>
+<li><a href="#curve">曲線で曲率の符号を知る</a></li><li><a href="#surface">曲面の正・負・ゼロ</a></li>
+<li><a href="#intrinsic">見た目と、表面の中の距離</a></li><li><a href="#sectional">曲面の和から高次元の<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>へ</a></li>
+<li><a href="#definition">定義の地図と曲率テンソル</a></li><li><a href="#meaning">どうして足し算が体積を表す？</a></li>
+<li><a href="#lower-bound">曲率を下から抑えるとは</a></li><li><a href="#cd">CD<span class="japanese-european-space" aria-hidden="true"></span>条件と最適輸送</a></li>
 </ol></nav>
 
 <section id="curve">
@@ -106,21 +24,26 @@
 <p>まっすぐな線を歩くと、進行方向は変わらない。円に沿って歩くと、歩き始めてからの距離が同じでも、小さな円のほうが向きは大きく変わる。曲率はこの「進んだ距離あたりの向きの変化」を測る。</p>
 <p>円の半径を <var>R</var> とすると、円の曲率は <span class="math">1/R</span>。半径が大きい円はほとんど直線に見えるので、曲率は小さい。半径が小さければきつく曲がり、曲率は大きい。</p>
 <div class="display-math math">曲率 ＝ 向きの変化 ÷ 進んだ距離　　円では　κ ＝ 1/R</div>
-<p>この割り算を、距離を限りなく小さくした極限で定義する。歩く距離を <span class="math">Δs</span>、その前後で進行方向が変わった量を <span class="math">ΔT</span> とすれば、まず <span class="math">|ΔT|/Δs</span> を考える。その歩幅を小さくしていったとき、この比が近づく値を曲率とする。なめらかな曲線を弧の長さ <var>s</var> で表し、その点での単位接ベクトル（曲線に沿い、長さが1の進行方向）を <var>T(s)</var> とすると、曲率の大きさは <span class="math">κ(s)=|dT/ds|</span>。微分 <span class="math">dT/ds</span> はその変化率を表す記号だ。円では向きが一周で <span class="math">2π</span> 変わり、弧の長さが <span class="math">2πR</span> なので、比は <span class="math">1/R</span> になる。</p>
+<p>この割り算を、距離を限りなく小さくした極限で定義する。歩く距離を <span class="math">Δs</span>、その前後で進行方向が変わった量を <span class="math">ΔT</span> とすれば、まず <span class="math">|ΔT|/Δs</span> を考える。その歩幅を小さくしていったとき、この比が近づく値を曲率とする。なめらかな曲線を弧の長さ <var>s</var> で表し、その点での単位接ベクトル（曲線に沿い、長さが<span class="japanese-european-space" aria-hidden="true"></span>1<span class="japanese-european-space" aria-hidden="true"></span>の進行方向）を <var>T(s)</var> とすると、曲率の大きさは <span class="math">κ(s)=|dT/ds|</span>。微分 <span class="math">dT/ds</span> はその変化率を表す記号だ。円では向きが一周で <span class="math">2π</span> 変わり、弧の長さが <span class="math">2πR</span> なので、比は <span class="math">1/R</span> になる。</p>
 <div class="lab">
 <div class="lab-head"><h3>動かしてみる：曲率と円の半径</h3><small>表示するのは平面上の円。線が急に曲がるほど曲率が大きい。</small></div>
 <div class="curve-lab">
 <canvas id="curveCanvas" role="img" aria-label="半径を変えられる円弧。半径が小さいほど曲がりが強く見える。"></canvas>
 <div><div class="control"><label for="radius">円の半径 R <output id="radiusOut">1.5</output></label><input id="radius" type="range" min="0.7" max="3" step="0.1" value="1.5"></div>
-<div class="live-readout"><span>この円の曲率</span><strong id="curveValue">κ = 0.67</strong><p id="curveWords">半径1.5の円。曲率は半径の逆数。</p></div></div>
+<div class="live-readout"><span>この円の曲率</span><strong id="curveValue">κ = 0.67</strong><p id="curveWords">半径<span class="japanese-european-space" aria-hidden="true"></span>1.5<span class="japanese-european-space" aria-hidden="true"></span>の円。曲率は半径の逆数。</p></div></div>
 </div></div>
-<p>ここでの曲線の曲率は、周りの空間の曲率とは別物だ。紙の上に描いた円も、まっすぐな床の上で曲がっている。次は、曲面そのものが持つ曲がりを調べる。</p>
+<p>ここでの <span class="math">κ=|dT/ds|</span> は曲がりの<strong>大きさ</strong>なので、負にはならない。平面内で上向きの法線をあらかじめ選び、「その法線側へ曲がる」を正と決めた<strong>符号付き曲率</strong>なら、反対側へ曲がると負になる。ただし、これは選んだ法線を基準にした曲線の曲がりだ。</p>
+<div class="equation-card"><strong>ここで三つを区別：</strong>
+<ul><li>曲線の曲率の大きさ <span class="math">κ</span> は<span class="japanese-european-space" aria-hidden="true"></span>0<span class="japanese-european-space" aria-hidden="true"></span>以上。符号付き曲率は、選んだ法線に対して正負を持つ。</li>
+<li>曲面の一方向の法曲率 <span class="math">k(v)</span> も、選んだ面の法線に対して正負を持つ。</li>
+<li>断面曲率は接空間の<strong>二次元平面</strong>に付く数。一本の方向だけに付く数ではない。</li></ul></div>
+<p>だから「一方向で負」は、曲線や曲面の法線に対する曲がりならありうる。一方、1<span class="japanese-european-space" aria-hidden="true"></span>次元の曲線を空間の中にどう描いても、その曲線自身の距離だけで測る<span class="japanese-european-space" aria-hidden="true"></span>Riemann<span class="japanese-european-space" aria-hidden="true"></span>曲率は<span class="japanese-european-space" aria-hidden="true"></span>0<span class="japanese-european-space" aria-hidden="true"></span>で、断面曲率を定める二次元平面もない。次の曲面の例では、どの量が負なのかを確かめよう。</p>
 </section>
 
 <section id="surface">
 <p class="eyebrow">2 / 曲面と三次元の見え方</p>
 <h2>曲面には二つの主な曲がり方がある</h2>
-<p>曲面上の一点には、面に沿う方向がたくさんある。まず一点の近くを拡大し、その点で面に接する平面を考えよう。<strong>接平面</strong>は、その点で曲面に触れて傾きを共有する平面だ。なめらかな面を拡大すると、見える形はこの平面に近づく。接平面に垂直な長さ1のベクトルを<strong>法線</strong>と呼ぶ。接平面に沿って向きをひとつ選び、その向きと法線が張る平面で曲面を切ると、切り口は平面曲線になる。その切り口が法線方向へどれだけ曲がるかを、その向きの<strong>法曲率</strong>と呼ぶ。</p>
+<p>曲面上の一点には、面に沿う方向がたくさんある。まず一点の近くを拡大し、その点で面に接する平面を考えよう。<strong>接平面</strong>は、その点で曲面に触れて傾きを共有する平面だ。なめらかな面を拡大すると、見える形はこの平面に近づく。接平面に垂直な長さ<span class="japanese-european-space" aria-hidden="true"></span>1<span class="japanese-european-space" aria-hidden="true"></span>のベクトルを<strong>法線</strong>と呼ぶ。接平面に沿って向きをひとつ選び、その向きと法線が張る平面で曲面を切ると、切り口は平面曲線になる。その切り口が法線方向へどれだけ曲がるかを、その向きの<strong>法曲率</strong>と呼ぶ。</p>
 <p>ここでは曲面の片側を向く単位法線を選ぶ。図の放物面では上向きの法線を使う。向きを一周させると法曲率は変わり、最大と最小になる直交する二方向を主方向、その値を <span class="math">k₁,k₂</span> と呼ぶ。法線を逆にすると二つの符号はともに反転するが、積 <span class="math">K=k₁k₂</span> は変わらない。曲面の一点の形は、最初の近似ではこの二つの数で表せる。</p>
 <p>この二方向がなぜ見つかるか、局所グラフで見よう。接平面を <var>xy</var> 平面に重ねると、曲面は一点の近くで <span class="math">z=f(x,y)</span> と書ける。座標を選んで、その点で高さと傾きがゼロになるようにする。このページの符号の約束では、ある向きへ少し進んだときの高さの変化を、さらに距離あたりで測る二階微分が、その向きの法曲率を与える。二階微分は「傾きがどれだけ変わるか」を測るものだ。たとえば <span class="math">z=x²−y²</span> では、原点から <var>x</var> 軸へ進むと上向きに曲がり、<var>y</var> 軸へ進むと反対向きに曲がる。二階微分をまとめた行列は <span class="math">[[f<sub>xx</sub>,f<sub>xy</sub>],[f<sub>xy</sub>,f<sub>yy</sub>]]</span> の形で対称になる（なめらかな関数では <span class="math">f<sub>xy</sub>=f<sub>yx</sub></span>）。対称行列は直交する軸へ回して対角化できる、という線形代数の定理がある。その二つの軸が主方向、対角成分が <span class="math">k₁,k₂</span> だ。</p>
 <p>たとえば、ふつうの球面では二方向とも同じ向きに曲がる。鞍の中央では一方にお椀、直交する他方に山の形となり、曲がりの向きが逆になる。</p>
@@ -129,14 +52,14 @@
 <div class="surface-layout">
 <div class="surface-view">
 <canvas id="surfaceCanvas" role="img" tabindex="0" aria-label="二つの主曲率を持つ局所曲面の三次元図。ドラッグまたは矢印キーで回転できる。"></canvas>
-<p class="surface-alt" id="surfaceAlt" aria-live="polite">中央ではお椀型。二つの主曲率の積がGaussian曲率。</p>
+<p class="surface-alt" id="surfaceAlt" aria-live="polite">中央ではお椀型。二つの主曲率の積が<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率。</p>
 </div>
 <div class="controls">
 <div class="control"><label for="kOne">第一主曲率 k₁ <output id="kOneOut">1.0</output></label><input id="kOne" type="range" min="-2" max="2" step="0.1" value="1"></div>
 <div class="control"><label for="kTwo">第二主曲率 k₂ <output id="kTwoOut">1.0</output></label><input id="kTwo" type="range" min="-2" max="2" step="0.1" value="1"></div>
-<div class="live-readout"><span>曲面の中央におけるGaussian曲率</span><strong id="gaussValue">K = +1.00</strong><p id="gaussWords">K = k₁k₂。二方向が同じ側へ曲がるので正。</p></div>
+<div class="live-readout"><span>曲面の中央における<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率</span><strong id="gaussValue"><span class="japanese-european-space" aria-hidden="true"></span>K = +1.00</strong><p id="gaussWords">K = k₁k₂。二方向が同じ側へ曲がるので正。</p></div>
 <div class="preset-row" aria-label="曲面の例">
-<button type="button" data-shape="1,1">お椀型：＋×＋</button><button type="button" data-shape="1,-1">鞍型：＋×−</button><button type="button" data-shape="1,0">円柱型：＋×0</button><button type="button" data-shape="0,0">平面：0×0</button>
+<button type="button" data-shape="1,1">お椀型：＋×＋</button><button type="button" data-shape="1,-1">鞍型：＋×−</button><button type="button" data-shape="1,0">円柱型：＋×0</button><button type="button" data-shape="0,0"><span class="japanese-european-space" aria-hidden="true"></span>平面：0×0</button>
 </div>
 <div class="turn-row" aria-label="視点を回す">
 <button type="button" data-turn="left" aria-label="左へ回す">↶ 左</button><button type="button" data-turn="right" aria-label="右へ回す">右 ↷</button><button type="button" data-turn="up" aria-label="上へ回す">↑ 上</button><button type="button" data-turn="down" aria-label="下へ回す">↓ 下</button>
@@ -145,49 +68,107 @@
 </div>
 </div>
 </div>
-<div class="equation-card"><p><strong>Gaussian曲率：</strong> <span class="math">K=k₁k₂</span></p><p>正なら二方向が同じ側へ曲がる。負なら一方が山、もう一方がお椀。ゼロなら少なくとも一方向はその点でまっすぐ。</p></div>
-<p>「積」なので、どれほど強く曲がるかだけでなく、二つの曲がりの符号が大切になる。たとえば <span class="math">k₁=1,k₂=-1</span> の鞍型は <span class="math">K=-1</span>。<span class="math">k₁=1,k₂=0</span> の円柱型は見た目には曲がるが、<span class="math">K=0</span> だ。</p>
+<div class="equation-card"><p><strong>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率：</strong> <span class="math">K=k₁k₂</span></p><p>正なら二方向が同じ側へ曲がる。負なら一方が山、もう一方がお椀。ゼロなら少なくとも一方向はその点でまっすぐ。</p></div>
+<figure class="concept-figure">
+<svg viewBox="0 0 660 195" role="img" aria-labelledby="saddleTitle saddleDesc">
+<title id="saddleTitle">鞍の二つの直交する断面とGaussian曲率の積</title>
+<desc id="saddleDesc">同じ上向き法線に対し、x方向の切り口は上向きの弧で法曲率がプラス、y方向の切り口は下向きの弧で法曲率がマイナス。積はマイナスになる。</desc>
+<defs><marker id="arrowNormal" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#243447"/></marker></defs>
+<g fill="none" stroke-width="4" stroke-linecap="round">
+<path d="M65 55 Q160 145 255 55" stroke="#246891"/><path d="M405 145 Q500 55 595 145" stroke="#ad681d"/>
+<path d="M160 100 L160 32" stroke="#243447" marker-end="url(#arrowNormal)"/><path d="M500 100 L500 32" stroke="#243447" marker-end="url(#arrowNormal)"/>
+<path d="M55 100 H265" stroke="#9aaaba" stroke-width="1.5"/><path d="M395 100 H605" stroke="#9aaaba" stroke-width="1.5"/>
+</g>
+<g fill="#243447" font-family="system-ui,sans-serif" text-anchor="middle">
+<text x="160" y="177" font-size="15">x方向：k₁=+1</text><text x="500" y="177" font-size="15">y方向：k₂=−1</text>
+<text x="160" y="26" font-size="13">同じ上向き法線</text><text x="500" y="26" font-size="13">同じ上向き法線</text>
+<text x="330" y="96" font-size="18" font-weight="700">積を取る → K = k₁k₂ = −1</text>
+</g>
+</svg>
+<figcaption>「負」は二つの主方向のうち一方の法曲率が負ということ。その積 <span class="math">K</span> が、鞍の中央の負の<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率（曲面の断面曲率）になる。上下の法線を逆にすると二つの符号が同時に変わるため、積は変わらない。</figcaption>
+</figure>
+<p>たとえば <span class="math">z=(x²−y²)/2</span> という鞍の<strong>中央</strong>では <span class="math">k₁=1,k₂=-1</span> なので <span class="math">K=-1</span>。曲面は二次元だから、ここでいう負の断面曲率は鞍の接平面全体に付く一つの数だ。「負の断面曲率が一方向にだけある」という意味ではない。<span class="math">k₁=1,k₂=0</span> の円柱型は見た目には曲がるが、<span class="math">K=0</span> だ。</p>
 </section>
 
 <section id="intrinsic">
 <p class="eyebrow">3 / 見た目ではなく、面の中の距離</p>
-<h2>円柱は曲がって見えるのに、Gaussian曲率はゼロ</h2>
+<h2>円柱は曲がって見えるのに、Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率はゼロ</h2>
 <p>画面の円柱型を見てほしい。三次元空間の中から見ると、円柱は曲がっている。ところが紙を丸めて円柱を作ったと思えば、紙の上で測った長さや角度は変わらない。円柱を縦に切って広げれば、局所的には平らな紙に戻せる。</p>
-<p>Gaussian曲率は、三次元の観察者から見た曲がりを単純に数えたものではない。曲面の上に住む小さな測量者が、面に沿った距離だけを測っても気づく曲がりである。円柱には局所的な距離の歪みがないので、Gaussian曲率はゼロになる。</p>
+<p>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率は、三次元の観察者から見た曲がりを単純に数えたものではない。曲面の上に住む小さな測量者が、面に沿った距離だけを測っても気づく曲がりである。円柱には局所的な距離の歪みがないので、Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率はゼロになる。</p>
 <p>別の見分け方は、小さな三角形を面の上に描き、各辺を面上の最短経路で結ぶこと。辺を測地線にした三角形では、角度の和と平らな場合との差は、三角形の内側の曲率の積分になる。面積分は、三角形を細かな小片に分け、各小片の「曲率 × 面積」を足し合わせる操作だ。<span class="math">dA</span> は小片の面積を表す。式の角度はラジアンで測る。<span class="math">π</span> ラジアンが <span class="math">180°</span> にあたる。</p>
 <div class="display-math math">角度の和 − π = ∫<sub>三角形</sub> K dA</div>
-<p>だから正のGaussian曲率では小さな三角形の角度の和が <span class="math">π</span> より大きく、負なら小さくなる。円柱の小さな三角形は、広げれば平面の三角形になる。</p>
+<p>だから正の<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率では小さな三角形の角度の和が <span class="math">π</span> より大きく、負なら小さくなる。円柱の小さな三角形は、広げれば平面の三角形になる。</p>
 <div class="note"><strong>大事な区別：</strong>主曲率 <span class="math">k₁,k₂</span> は周囲の三次元空間への埋め込み方にも依存する。一方、その積 <span class="math">K</span> は曲面の中の距離から決まる。曲がって見えることと、曲面自身が曲がっていることは同じではない。</div>
 </section>
 
 <section id="sectional">
-<p class="eyebrow">4 / 曲面から高次元へ</p>
-<h2>一つの進行方向を決め、その横の曲がりを調べる</h2>
-<p>曲面では、曲率を調べる断面は曲面そのものしかなかった。三次元以上の空間では、点 <var>p</var> から出発する接方向がもっとある。単位ベクトル <var>v</var> をひとつ選ぶと、「<var>v</var> に向かって進む」方向が決まる。その進行方向を含む平面を一枚ずつ選び、それぞれの曲がりを測ったものが<strong>断面曲率</strong>だ。</p>
+<p class="eyebrow">4 / 曲面で和を見てから高次元へ</p>
+<h2>曲面なら一項、三次元なら二項を足す</h2>
+<p>曲面では、点の接空間そのものが二次元平面だった。単位方向 <var>v</var> を選ぶと、その面の中で <var>v</var> に垂直な単位方向 <var>e</var> は一本だけ。だから <var>v</var> と <var>e</var> が張る平面は接平面全体で、断面曲率は<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率 <var>K</var> そのもの。Ricci<span class="japanese-european-space" aria-hidden="true"></span>の足し算は一項だけになり、<span class="math">Ric(v,v)=K</span> となる。</p>
+<figure class="concept-figure">
+<div class="diagram-grid">
+<div class="diagram-panel"><h3>曲面：足す平面は一つ</h3>
+<svg viewBox="0 0 300 190" role="img" aria-labelledby="surfaceRicciTitle surfaceRicciDesc">
+<title id="surfaceRicciTitle">二次元曲面でのRicci曲率</title><desc id="surfaceRicciDesc">点pにおいて、接平面内の二本の直交する方向vとeが曲面そのものの平面を張る。Ricci曲率はその平面のGaussian曲率K一つだけ。</desc>
+<ellipse cx="150" cy="102" rx="112" ry="56" fill="#dcebf3" stroke="#246891" stroke-width="2"/>
+<circle cx="150" cy="102" r="4" fill="#243447"/><path d="M150 102 L245 102" stroke="#246891" stroke-width="4"/><path d="M150 102 L150 43" stroke="#ad681d" stroke-width="4"/>
+<g fill="#243447" font-family="system-ui,sans-serif" font-size="15"><text x="250" y="108">v</text><text x="156" y="44">e</text><text x="137" y="122">p</text><text x="48" y="177">Ric(v,v) = K（この一枚）</text></g>
+</svg></div>
+<div class="diagram-panel"><h3>三次元：足す平面は二つ</h3>
+<svg viewBox="0 0 300 190" role="img" aria-labelledby="threeDRicciTitle threeDRicciDesc">
+<title id="threeDRicciTitle">三次元での横向き断面曲率の和</title><desc id="threeDRicciDesc">進行方向vに垂直な方向e1,e2を選ぶと、vとe1が張る平面と、vとe2が張る平面がある。二つの断面曲率を足してRicci曲率にする。</desc>
+<polygon points="150,35 55,108 150,157 245,84" fill="#dcebf3" fill-opacity=".8" stroke="#246891" stroke-width="2"/>
+<polygon points="150,35 150,157 242,111 242,58" fill="#f3e5d3" fill-opacity=".72" stroke="#ad681d" stroke-width="2"/>
+<path d="M150 140 L150 25" stroke="#243447" stroke-width="4"/><path d="M150 140 L228 92" stroke="#246891" stroke-width="3"/><path d="M150 140 L75 101" stroke="#ad681d" stroke-width="3"/>
+<g fill="#243447" font-family="system-ui,sans-serif" font-size="14"><text x="158" y="28">v</text><text x="228" y="91">e₁</text><text x="57" y="99">e₂</text><text x="12" y="177">K(v,e₁) + K(v,e₂)</text></g>
+</svg></div>
+</div><figcaption>同じ進行方向 <span class="math">v</span> を固定し、それぞれの直交する横方向 <span class="math">eᵢ</span> と <span class="math">v</span> が張る <span class="math">n−1</span> 枚の平面を足す。空間の次元が上がると、その枚数も増える。</figcaption>
+</figure>
+<p>ここでいうのは単位方向 <var>v</var> に対する <span class="math">Ric(v,v)</span>。曲面の例を先に置いたので、「断面曲率の和」という言葉は<strong>曲面なら一つを足す</strong>ことから始まり、次元を上げると横方向の面が増える、という意味になる。</p>
+<p>三次元以上の空間では、点 <var>p</var> から出発する接方向がもっとある。単位ベクトル <var>v</var> をひとつ選ぶと、「<var>v</var> に向かって進む」方向が決まる。その進行方向を含む平面を一枚ずつ選び、それぞれの曲がりを測ったものが<strong>断面曲率</strong>だ。</p>
 <p>三次元では、<var>v</var> に垂直なベクトル全体は二次元の平面を作る。その平面の基底として、互いに直交する単位ベクトル <var>e₁,e₂</var> を選ぶ。<var>v</var> と <var>e₁</var>、<var>v</var> と <var>e₂</var> がそれぞれ張る二つの平面の断面曲率を調べる。</p>
 <div class="lab">
-<div class="lab-head"><h3>実験：Ricci曲率は横向きの曲率を足す</h3><small>三次元の一点・ひとつの進行方向 v に固定</small></div>
+<div class="lab-head"><h3>実験：Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は横向きの曲率を足す</h3><small>三次元の一点・ひとつの進行方向 v に固定</small></div>
 <div class="ricci-mixer">
 <div>
 <div class="control"><label for="sectionOne">平面 (v,e₁) の断面曲率 <output id="sectionOneOut">−2.0</output></label><input id="sectionOne" type="range" min="-3" max="3" step="0.1" value="-2"></div>
 <div class="control"><label for="sectionTwo">平面 (v,e₂) の断面曲率 <output id="sectionTwoOut">+3.0</output></label><input id="sectionTwo" type="range" min="-3" max="3" step="0.1" value="3"></div>
 <p class="small">つまみは三次元の別々の接平面の断面曲率を表す。これは同じ三次元多様体上で実現できる曲率データを完全に選ぶ装置ではなく、定義の足し算を確かめる模型だ。</p>
 </div>
-<div class="ricci-result"><span>選んだ方向 v のRicci曲率</span><strong class="sum" id="ricciSum">Ric(v,v) = +1.0</strong><span class="average" id="ricciAverage">二つの断面曲率の平均 = +0.5</span><p id="ricciWords">一方の断面は負でも、もう一方がそれを上回るので和は正。</p>
-<div class="preset-row"><button type="button" data-pair="-2,3">−2 と +3</button><button type="button" data-pair="0.5,0.5">+0.5 と +0.5</button><button type="button" data-pair="-3,2">−3 と +2</button><button type="button" data-pair="0,0">どちらも0</button></div></div>
+<div class="ricci-result"><span>選んだ方向 v の<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率</span><strong class="sum" id="ricciSum"><span class="japanese-european-space" aria-hidden="true"></span>Ric(v,v) = +1.0</strong><span class="average" id="ricciAverage"><span class="japanese-european-space" aria-hidden="true"></span>二つの断面曲率の平均 = +0.5</span><p id="ricciWords">一方の断面は負でも、もう一方がそれを上回るので和は正。</p>
+<div class="preset-row"><button type="button" data-pair="-2,3">−2 と +3</button><button type="button" data-pair="0.5,0.5">+0.5 と +0.5</button><button type="button" data-pair="-3,2">−3 と +2</button><button type="button" data-pair="0,0"><span class="japanese-european-space" aria-hidden="true"></span>どちらも<span class="japanese-european-space" aria-hidden="true"></span>0</button></div></div>
 </div></div>
-<p>最初の例と二番目の例は、断面曲率の配分が違う。それでも和はどちらも <span class="math">+1</span>。Ricci曲率は各断面の細部を保存するのではなく、選んだ進行方向から見た横向きの合計を残す。</p>
+<p>最初の例と二番目の例は、断面曲率の配分が違う。それでも和はどちらも <span class="math">+1</span>。Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は各断面の細部を保存するのではなく、選んだ進行方向から見た横向きの合計を残す。</p>
 <p>一般に <var>n</var> 次元では、単位ベクトル <var>v</var> の垂直方向は <var>n−1</var> 次元ある。それらを直交する単位ベクトル <span class="math">e₂,…,eₙ</span> で表し、<var>v</var> を含む各平面の曲率を足す。</p>
 <div class="display-math math">Ric(v,v) = K(v,e₂)+K(v,e₃)+⋯+K(v,eₙ),　|v|=1</div>
-<p>だから「数えている」は、点や曲線の本数ではなく、<strong>直交する横方向すべてにわたる断面曲率の和</strong>という意味だ。<var>n−1</var> で割れば平均断面曲率になる。通常のRicciテンソルそのものは和であり、平均とは区別しておこう。</p>
-<p>二次元の曲面には横向きが一つだけなので、足し算は一項で終わる。任意の単位方向 <var>v</var> に対して <span class="math">Ric(v,v)=K</span>。曲面上ではRicci曲率とGaussian曲率が同じ情報を表す。</p>
+<p>だから「数えている」は、点や曲線の本数ではなく、<strong>直交する横方向すべてにわたる断面曲率の和</strong>という意味だ。<var>n−1</var> で割れば平均断面曲率になる。通常の<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソルそのものは和であり、平均とは区別しておこう。</p>
 </section>
 
 <section id="definition">
-<p class="eyebrow">5 / 微分幾何の定義</p>
-<h2>断面曲率の和を、traceとして定義する</h2>
-<p>ここからは、言葉の直観を正確な定義にする。<strong>Riemann多様体</strong>とは、各点の近くを <var>n</var> 個の実数で表せる滑らかな空間に、各点で長さと角度を測る内積 <var>g</var> を滑らかに指定したもの。点 <var>p</var> で可能な進行方向を集めたベクトル空間を接空間と呼び、内積はその中のベクトルの長さ <span class="math">|X|=√g(X,X)</span> と直交を決める。</p>
-<p>ベクトル場 <var>Y,Z</var> は、空間の各点にベクトルをひとつずつ置いたもの。方向場 <var>X</var> を関数 <var>h</var> に作用させた <span class="math">X(h)</span> は、各点で <var>X</var> の向きに進んだときの <var>h</var> の変化率だ。たとえば平面で <var>X</var> を「右へ進む向き」、<var>h</var> を横座標 <var>x</var> とすれば <span class="math">X(h)=1</span>。平面なら <var>Y</var> を方向 <var>X</var> に沿って微分するのは、少し動いたときベクトルがどう変わるかを見ること。曲面では変化に面の外向き成分も混ざるので、面に沿う成分を取り出す。一般の空間でも長さ・角度を正しく保つ同様の微分操作を<strong>接続</strong>と呼び、<span class="math">∇<sub>X</sub>Y</span> と書く。内積を保つ条件は <span class="math">X(g(Y,Z))=g(∇<sub>X</sub>Y,Z)+g(Y,∇<sub>X</sub>Z)</span>。さらに「ねじれがない」とは、二方向 <span class="math">X,Y</span> の順を入れ替えた差が、その二方向自体の順序の差 <span class="math">[X,Y]</span> と一致すること、つまり <span class="math">∇<sub>X</sub>Y−∇<sub>Y</sub>X=[X,Y]</span> をいう。この二条件を満たす接続はただ一つで、Levi-Civita接続と呼ぶ。</p>
+<p class="eyebrow">5 / 図から定義へ</p>
+<h2>断面曲率の和を、trace<span class="japanese-european-space" aria-hidden="true"></span>として定義する</h2>
+<p>ここから出てくる言葉は、同じ話の別々の段階にある。図の「一枚の平面」を、空間中でどう比べるかが次の定義の道順だ。</p>
+<figure class="concept-figure">
+<div class="diagram-grid">
+<div class="diagram-panel"><h3>① 二方向が平面を張る</h3>
+<svg viewBox="0 0 300 155" role="img" aria-labelledby="planeTitle planeDesc"><title id="planeTitle">接空間内の二次元平面</title><desc id="planeDesc">接空間の点pから出る直交単位ベクトルu,wが平面σを張り、その平面の断面曲率Kを調べる。</desc>
+<polygon points="42,120 147,120 210,45 105,45" fill="#dcebf3" stroke="#246891" stroke-width="2"/><circle cx="105" cy="120" r="4" fill="#243447"/><path d="M105 120 L183 120" stroke="#246891" stroke-width="4"/><path d="M105 120 L105 63" stroke="#ad681d" stroke-width="4"/>
+<g fill="#243447" font-family="system-ui,sans-serif" font-size="15"><text x="188" y="126">u</text><text x="109" y="59">w</text><text x="91" y="142">p</text><text x="225" y="70">σ</text></g></svg>
+<p class="small">この平面の曲がりを一つの数 <span class="math">K(σ)</span> で記録。</p></div>
+<div class="diagram-panel"><h3>② 曲率は微分の順番を比べる</h3>
+<svg viewBox="0 0 300 155" role="img" aria-labelledby="loopTitle loopDesc"><title id="loopTitle">小さなループで見る曲率</title><desc id="loopDesc">X方向、Y方向の順に少し進む場合と逆順の場合を比べ、ベクトルZの変化の差を曲率テンソルが記録する。</desc>
+<path d="M72 115 L72 53 L169 53 L169 115 Z" fill="#f4f7fa" stroke="#526273" stroke-width="2"/><path d="M79 108 L79 61 L160 61" fill="none" stroke="#246891" stroke-width="3"/><path d="M151 55 L160 61 L151 67" fill="none" stroke="#246891" stroke-width="3"/><path d="M92 102 L142 102" stroke="#ad681d" stroke-width="4"/><path d="M142 102 L135 96 M142 102 L135 108" stroke="#ad681d" stroke-width="3"/>
+<g fill="#243447" font-family="system-ui,sans-serif" font-size="14"><text x="41" y="83">Y</text><text x="111" y="43">X</text><text x="102" y="130">Zを運ぶ</text><text x="185" y="90">R(X,Y)Z</text></g></svg>
+<p class="small">二方向に沿う微分の順序を入れ替えた差が、曲率テンソル <span class="math">R</span>。</p></div>
+<div class="diagram-panel"><h3>③ 横方向ごとの平面を足す</h3>
+<svg viewBox="0 0 300 155" role="img" aria-labelledby="traceTitle traceDesc"><title id="traceTitle">Ricci曲率は横方向ごとの断面曲率の和</title><desc id="traceDesc">方向vに直交する単位方向e1,e2,...を選び、vと各e_iの張るn−1枚の平面の断面曲率を合計する。</desc>
+<circle cx="65" cy="85" r="4" fill="#243447"/><path d="M65 85 L65 25" stroke="#243447" stroke-width="4"/><path d="M65 85 L118 119" stroke="#246891" stroke-width="3"/><path d="M65 85 L20 119" stroke="#ad681d" stroke-width="3"/>
+<g fill="#243447" font-family="system-ui,sans-serif" font-size="14"><text x="71" y="30">v</text><text x="118" y="132">e₁</text><text x="8" y="132">e₂</text><text x="148" y="62">Ric(v,v)</text><text x="148" y="88">= K(v,e₁)</text><text x="166" y="112">+ K(v,e₂) + ⋯</text></g></svg>
+<p class="small">これが直交する各横方向と <var>v</var> が張る平面の断面曲率の<span class="japanese-european-space" aria-hidden="true"></span>trace、すなわち<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率。</p></div>
+</div><figcaption>平面を一枚選ぶ → その曲率を測る → 直交する横方向と進行方向 <var>v</var> が張る <span class="math">n−1</span> 枚を足す。この「一枚から<span class="japanese-european-space" aria-hidden="true"></span>trace<span class="japanese-european-space" aria-hidden="true"></span>へ」が定義の骨組み。</figcaption>
+</figure>
+<p>ここからは、言葉の直観を正確な定義にする。<strong>Riemann<span class="japanese-european-space" aria-hidden="true"></span>多様体</strong>とは、各点の近くを <var>n</var> 個の実数で表せる滑らかな空間に、各点で長さと角度を測る内積 <var>g</var> を滑らかに指定したもの。点 <var>p</var> で可能な進行方向を集めたベクトル空間を接空間と呼び、内積はその中のベクトルの長さ <span class="math">|X|=√g(X,X)</span> と直交を決める。</p>
+<p>ベクトル場 <var>Y,Z</var> は、空間の各点にベクトルをひとつずつ置いたもの。方向場 <var>X</var> を関数 <var>h</var> に作用させた <span class="math">X(h)</span> は、各点で <var>X</var> の向きに進んだときの <var>h</var> の変化率だ。たとえば平面で <var>X</var> を「右へ進む向き」、<var>h</var> を横座標 <var>x</var> とすれば <span class="math">X(h)=1</span>。平面なら <var>Y</var> を方向 <var>X</var> に沿って微分するのは、少し動いたときベクトルがどう変わるかを見ること。曲面では変化に面の外向き成分も混ざるので、面に沿う成分を取り出す。一般の空間でも長さ・角度を正しく保つ同様の微分操作を<strong>接続</strong>と呼び、<span class="math">∇<sub>X</sub>Y</span> と書く。内積を保つ条件は <span class="math">X(g(Y,Z))=g(∇<sub>X</sub>Y,Z)+g(Y,∇<sub>X</sub>Z)</span>。さらに「ねじれがない」とは、二方向 <span class="math">X,Y</span> の順を入れ替えた差が、その二方向自体の順序の差 <span class="math">[X,Y]</span> と一致すること、つまり <span class="math">∇<sub>X</sub>Y−∇<sub>Y</sub>X=[X,Y]</span> をいう。この二条件を満たす接続はただ一つで、Levi-Civita<span class="japanese-european-space" aria-hidden="true"></span>接続と呼ぶ。</p>
 <p>曲率テンソルは、二つの方向 <var>X,Y</var> に沿って微分する順番を入れ替えたとき、ベクトル <var>Z</var> がどれだけ違うかを測る。ただし動く方向自体も変化するので、その分を補正する必要があり、それが最後の <span class="math">∇<sub>[X,Y]</sub>Z</span> の項だ。座標の直交軸に沿う移動なら <span class="math">[X,Y]=0</span> となる。以下では、球面の曲率が正になる符号規約を使う。</p>
 <div class="display-math math">R(X,Y)Z = ∇<sub>X</sub>∇<sub>Y</sub>Z − ∇<sub>Y</sub>∇<sub>X</sub>Z − ∇<sub>[X,Y]</sub>Z</div>
 <p>方向の順序の差 <span class="math">[X,Y]</span> は、関数 <var>h</var> に対して <span class="math">[X,Y](h)=X(Y(h))−Y(X(h))</span> と計算する。つまり先に <var>Y</var> 向き、次に <var>X</var> 向きへ変化を見る順と、逆順との差だ。たとえば平面で <var>X</var> を右向き、<var>Y</var> を「横座標 <var>x</var> に比例して北向き」とすると、右へ動くほど <var>Y</var> が北へ変わるため <span class="math">[X,Y]</span> は北向きになる。同じ座標系の座標方向を表すベクトル場どうしなら <span class="math">[X,Y]=0</span> になる。曲率テンソルの最後の項を引くことで、方向場そのものの変化を差し引く。曲率テンソルは、極小のループに沿って平行移動したベクトルが、出発点に戻ったときどれだけ回転しているかも記録する。</p>
@@ -195,198 +176,108 @@
 <p>点 <var>p</var> の接空間内の二次元平面 <var>σ</var> を、直交する単位ベクトル <var>u,w</var> が張るとする。断面曲率を</p>
 <p class="display-math math">K(σ) = K(u,w) = g(R(u,w)w,u)</p>
 <p>と定める。一般の一次独立な <var>u,w</var> では、右辺を <span class="math">g(u,u)g(w,w)−g(u,w)²</span> で割る。この分母は二つのベクトルが張る平行四辺形の面積の二乗。定義は選んだ基底ではなく、平面 <var>σ</var> のみによる。</p></div>
-<div class="definition"><div class="definition-title">Ricci曲率（Ricciテンソル）</div>
+<div class="definition"><div class="definition-title">Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率（Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソル）</div>
 <p>点 <var>p</var> の接空間の正規直交基底を <span class="math">e₁,…,eₙ</span> とする。ベクトル <var>X,Y</var> に対し、</p>
 <p class="display-math math">Ric(X,Y) = Σ<sub>i=1</sub><sup>n</sup> g(R(eᵢ,X)Y,eᵢ)</p>
-<p>で定める。これがRicciテンソル。特に単位ベクトル <var>v</var> については <span class="math">e₁=v</span> と選べる。曲率テンソルには入力と出力を入れ替える対称性があり、<span class="math">g(R(eᵢ,v)v,eᵢ)=g(R(v,eᵢ)eᵢ,v)</span> となる。この右辺が、断面曲率の定義そのものだ。したがって、</p>
+<p>で定める。これが<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソル。特に単位ベクトル <var>v</var> については <span class="math">e₁=v</span> と選べる。曲率テンソルには入力と出力を入れ替える対称性があり、<span class="math">g(R(eᵢ,v)v,eᵢ)=g(R(v,eᵢ)eᵢ,v)</span> となる。この右辺が、断面曲率の定義そのものだ。したがって、</p>
 <p class="display-math math">Ric(v,v) = Σ<sub>i=2</sub><sup>n</sup> K(v,eᵢ)</p>
 <p>となる。曲率テンソルの最初の二つの入力が同じだと値はゼロなので、進行方向自身の項はゼロ。残るのは、垂直な方向との組が作るすべての平面だ。</p></div>
-<p>なぜ基底を選び直しても答えが変わらないのか。行列のtrace（対角成分の和）は、正規直交基底を取り替えても変わらない。Ricciテンソルは「曲率作用素をtraceしたもの」なので、横方向をどの直交基底で並べても同じ値になる。二次元行列でいえば、trace は <span class="math">a+d</span>。これが、たくさんの断面曲率を一つの方向ごとの数にまとめられる理由だ。</p>
+<p>なぜ基底を選び直しても答えが変わらないのか。行列の<span class="japanese-european-space" aria-hidden="true"></span>trace（対角成分の和）は、正規直交基底を取り替えても変わらない。Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソルは「曲率作用素を<span class="japanese-european-space" aria-hidden="true"></span>trace<span class="japanese-european-space" aria-hidden="true"></span>したもの」なので、横方向をどの直交基底で並べても同じ値になる。二次元行列でいえば、trace は <span class="math">a+d</span>。これが、たくさんの断面曲率を一つの方向ごとの数にまとめられる理由だ。</p>
 <h3>球面で符号を確かめる</h3>
 <p>半径 <var>a</var> の標準球面では、どの二次元接平面も同じ曲率 <span class="math">K=1/a²</span> を持つ。したがって <var>n</var> 次元球面では</p>
 <div class="display-math math">Ric(v,v) = (n−1)/a²　（|v|=1）</div>
-<p>三次元の半径2の球なら、断面曲率はどれも <span class="math">1/4</span>。横方向は二つあるので、Ricci曲率は <span class="math">1/4+1/4=1/2</span>。球面で正になるように符号を固定した。</p>
-<details><summary>traceの形をもう少し線形代数らしく書く</summary>
-<p><var>X</var> を固定して線形写像 <span class="math">A_X:Z↦R(Z,X)X</span> を考えると、単位ベクトル <var>X</var> に対し <span class="math">Ric(X,X)=tr(A_X)</span>。正規直交基底でtraceを計算すると、ちょうど断面曲率の和になる。任意の <var>X,Y</var> に拡張した対称双線形形式が上で定義したRicciテンソルだ。</p>
+<p>三次元の半径<span class="japanese-european-space" aria-hidden="true"></span>2<span class="japanese-european-space" aria-hidden="true"></span>の球なら、断面曲率はどれも <span class="math">1/4</span>。横方向は二つあるので、Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は <span class="math">1/4+1/4=1/2</span>。球面で正になるように符号を固定した。</p>
+<details><summary>trace<span class="japanese-european-space" aria-hidden="true"></span>の形をもう少し線形代数らしく書く</summary>
+<p><var>X</var> を固定して線形写像 <span class="math">A_X:Z↦R(Z,X)X</span> を考えると、単位ベクトル <var>X</var> に対し <span class="math">Ric(X,X)=tr(A_X)</span>。正規直交基底で<span class="japanese-european-space" aria-hidden="true"></span>trace<span class="japanese-european-space" aria-hidden="true"></span>を計算すると、ちょうど断面曲率の和になる。任意の <var>X,Y</var> に拡張した対称双線形形式が上で定義した<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソルだ。</p>
 </details>
 </section>
 
 <section id="meaning">
 <p class="eyebrow">6 / なぜ「横向きの和」なのか</p>
 <h2>測地線の束が作る体積に、足し算が現れる</h2>
-<p>点 <var>p</var> から、同じ速さで少しずつ違う方向へ測地線を出す。測地線とは、曲面上で局所的に最短を進む道を一般化したもの。基準となる一本に隣り合う道がどれだけ離れるかは、Jacobi場というベクトル場で表せる。</p>
-<p>基準の単位速度測地線を <var>γ(r)</var>、その横に動かすJacobi場を <var>J(r)</var> とすると、</p>
+<p>点 <var>p</var> から、同じ速さで少しずつ違う方向へ測地線を出す。測地線とは、曲面上で局所的に最短を進む道を一般化したもの。基準となる一本に隣り合う道がどれだけ離れるかは、Jacobi<span class="japanese-european-space" aria-hidden="true"></span>場というベクトル場で表せる。</p>
+<p>基準の単位速度測地線を <var>γ(r)</var>、その横に動かす<span class="japanese-european-space" aria-hidden="true"></span>Jacobi<span class="japanese-european-space" aria-hidden="true"></span>場を <var>J(r)</var> とすると、</p>
 <div class="display-math math">D<sub>r</sub>²J + R(J,γ′)γ′ = 0,　J(0)=0</div>
 <p><span class="math">D<sub>r</sub></span> は測地線に沿った共変微分。初期の広がり方 <span class="math">D<sub>r</sub>J(0)</span> を指定すると、曲率がその後の広がりを決める。平面なら近くの測地線は広がり続ける。正の断面曲率では、同じ初期角度幅から出た測地線どうしの距離は、平面の場合と比べて伸びにくい。負の断面曲率なら、平面の場合より速く広がる。正の曲率でも、距離そのものがすぐ縮むという意味ではない。</p>
-<p>係数 <span class="math">1/6</span> がどこから来るか、まず曲面で一本の横向きのずれを追おう。基準の測地線の初めの向きを少しずつ変え、どの道も同じ距離 <var>r</var> だけ進んだ地点を見る。<var>r</var> が十分小さければ、端点の集まりは始点 <var>p</var> からの距離が一定な小さな測地線円になる。向きの変化で端点が動く方向はこの円の接線方向。一方、基準の道の進行方向 <span class="math">γ′(r)</span> は円の半径方向だ。測地線円の接線が半径方向と直交するのはGaussの補題と呼ばれる事実だ。単位ベクトル <span class="math">γ′(r)</span> に対し、点で向き <var>V</var> に動いたときの距離の変化率は内積 <span class="math">g(V,γ′(r))</span>、つまり動きの半径方向成分になる。円に沿う移動では距離が変わらないので、この成分は0。だから端点の一次の動きを表すJacobi場 <var>J(r)</var> は <span class="math">γ′(r)</span> に垂直だ。曲面の接平面で進行方向に垂直な方向は一つだけだ。</p>
-<p>この垂直方向を表す単位ベクトルを <var>E(r)</var> とし、測地線に沿って向きを保つよう平行に運ぶ。すると <span class="math">J(r)=j(r)E(r)</span> と書ける。<var>j(r)</var> は、初めの向きの変化を1にそろえたときの、符号付きのずれの大きさだ。曲率作用素 <span class="math">R(E,γ′)γ′</span> はこの垂直方向を向き、その係数 <span class="math">g(R(E,γ′)γ′,E)=K(r)</span> はこの接平面の断面曲率、すなわち曲面のGaussian曲率だ。測地線に沿ってこの向きを保つ座標で見ると、Jacobi方程式は <span class="math">j''(r)+K(r)j(r)=0</span> という普通の微分方程式になる。</p>
-<p>始点で測地線が出会うので <span class="math">j(0)=0</span>、初めの広がり方を1にそろえて <span class="math">j'(0)=1</span> とする。式に代入すると <span class="math">j''(0)=0</span>。両辺をもう一度微分すると <span class="math">j'''(r)+K'(r)j(r)+K(r)j'(r)=0</span> となる。これは積の変化率が <span class="math">(Kj)'=K'j+Kj'</span> だからだ。<var>r=0</var> では <span class="math">j(0)=0</span>、<span class="math">j'(0)=1</span> なので、<span class="math">j'''(0)=−K(0)</span>。一回微分は変化率、二回目はその変化率がどう変わるか、三回目はその変化がどう変わるかを表す。</p>
-<p>滑らかな曲線は、点の近くでは値・傾き・曲がり方を合わせた三次式で近似できる。この近似をTaylor展開という。三次式 <span class="math">a₀+a₁r+a₂r²+a₃r³</span> では、原点の値が <span class="math">a₀</span>、傾きが <span class="math">a₁</span>、二回目の変化率が <span class="math">2a₂</span>、三回目の変化率が <span class="math">6a₃</span>。したがって近くの曲線は <span class="math">j(0)+j'(0)r+j''(0)r²/2+j'''(0)r³/6</span> と近似できる。たとえば <span class="math">5r³</span> を三回微分すると <span class="math">5×3×2×1=30</span> になるので、元の係数は <span class="math">30/6=5</span> と戻せる。</p>
+<p>係数 <span class="math">1/6</span> がどこから来るか、まず曲面で一本の横向きのずれを追おう。基準の測地線の初めの向きを少しずつ変え、どの道も同じ距離 <var>r</var> だけ進んだ地点を見る。<var>r</var> が十分小さければ、端点の集まりは始点 <var>p</var> からの距離が一定な小さな測地線円になる。向きの変化で端点が動く方向はこの円の接線方向。一方、基準の道の進行方向 <span class="math">γ′(r)</span> は円の半径方向だ。測地線円の接線が半径方向と直交するのは<span class="japanese-european-space" aria-hidden="true"></span>Gauss<span class="japanese-european-space" aria-hidden="true"></span>の補題と呼ばれる事実だ。単位ベクトル <span class="math">γ′(r)</span> に対し、点で向き <var>V</var> に動いたときの距離の変化率は内積 <span class="math">g(V,γ′(r))</span>、つまり動きの半径方向成分になる。円に沿う移動では距離が変わらないので、この成分は<span class="japanese-european-space" aria-hidden="true"></span>0。だから端点の一次の動きを表す<span class="japanese-european-space" aria-hidden="true"></span>Jacobi<span class="japanese-european-space" aria-hidden="true"></span>場 <var>J(r)</var> は <span class="math">γ′(r)</span> に垂直だ。曲面の接平面で進行方向に垂直な方向は一つだけだ。</p>
+<p>この垂直方向を表す単位ベクトルを <var>E(r)</var> とし、測地線に沿って向きを保つよう平行に運ぶ。すると <span class="math">J(r)=j(r)E(r)</span> と書ける。<var>j(r)</var> は、初めの向きの変化を<span class="japanese-european-space" aria-hidden="true"></span>1<span class="japanese-european-space" aria-hidden="true"></span>にそろえたときの、符号付きのずれの大きさだ。曲率作用素 <span class="math">R(E,γ′)γ′</span> はこの垂直方向を向き、その係数 <span class="math">g(R(E,γ′)γ′,E)=K(r)</span> はこの接平面の断面曲率、すなわち曲面の<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率だ。測地線に沿ってこの向きを保つ座標で見ると、Jacobi<span class="japanese-european-space" aria-hidden="true"></span>方程式は <span class="math">j''(r)+K(r)j(r)=0</span> という普通の微分方程式になる。</p>
+<p>始点で測地線が出会うので <span class="math">j(0)=0</span>、初めの広がり方を<span class="japanese-european-space" aria-hidden="true"></span>1<span class="japanese-european-space" aria-hidden="true"></span>にそろえて <span class="math">j'(0)=1</span> とする。式に代入すると <span class="math">j''(0)=0</span>。両辺をもう一度微分すると <span class="math">j'''(r)+K'(r)j(r)+K(r)j'(r)=0</span> となる。これは積の変化率が <span class="math">(Kj)'=K'j+Kj'</span> だからだ。<var>r=0</var> では <span class="math">j(0)=0</span>、<span class="math">j'(0)=1</span> なので、<span class="math">j'''(0)=−K(0)</span>。一回微分は変化率、二回目はその変化率がどう変わるか、三回目はその変化がどう変わるかを表す。</p>
+<p>滑らかな曲線は、点の近くでは値・傾き・曲がり方を合わせた三次式で近似できる。この近似を<span class="japanese-european-space" aria-hidden="true"></span>Taylor<span class="japanese-european-space" aria-hidden="true"></span>展開という。三次式 <span class="math">a₀+a₁r+a₂r²+a₃r³</span> では、原点の値が <span class="math">a₀</span>、傾きが <span class="math">a₁</span>、二回目の変化率が <span class="math">2a₂</span>、三回目の変化率が <span class="math">6a₃</span>。したがって近くの曲線は <span class="math">j(0)+j'(0)r+j''(0)r²/2+j'''(0)r³/6</span> と近似できる。たとえば <span class="math">5r³</span> を三回微分すると <span class="math">5×3×2×1=30</span> になるので、元の係数は <span class="math">30/6=5</span> と戻せる。</p>
 <p>先ほどの値を代入すると <span class="math">j(r)=r−K(0)r³/6+O(r⁴)</span>。<span class="math">O(r⁴)</span> は残りの誤差が定数倍の <var>r⁴</var> 以下という意味だ。したがって平面の広がり <var>r</var> と比べると <span class="math">j(r)/r=1−K(0)r²/6+O(r³)</span> となる。この計算が高次元では各横方向に対応し、体積ではそれらの補正を掛け合わせる。</p>
-<p>高次元では横方向が一つでなく、Jacobi場も行列で束ねる。小さな横断面の体積はその行列の行列式で決まる。横方向の曲率作用素は対称なので、始点 <var>p</var> で直交基底を選んで対角化できる。その固有方向 <var>e₁,…,eₙ₋₁</var> を測地線に沿って平行移動する。この基底で、各方向の二次の長さ補正は <span class="math">−Kᵢr²/6</span>。ここで <span class="math">Kᵢ=K(v,eᵢ)</span> は、始点でその軸と進行方向 <var>v</var> が張る平面の断面曲率だ。途中では曲率作用素はこの基底で対角とは限らないが、直前のTaylor計算と同じく、二次の補正を決めるのは始点の作用素だけだ。したがって体積比の二次項は積 <span class="math">(1−K₁r²/6)(1−K₂r²/6)⋯</span> から <span class="math">−(K₁+⋯+Kₙ₋₁)r²/6</span> となる。断面曲率の和 <span class="math">K₁+⋯+Kₙ₋₁</span> が曲率作用素のtraceであり、定義した <span class="math">Ric(v,v)</span> に等しい。だからRicciは、一本の測地線に垂直な方向へ広がる束の<strong>体積の最初の曲率補正</strong>を支配する。</p>
-<p>体積を比べるため、単位方向 <var>v</var> のまわりにあるごく小さな方向の広がりを考える。その幅をゼロに近づけたとき、距離 <var>r</var> の横断面体積を「単位方向幅あたり」で見る。この体積密度を、平面で同じ距離にできる密度 <span class="math">r<sup>n−1</sup></span> と比べたものが、次の体積密度比だ。有限の幅を持つ束なら各方向のRicci曲率を平均することになるが、ここでは中心方向 <var>v</var> の値を見ている。</p>
+<p>高次元では横方向が一つでなく、Jacobi<span class="japanese-european-space" aria-hidden="true"></span>場も行列で束ねる。小さな横断面の体積はその行列の行列式で決まる。横方向の曲率作用素は対称なので、始点 <var>p</var> で直交基底を選んで対角化できる。その固有方向 <var>e₁,…,eₙ₋₁</var> を測地線に沿って平行移動する。この基底で、各方向の二次の長さ補正は <span class="math">−Kᵢr²/6</span>。ここで <span class="math">Kᵢ=K(v,eᵢ)</span> は、始点でその軸と進行方向 <var>v</var> が張る平面の断面曲率だ。途中では曲率作用素はこの基底で対角とは限らないが、直前の<span class="japanese-european-space" aria-hidden="true"></span>Taylor<span class="japanese-european-space" aria-hidden="true"></span>計算と同じく、二次の補正を決めるのは始点の作用素だけだ。したがって体積比の二次項は積 <span class="math">(1−K₁r²/6)(1−K₂r²/6)⋯</span> から <span class="math">−(K₁+⋯+Kₙ₋₁)r²/6</span> となる。断面曲率の和 <span class="math">K₁+⋯+Kₙ₋₁</span> が曲率作用素の<span class="japanese-european-space" aria-hidden="true"></span>trace<span class="japanese-european-space" aria-hidden="true"></span>であり、定義した <span class="math">Ric(v,v)</span> に等しい。だから<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>は、一本の測地線に垂直な方向へ広がる束の<strong>体積の最初の曲率補正</strong>を支配する。</p>
+<p>体積を比べるため、単位方向 <var>v</var> のまわりにあるごく小さな方向の広がりを考える。その幅をゼロに近づけたとき、距離 <var>r</var> の横断面体積を「単位方向幅あたり」で見る。この体積密度を、平面で同じ距離にできる密度 <span class="math">r<sup>n−1</sup></span> と比べたものが、次の体積密度比だ。有限の幅を持つ束なら各方向の<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率を平均することになるが、ここでは中心方向 <var>v</var> の値を見ている。</p>
 <div class="display-math math">体積密度比 = 1 − Ric(v,v) r²/6 + O(r³)　（r→0）</div>
-<p>これは点 <var>p</var> から単位方向 <var>v</var> に距離 <var>r</var> だけ進む測地線極座標の局所展開。一般に <span class="math">O(rᵐ)</span> は「<var>r</var> が十分小さい範囲で、その項の絶対値は定数倍の <var>rᵐ</var> 以下」という意味だ。原点近くの二次の変化を示す式であり、Ricci曲率一点の値から有限距離の体積を完全に決めるという主張ではない。選んだ方向で <span class="math">Ric(v,v)>0</span> なら、同じ小さな距離での束の体積は平坦な場合より小さくなり始める。</p>
-<div class="note"><strong>最初の問いへの答え：</strong>Ricci曲率は、選んだ進行方向に垂直な全方向の断面曲率を足し合わせる。その合計は、近くの測地線が作る横断面の体積が、平坦な場合に比べてどう変わり始めるかを表す。</div>
-<p class="small">さらに進むなら、第二変分からBonnet–Myersの定理へ、または測地線の束から最適輸送とCD条件へ進める。このページでは定義までの準備と、定義が選ばれる理由に範囲を絞った。</p>
+<p>これは点 <var>p</var> から単位方向 <var>v</var> に距離 <var>r</var> だけ進む測地線極座標の局所展開。一般に <span class="math">O(rᵐ)</span> は「<var>r</var> が十分小さい範囲で、その項の絶対値は定数倍の <var>rᵐ</var> 以下」という意味だ。原点近くの二次の変化を示す式であり、Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率一点の値から有限距離の体積を完全に決めるという主張ではない。選んだ方向で <span class="math">Ric(v,v)>0</span> なら、同じ小さな距離での束の体積は平坦な場合より小さくなり始める。</p>
+<div class="note"><strong>最初の問いへの答え：</strong>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は、選んだ進行方向に垂直な全方向の断面曲率を足し合わせる。その合計は、近くの測地線が作る横断面の体積が、平坦な場合に比べてどう変わり始めるかを表す。</div>
+</section>
+
+<section id="lower-bound">
+<p class="eyebrow">7 / 点ごとの曲率から一様な条件へ</p>
+<h2>「Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率を下から抑える」は、どんな場所・方向でも床を割らないこと</h2>
+<p>点 <var>p</var> と単位進行方向 <var>v</var> を変えても、Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率がある一定値 <var>K₀</var> より小さくならない。これを <strong>Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率の下界</strong> と呼び、式で <span class="math">Ric<sub>p</sub>(v,v) ≥ K₀</span> と書く。大きさの違う方向にも同じことを言うなら、</p>
+<div class="display-math math">Ric<sub>p</sub>(X,X) ≥ K₀ |X|²　（すべての点 p と接ベクトル X）</div>
+<p>となる。つまり「一つの場所で正」ではなく、空間じゅうの全方向で守る<strong>最低ライン</strong>だ。二次元球面では半径 <var>a</var> に対し <span class="math">Ric(v,v)=1/a²</span> なので、<span class="math">K₀≤1/a²</span> が下界になる。平面や円柱は <span class="math">Ric=0</span>。鞍の中央で <span class="math">Ric=-1</span> なら、その点を含む空間全体の下界は <span class="math">K₀>-1</span> にはできない。</p>
+<div class="equation-card"><strong>「すべての断面曲率が下界以上」とは別の条件：</strong>
+<p>もし <em>どの</em> 二次元平面の断面曲率も <span class="math">κ</span> 以上なら、<span class="math">n−1</span> 個を足して <span class="math">Ric≥(n−1)κg</span> が従う。逆は一般に成り立たない。Ricci<span class="japanese-european-space" aria-hidden="true"></span>は足し算なので、一部に負の断面があっても、残りの正の断面が補えば<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>は正になりうる。三次元のつまみで <span class="math">−2+3=1</span> を試すと、その違いが見える。</p></div>
+<p>だから比較幾何で<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>の下界を置くとき、調べているのは一点の曲面の見た目ではない。点を動かし、そこから出る進行方向も動かしたとき、測地線の束や球の体積がどこまで膨らめるかに共通の制限がかかる。</p>
+</section>
+
+<section id="cd">
+<p class="eyebrow">8 / 距離と測度だけの言葉へ</p>
+<h2>CD<span class="japanese-european-space" aria-hidden="true"></span>条件は、測地線に沿う「確率の雲」の広がりで<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界を言い換える</h2>
+<p>ここまでの話では、一点から出る測地線の束を見た。次は視点を変え、空間上に広がった確率分布を別の分布へ運ぶ。<var>μ₀</var> と <var>μ₁</var> は、空間上の二つの確率の雲。最適輸送は、全体として運ぶ距離の二乗を最小にするように、出発点と到着点を組み合わせて質量を移す。</p>
+<p>その最小の平均二乗距離の平方根を <span class="math">W₂</span> と書く。組み合わせ（coupling）<var>π</var> は「どこから来た質量をどこへ送るか」の対応表で、</p>
+<div class="display-math math">W₂²(μ₀,μ₁) = inf<sub>π</sub> ∫ d(x,y)² dπ(x,y)</div>
+<p>がその定義。送られた点をそれぞれ最短測地線の上で一定速度に動かすと、途中の分布 <var>μ<sub>t</sub></var>（<span class="math">0≤t≤1</span>）ができる。この経路を確率分布の空間における測地線、または<span class="japanese-european-space" aria-hidden="true"></span>displacement interpolation<span class="japanese-european-space" aria-hidden="true"></span>と呼ぶ。</p>
+<div class="cd-layout">
+<figure class="concept-figure">
+<svg viewBox="0 0 520 220" role="img" aria-labelledby="transportTitle transportDesc">
+<title id="transportTitle">最適輸送で確率の雲を測地線に沿って動かす</title>
+<desc id="transportDesc">左の初期分布μ0の質量を、曲がった空間上の最短測地線に沿って移し、途中分布μtを経て右の分布μ1に運ぶ模式図。矢印は点ごとの移動、雲は確率密度を表す。</desc>
+<path d="M40 176 Q260 135 480 176" fill="none" stroke="#8395a3" stroke-width="2"/>
+<path d="M100 100 Q220 25 350 85" fill="none" stroke="#246891" stroke-width="2" stroke-dasharray="6 5"/><path d="M108 115 Q240 65 404 110" fill="none" stroke="#ad681d" stroke-width="2" stroke-dasharray="6 5"/>
+<path d="M124 102 L206 73" stroke="#246891" stroke-width="2"/><path d="M214 76 L282 80" stroke="#246891" stroke-width="2"/><path d="M283 98 L386 117" stroke="#ad681d" stroke-width="2"/>
+<g fill="#86b5ce" fill-opacity=".65" stroke="#246891" stroke-width="1.5"><ellipse cx="105" cy="132" rx="52" ry="23"/><ellipse cx="260" cy="112" rx="45" ry="20"/><ellipse cx="415" cy="137" rx="54" ry="24"/></g>
+<g fill="#243447" font-family="system-ui,sans-serif" text-anchor="middle" font-size="17"><text x="105" y="202">μ₀</text><text x="260" y="202">μₜ</text><text x="415" y="202">μ₁</text><text x="260" y="25" font-size="14">質量を最短測地線に沿って移動</text></g>
+</svg>
+<figcaption>「一点からの光線の束」から「確率分布全体の移動」へ視点を広げる。雲と軌跡は仕組みを示す図で、実際の最適輸送を数値計算したものではない。</figcaption>
+</figure>
+<div>
+<div class="bound-readout"><strong>相対エントロピー</strong>
+<p>分布 <span class="math">μ=ρm</span> が基準測度 <var>m</var> に対してどれだけ集中しているかを見る量を <span class="math">Ent<sub>m</sub>(μ)=∫ρ logρ dm</span> とする。<span class="math">ρ</span> は密度、つまり単位測度あたりにどれだけ確率が集まるか。</p></div>
+<div class="control"><label for="entropyK">Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界 K₀ <output id="entropyKOut">0.0</output></label><input id="entropyK" type="range" min="-2" max="2" step="0.1" value="0"></div>
+<p class="small" id="entropyKWords" aria-live="polite">K₀=0<span class="japanese-european-space" aria-hidden="true"></span>では、エントロピーの上限は端点を結ぶ直線。</p>
+</div>
+</div>
+<p>ここで同値性の前提を明示する。<strong>完備で境界のない連結な</strong>滑らかな<span class="japanese-european-space" aria-hidden="true"></span>Riemann<span class="japanese-european-space" aria-hidden="true"></span>多様体 <span class="math">(M,g)</span> と通常の体積測度 <span class="math">m=vol<sub>g</sub></span> を考える。端点 <span class="math">μ₀=ρ₀m, μ₁=ρ₁m</span> は、台がコンパクトで相対エントロピーが有限な確率分布とする。Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界 <span class="math">Ric≥K₀g</span> は、こうした<strong>任意の端点対</strong>について、その一意な最適輸送の<span class="japanese-european-space" aria-hidden="true"></span>W₂<span class="japanese-european-space" aria-hidden="true"></span>測地線 <span class="math">μ<sub>t</sub></span> が各 <span class="math">t∈[0,1]</span> で次の不等式を満たすことと同値になる。これは <span class="math">CD(K₀,∞)</span> 条件のエントロピー版だ。</p>
+<div class="display-math math">Ent<sub>m</sub>(μ<sub>t</sub>) ≤ (1−t)Ent<sub>m</sub>(μ₀) + t Ent<sub>m</sub>(μ₁) − (K₀/2)t(1−t)W₂(μ₀,μ₁)²</div>
+<div class="lab">
+<div class="lab-head"><h3>動かしてみる：下界がエントロピーの上限をどう曲げるか</h3><small>端点エントロピーを<span class="japanese-european-space" aria-hidden="true"></span>0、W₂=1<span class="japanese-european-space" aria-hidden="true"></span>にそろえた模式図</small></div>
+<canvas id="entropyCanvas" role="img" aria-label="K0を変えたときのCD K0 infinityエントロピー上限の模式図。両端の相対エントロピーは0、W2は1に固定。"></canvas>
+<p class="small">青い曲線は不等式の右辺＝許される上限、破線は端点を結ぶ直線。正の <var>K₀</var> は上限を直線より下へ、負の <var>K₀</var> は上へ動かす。実際のエントロピーを計算したグラフではなく、条件の形だけを表示している。</p>
+</div>
+<p><span class="math">K₀&gt;0</span> ではエントロピーが直線補間よりも強く下がることを要求する。<span class="math">K₀&lt;0</span> では許される上限が直線より上がり、条件は緩やかになる。正の<span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界が測地線束の体積を抑えることが、確率の雲の集中・拡散に関する不等式として読み替えられている。</p>
+<div class="note"><strong>有限次元 <span class="math">CD(K₀,N)</span>：</strong><var>N</var> は整数に限らない「有効な次元の上限」。有限の <var>N</var> では、同じ式に <var>N</var> を入れるのではなく、Rényi<span class="japanese-european-space" aria-hidden="true"></span>エントロピーと距離に応じた補正係数を使う別の不等式を課す。完備な滑らかな重みなし <var>n</var> 次元<span class="japanese-european-space" aria-hidden="true"></span>Riemann<span class="japanese-european-space" aria-hidden="true"></span>多様体では、<span class="math">N≥n</span> と <span class="math">Ric≥K₀g</span> が <span class="math">CD(K₀,N)</span> に対応する。曲がった空間の極限が滑らかな多様体でなくなっても、距離と測度だけで同じ種類の下界を扱えるのが<span class="japanese-european-space" aria-hidden="true"></span>CD<span class="japanese-european-space" aria-hidden="true"></span>条件の強みだ。</div>
+<details><summary>有限<span class="japanese-european-space" aria-hidden="true"></span>N<span class="japanese-european-space" aria-hidden="true"></span>のエントロピーはどう違う？</summary>
+<p><span class="math">μ=ρm</span> のとき、有限 <var>N</var> では代表的に <span class="math">S<sub>N</sub>(μ)=−∫ρ<sup>1−1/N</sup>dm</span> という<span class="japanese-european-space" aria-hidden="true"></span>Rényi<span class="japanese-european-space" aria-hidden="true"></span>エントロピーを見る。CD(<var>K₀,N</var>) は、この量が輸送途中でどう変化するかを、<var>K₀</var> と距離 <span class="math">d(x,y)</span> に依存する補正係数つきで制御する。正確な定義では「ある最適輸送経路に沿って」不等式が成り立つことを要求する。表示したスライダーの式は <span class="math">CD(K₀,∞)</span> の分かりやすい形で、有限 <var>N</var> の定義そのものではない。</p>
+</details>
+<p class="small">ここで紹介した <span class="math">CD(K₀,N)</span> は、曲率下界と次元上界を距離・測度の言葉で表す<span class="japanese-european-space" aria-hidden="true"></span>synthetic<span class="japanese-european-space" aria-hidden="true"></span>な条件。Hilbert<span class="japanese-european-space" aria-hidden="true"></span>的なエネルギー条件を追加する <span class="math">RCD</span> までは扱わない。</p>
 </section>
 
 <section class="references" id="references">
 <h2>次に読むための本とノート</h2>
 <ul>
-<li>Manfredo P. do Carmo, <cite>Differential Geometry of Curves and Surfaces</cite>, 2nd ed., Dover. 曲線、曲面、主曲率、Gaussian曲率から始める本。<a href="https://books.google.com/books?id=gg2xDQAAQBAJ" target="_blank" rel="noopener noreferrer">書誌情報</a></li>
-<li>John M. Lee, <cite>Introduction to Riemannian Manifolds</cite>, 2nd ed., Springer. 接続、曲率テンソル、断面曲率、Ricci曲率へ進む本。<a href="https://link.springer.com/book/10.1007/978-3-319-91755-9" target="_blank" rel="noopener noreferrer">出版社のページ</a></li>
-<li>Danny Calegari, <cite>Notes on Riemannian Geometry</cite>, §5.2, Definition 5.4. Ricciテンソルをtraceとして定義する講義ノート。<a href="https://math.uchicago.edu/~dannyc/courses/riem_geo_2013/riem_geo_notes.pdf" target="_blank" rel="noopener noreferrer">PDF</a></li>
-<li>Sigmundur Gudmundsson (Lund University), <cite>An Introduction to Riemannian Geometry</cite>, version 1.235 (9 Dec 2004), Proposition 9.1 and Definition 9.2. 測地線の変分とJacobi方程式。PDFはPennのサイトで公開されている。<a href="https://www.cis.upenn.edu/~cis6100/Riemann.pdf" target="_blank" rel="noopener noreferrer">PDF</a></li>
+<li>Manfredo P. do Carmo, <cite>Differential Geometry of Curves and Surfaces</cite>, 2nd ed., Dover. 曲線、曲面、主曲率、Gaussian<span class="japanese-european-space" aria-hidden="true"></span>曲率から始める本。<a href="https://books.google.com/books?id=gg2xDQAAQBAJ" target="_blank" rel="noopener noreferrer">書誌情報</a></li>
+<li>John M. Lee, <cite>Introduction to Riemannian Manifolds</cite>, 2nd ed., Springer. 接続、曲率テンソル、断面曲率、Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率へ進む本。<a href="https://link.springer.com/book/10.1007/978-3-319-91755-9" target="_blank" rel="noopener noreferrer">出版社のページ</a></li>
+<li>Danny Calegari, <cite>Notes on Riemannian Geometry</cite>, §5.2, Definition 5.4. Ricci<span class="japanese-european-space" aria-hidden="true"></span>テンソルを<span class="japanese-european-space" aria-hidden="true"></span>trace<span class="japanese-european-space" aria-hidden="true"></span>として定義する講義ノート。<a href="https://math.uchicago.edu/~dannyc/courses/riem_geo_2013/riem_geo_notes.pdf" target="_blank" rel="noopener noreferrer">PDF</a></li>
+<li>Sigmundur Gudmundsson (Lund University), <cite>An Introduction to Riemannian Geometry</cite>, version 1.235 (9 Dec 2004), Proposition 9.1 and Definition 9.2. 測地線の変分と<span class="japanese-european-space" aria-hidden="true"></span>Jacobi<span class="japanese-european-space" aria-hidden="true"></span>方程式。PDF<span class="japanese-european-space" aria-hidden="true"></span>は<span class="japanese-european-space" aria-hidden="true"></span>Penn<span class="japanese-european-space" aria-hidden="true"></span>のサイトで公開されている。<a href="https://www.cis.upenn.edu/~cis6100/Riemann.pdf" target="_blank" rel="noopener noreferrer">PDF</a></li>
+<li>Shin-ichi Ohta, <cite>Ricci curvature, entropy and optimal transport</cite>, arXiv:1009.3431v1, §§3.2, 4.2, 5.1. Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界、entropy interpolation<span class="japanese-european-space" aria-hidden="true"></span>と<span class="japanese-european-space" aria-hidden="true"></span>CD(K,N)。<a href="https://arxiv.org/abs/1009.3431v1" target="_blank" rel="noopener noreferrer">arXiv v1</a></li>
+<li>John Lott and Cédric Villani, <cite>Ricci curvature for metric-measure spaces via optimal transport</cite>, arXiv:math/0412127v4, Theorems 0.12–0.13. 距離測度空間の下界と極限の安定性。<a href="https://arxiv.org/abs/math/0412127v4" target="_blank" rel="noopener noreferrer">arXiv v4</a></li>
 </ul>
 <p class="footer-note">表示する曲面は局所形状の数式モデルで、実測データや特定の惑星・物体を再現するものではない。実験は説明用の図であり、数値モデルだけで一般定理を証明するものではない。</p>
 </section>
 <p class="back-link"><a href="../../">← トップページへ戻る</a></p>
 </article></main>
-<footer class="site-footer"><div class="shell"><small>© 2026 Shigeaki Yokota · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
-<script>
-(function(){
-'use strict';
-const byId = id => document.getElementById(id);
-function fitCanvas(canvas, cssHeight) {
-  const rect=canvas.getBoundingClientRect(), dpr=Math.min(window.devicePixelRatio||1,2);
-  const w=Math.max(1,rect.width),h=Math.max(1,cssHeight||rect.height);
-  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
-  const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
-  return {c,w,h};
-}
-const radius=byId('radius'), curveCanvas=byId('curveCanvas');
-function drawCurve(){
-  const R=Number(radius.value),{c,w,h}=fitCanvas(curveCanvas);
-  byId('radiusOut').textContent=R.toFixed(1);
-  byId('curveValue').textContent='κ = '+(1/R).toFixed(2);
-  byId('curveWords').textContent='半径'+R.toFixed(1)+'の円。曲率は半径の逆数。';
-  c.clearRect(0,0,w,h);c.strokeStyle='#d6e0e8';c.lineWidth=1;
-  c.beginPath();c.moveTo(20,h*.72);c.lineTo(w-20,h*.72);c.stroke();
-  const scale=Math.min((w-54)/(2*3.2),(h-35)/6),cx=w/2,cy=h*.72;
-  c.beginPath();c.arc(cx,cy,R*scale,Math.PI,Math.PI*1.5);
-  c.strokeStyle='#246891';c.lineWidth=4;c.stroke();
-  c.fillStyle='#243447';c.beginPath();c.arc(cx,cy,3,0,Math.PI*2);c.fill();
-  c.fillStyle='#243447';c.font='14px system-ui,sans-serif';c.textAlign='left';
-  c.fillText('R = '+R.toFixed(1),cx+R*scale*.72,cy-R*scale*.72);
-  c.fillText('κ = 1/R = '+(1/R).toFixed(2),18,24);
-}
-radius.addEventListener('input',drawCurve);
 
-const kOne=byId('kOne'),kTwo=byId('kTwo'),surface=byId('surfaceCanvas');
-let angleX=-0.55,angleY=0.72,drag=null;
-function rotatePoint(x,y,z){
-  const cy=Math.cos(angleY),sy=Math.sin(angleY),cx=Math.cos(angleX),sx=Math.sin(angleX);
-  const x1=x*cy+z*sy,z1=-x*sy+z*cy;
-  return {x:x1,y:y*cx-z1*sx,z:y*sx+z1*cx};
-}
-function drawSurface(){
-  const a=Number(kOne.value),b=Number(kTwo.value),rect=surface.getBoundingClientRect();
-  const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.max(1,rect.width),h=Math.max(1,rect.height);
-  surface.width=Math.round(w*dpr);surface.height=Math.round(h*dpr);
-  const c=surface.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.clearRect(0,0,w,h);
-  const count=28,lo=-1.15,hi=1.15,verts=[];
-  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
-  for(let j=0;j<=count;j++){
-    verts[j]=[];
-    const y=lo+(hi-lo)*j/count;
-    for(let i=0;i<=count;i++){
-      const x=lo+(hi-lo)*i/count,z=.5*(a*x*x+b*y*y),q=rotatePoint(x,y,z);
-      verts[j][i]=q;minX=Math.min(minX,q.x);maxX=Math.max(maxX,q.x);minY=Math.min(minY,q.y);maxY=Math.max(maxY,q.y);
-    }
-  }
-  const spanX=Math.max(.01,maxX-minX),spanY=Math.max(.01,maxY-minY);
-  const scale=.78*Math.min((w-28)/spanX,(h-28)/spanY),cx=(minX+maxX)/2,cy=(minY+maxY)/2;
-  const project=p=>({x:w/2+(p.x-cx)*scale,y:h/2-(p.y-cy)*scale,z:p.z});
-  const light0=rotatePoint(-.4,.6,1),ln=Math.hypot(light0.x,light0.y,light0.z);
-  const light={x:light0.x/ln,y:light0.y/ln,z:light0.z/ln};
-  const positive=a*b>.02,negative=a*b<-.02;
-  const base=positive?[65,139,177]:negative?[205,139,67]:[113,151,137];
-  const faces=[];
-  function face(p,q,r){
-    const ux=q.x-p.x,uy=q.y-p.y,uz=q.z-p.z,vx=r.x-p.x,vy=r.y-p.y,vz=r.z-p.z;
-    let nx=uy*vz-uz*vy,ny=uz*vx-ux*vz,nz=ux*vy-uy*vx;
-    const norm=Math.hypot(nx,ny,nz)||1;nx/=norm;ny/=norm;nz/=norm;
-    const shade=.57+.43*Math.max(0,nx*light.x+ny*light.y+nz*light.z);
-    const P=project(p),Q=project(q),S=project(r);
-    faces.push({p:P,q:Q,r:S,depth:(p.z+q.z+r.z)/3,shade});
-  }
-  for(let j=0;j<count;j++)for(let i=0;i<count;i++){
-    const p=verts[j][i],q=verts[j][i+1],r=verts[j+1][i+1],s=verts[j+1][i];
-    face(p,q,r);face(p,r,s);
-  }
-  faces.sort((u,v)=>u.depth-v.depth);
-  for(const f of faces){
-    const color=base.map(v=>Math.round(v*f.shade));
-    c.beginPath();c.moveTo(f.p.x,f.p.y);c.lineTo(f.q.x,f.q.y);c.lineTo(f.r.x,f.r.y);c.closePath();
-    c.fillStyle='rgb('+color.join(',')+')';c.fill();
-  }
-  c.strokeStyle='rgba(26,52,69,.30)';c.lineWidth=.7;
-  for(let n=0;n<=count;n+=4){
-    c.beginPath();
-    for(let i=0;i<=count;i++){const p=project(verts[n][i]);if(i===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y);}
-    c.stroke();
-    c.beginPath();
-    for(let j=0;j<=count;j++){const p=project(verts[j][n]);if(j===0)c.moveTo(p.x,p.y);else c.lineTo(p.x,p.y);}
-    c.stroke();
-  }
-  const origin=project(rotatePoint(0,0,0));
-  c.fillStyle='#172c3b';c.beginPath();c.arc(origin.x,origin.y,4,0,2*Math.PI);c.fill();
-  c.fillStyle='#172c3b';c.font='13px system-ui,sans-serif';c.fillText('中央 p',origin.x+7,origin.y-7);
-  byId('kOneOut').textContent=a.toFixed(1);byId('kTwoOut').textContent=b.toFixed(1);
-  const K=a*b;
-  byId('gaussValue').textContent='K = '+(K>0?'+':'')+K.toFixed(2);
-  let description;
-  if(K>1e-8)description='二方向が同じ側へ曲がる、お椀型。';
-  else if(K< -1e-8)description='二方向が逆向きに曲がる、鞍型。';
-  else if(Math.abs(a)+Math.abs(b)<1e-8)description='二方向とも平ら。平面の模型。';
-  else description='一方向だけに曲がる円柱型。見た目は曲がるが、中央ではK=0。';
-  byId('gaussWords').textContent='K = k₁k₂。'+description;
-  byId('surfaceAlt').textContent='この放物面の中央ではk₁='+a.toFixed(1)+'、k₂='+b.toFixed(1)+'、Gaussian曲率K='+K.toFixed(2)+'。'+description;
-  surface.setAttribute('aria-label','中央で主曲率'+a.toFixed(1)+'と'+b.toFixed(1)+'を持つ放物面。Gaussian曲率は'+K.toFixed(2)+'。矢印キーまたはドラッグで回転できる。');
-}
-kOne.addEventListener('input',drawSurface);kTwo.addEventListener('input',drawSurface);
-document.querySelectorAll('[data-shape]').forEach(button=>button.addEventListener('click',()=>{
-  const pair=button.dataset.shape.split(',');kOne.value=pair[0];kTwo.value=pair[1];drawSurface();
-}));
-document.querySelectorAll('[data-turn]').forEach(button=>button.addEventListener('click',()=>{
-  if(button.dataset.turn==='left')angleY-=.18;
-  if(button.dataset.turn==='right')angleY+=.18;
-  if(button.dataset.turn==='up')angleX-=.18;
-  if(button.dataset.turn==='down')angleX+=.18;
-  drawSurface();
-}));
-surface.addEventListener('pointerdown',event=>{drag={x:event.clientX,y:event.clientY};surface.setPointerCapture(event.pointerId);});
-surface.addEventListener('pointermove',event=>{
-  if(!drag)return;angleY+=(event.clientX-drag.x)*.008;angleX+=(event.clientY-drag.y)*.008;
-  drag={x:event.clientX,y:event.clientY};drawSurface();
-});
-surface.addEventListener('pointerup',()=>{drag=null;});
-surface.addEventListener('pointercancel',()=>{drag=null;});
-surface.addEventListener('keydown',event=>{
-  if(event.key==='ArrowLeft')angleY-=.12;
-  else if(event.key==='ArrowRight')angleY+=.12;
-  else if(event.key==='ArrowUp')angleX-=.12;
-  else if(event.key==='ArrowDown')angleX+=.12;
-  else return;event.preventDefault();drawSurface();
-});
-
-const sectionOne=byId('sectionOne'),sectionTwo=byId('sectionTwo');
-function fmt(v){return (v>0?'+':'')+v.toFixed(1);}
-function drawRicci(){
-  const a=Number(sectionOne.value),b=Number(sectionTwo.value),sum=a+b;
-  byId('sectionOneOut').textContent=fmt(a);byId('sectionTwoOut').textContent=fmt(b);
-  byId('ricciSum').textContent='Ric(v,v) = '+fmt(sum);
-  byId('ricciAverage').textContent='二つの断面曲率の平均 = '+fmt(sum/2);
-  byId('ricciWords').textContent=a*b<0?(sum>0?'一方の断面は負でも、もう一方がそれを上回るので和は正。':sum<0?'一方が正でも、負の断面曲率の影響が大きく、和は負。':'正と負がちょうど打ち消し合う。'):sum>0?'この模型では横向き二断面の和は正。':sum<0?'この模型では横向き二断面の和は負。':'横向き二断面の和はゼロ。';
-}
-sectionOne.addEventListener('input',drawRicci);sectionTwo.addEventListener('input',drawRicci);
-document.querySelectorAll('[data-pair]').forEach(button=>button.addEventListener('click',()=>{
-  const pair=button.dataset.pair.split(',');sectionOne.value=pair[0];sectionTwo.value=pair[1];drawRicci();
-}));
-window.addEventListener('resize',()=>{drawCurve();drawSurface();});
-drawCurve();drawSurface();drawRicci();
-})();
-</script>
-</body>
-</html>
+<footer class="site-footer"><div class="shell"><small>© 2026 横田滋亮 · 数学 · <a href="https://github.com/shigeaki-yokota/shigeaki-yokota.github.io">GitHub</a></small></div></footer>
+<script src="script.js" defer></script></body></html>

@@ -104,7 +104,7 @@ p { margin: .6rem 0 1rem; }
   border-left: 2px solid #bbb; color: #444;
 }
 .reading-content .katex-display { overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
-.reading-content .japanese-european-space { display: inline-block; width: .25em; }
+.japanese-european-space { display: inline-block; width: .25em; }
 .reading-content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 .reading-content th, .reading-content td { border: 1px solid #ddd; padding: .25rem .6rem; }
 .source-note {
