@@ -45,7 +45,6 @@ function drawCurve(){
   c.strokeStyle=canvasColor('#246891');c.lineWidth=4;c.stroke();
   function tangent(p,angle,color,label){
     color=canvasColor(color);
-    color=canvasColor(color);
     const dx=Math.cos(angle),dy=-Math.sin(angle),x=p.x+scale*dx,y=p.y+scale*dy;
     c.strokeStyle=color;c.lineWidth=2;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(x,y);
     c.moveTo(x-8*dx-4*dy,y-8*dy+4*dx);c.lineTo(x,y);c.lineTo(x-8*dx+4*dy,y-8*dy-4*dx);c.stroke();
