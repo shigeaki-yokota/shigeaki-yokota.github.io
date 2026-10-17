@@ -3,46 +3,74 @@
   <desc id="desc">A Cauchy sequence yields a subsequence with summable box distances. Optimal couplings and good closed sets are glued into one probability space. Summable distortion controls the coordinate metrics on the eventual good-set tail, and the pulled-back feature families converge in Hausdorff Ky Fan distance. Quotienting by the limiting features and completing gives the limit geometric data set; compact high-mass sets then yield box convergence.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607d8b"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--line)"/>
     </marker>
     <style>
-      text { font-family: system-ui, sans-serif; fill: #26343d; }
+      :root {
+        --background: #fff;
+        --ink: #26343d;
+        --muted: #53616a;
+        --border: #d7dde1;
+        --line: #607d8b;
+        --box: #f5f8fa;
+        --key: #edf5f1;
+        --last: #f9f4ed;
+        --box-border: #aebdc6;
+        --key-border: #82a996;
+        --last-border: #c69b65;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: #17191c;
+          --ink: #e5e7eb;
+          --muted: #b0b7c1;
+          --border: #414750;
+          --line: #a4b4c0;
+          --box: #22262b;
+          --key: #20312c;
+          --last: #342c22;
+          --box-border: #65717d;
+          --key-border: #6b9a82;
+          --last-border: #ad8957;
+        }
+      }
+      text { font-family: system-ui, sans-serif; fill: var(--ink); }
       .head { font-size: 20px; font-weight: 650; }
       .body { font-size: 16px; }
       .math { font-family: Georgia, 'Times New Roman', serif; font-size: 17px; font-weight: 600; }
-      .hint { font-size: 14px; fill: #53616a; }
-      .box { fill: #f5f8fa; stroke: #aebdc6; stroke-width: 2; }
-      .key { fill: #edf5f1; stroke: #82a996; stroke-width: 2; }
-      .last { fill: #f9f4ed; stroke: #c69b65; stroke-width: 2; }
+      .hint { font-size: 14px; fill: var(--muted); }
+      .box { fill: var(--box); stroke: var(--box-border); stroke-width: 2; }
+      .key { fill: var(--key); stroke: var(--key-border); stroke-width: 2; }
+      .last { fill: var(--last); stroke: var(--last-border); stroke-width: 2; }
     </style>
   </defs>
-  <rect x="1" y="1" width="998" height="458" rx="14" fill="#fff" stroke="#d7dde1" stroke-width="2"/>
+  <rect x="1" y="1" width="998" height="458" rx="14" fill="var(--background)" stroke="var(--border)" stroke-width="2"/>
   <text class="head" x="500" y="39" text-anchor="middle">完備性の証明：別々の空間を、ひとつの確率空間に並べる</text>
   <rect class="box" x="34" y="78" width="275" height="112" rx="12"/>
   <text class="head" x="171" y="112" text-anchor="middle">Cauchy 列から部分列</text>
   <text class="math" x="171" y="145" text-anchor="middle">Σₙ □(Xₙ, Xₙ₊₁) &lt; ∞</text>
   <text class="hint" x="171" y="171" text-anchor="middle">各段の誤差を足し合わせ可能にする</text>
-  <line x1="310" y1="134" x2="355" y2="134" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="310" y1="134" x2="355" y2="134" stroke="var(--line)" stroke-width="3" marker-end="url(#arrow)"/>
   <rect class="key" x="365" y="78" width="275" height="112" rx="12"/>
   <text class="head" x="502" y="112" text-anchor="middle">結合と良い集合 Sₙ</text>
   <text class="math" x="502" y="145" text-anchor="middle">1 − πₙ(Sₙ) ≤ □ₙ</text>
   <text class="hint" x="502" y="171" text-anchor="middle">Sₙ 上では特徴族のずれも小さい</text>
-  <line x1="641" y1="134" x2="686" y2="134" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="641" y1="134" x2="686" y2="134" stroke="var(--line)" stroke-width="3" marker-end="url(#arrow)"/>
   <rect class="box" x="696" y="78" width="270" height="112" rx="12"/>
   <text class="head" x="831" y="112" text-anchor="middle">貼り合わせ（gluing）</text>
   <text class="math" x="831" y="145" text-anchor="middle">μ on ∏ₙ Xₙ</text>
   <text class="hint" x="831" y="171" text-anchor="middle">隣接する結合を同時に実現</text>
-  <path d="M831 192 V231 H171 V258" fill="none" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M831 192 V231 H171 V258" fill="none" stroke="var(--line)" stroke-width="3" marker-end="url(#arrow)"/>
   <rect class="box" x="34" y="268" width="275" height="112" rx="12"/>
   <text class="head" x="171" y="302" text-anchor="middle">距離の変動を制御</text>
   <text class="math" x="171" y="335" text-anchor="middle">Sₙ 上で |dₙ − dₙ₊₁| ≤ □ₙ</text>
   <text class="hint" x="171" y="361" text-anchor="middle">Σ□ₙ &lt; ∞ なので共通距離を作れる</text>
-  <line x1="310" y1="324" x2="355" y2="324" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="310" y1="324" x2="355" y2="324" stroke="var(--line)" stroke-width="3" marker-end="url(#arrow)"/>
   <rect class="key" x="365" y="268" width="275" height="112" rx="12"/>
   <text class="head" x="502" y="302" text-anchor="middle">特徴族の極限</text>
   <text class="math" x="502" y="335" text-anchor="middle">Gₙ → F∞</text>
   <text class="hint" x="502" y="361" text-anchor="middle">Ky Fan–Hausdorff 距離で収束</text>
-  <line x1="641" y1="324" x2="686" y2="324" stroke="#607d8b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="641" y1="324" x2="686" y2="324" stroke="var(--line)" stroke-width="3" marker-end="url(#arrow)"/>
   <rect class="last" x="696" y="268" width="270" height="112" rx="12"/>
   <text class="head" x="831" y="302" text-anchor="middle">極限データ集合</text>
   <text class="math" x="831" y="335" text-anchor="middle">X∞ = W / F∞</text>
