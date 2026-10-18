@@ -240,8 +240,8 @@ function drawEntropy(){
   const label=K>0?'The entropy upper bound bends below the line.':K<0?'The entropy upper bound bends above the line.':'The entropy upper bound is the line joining the endpoints.';
   entropyCanvas.setAttribute('aria-label','Entropy-bound diagram for K0='+(K>0?'+':'')+K.toFixed(1)+'. '+label+' Endpoint entropies are zero and W2 distance is one.');
 }
-entropyK.addEventListener('input',()=>runDemo('entropy'));
-const demos={curve:drawCurve,fan:drawFan,surface:drawSurface,ricci:drawRicci,w2:drawW2Demo,entropy:drawEntropy};
+if(entropyK)entropyK.addEventListener('input',()=>runDemo('entropy'));
+const demos={curve:drawCurve,fan:drawFan,surface:drawSurface,ricci:drawRicci};
 const activeDemos=new Set();
 function runDemo(name){const draw=demos[name];if(draw){activeDemos.add(name);draw();}}
 for(const name of Object.keys(demos))runDemo(name);

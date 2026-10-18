@@ -258,8 +258,8 @@ function drawEntropy(){
   }
   c.stroke();
 }
-entropyK.addEventListener('input',()=>activateDemo('entropy',drawEntropy));
-const demos={curve:drawCurve,fan:drawFan,surface:drawSurface,ricci:drawRicci,w2:drawW2Demo,entropy:drawEntropy};
+if(entropyK)entropyK.addEventListener('input',()=>activateDemo('entropy',drawEntropy));
+const demos={curve:drawCurve,fan:drawFan,surface:drawSurface,ricci:drawRicci};
 for(const [name,draw] of Object.entries(demos))activateDemo(name,draw);
 function redrawActive(){for(const name of activeDemos)demos[name]?.();}
 window.addEventListener('resize',redrawActive);
