@@ -67,7 +67,7 @@ p { margin: .6rem 0 1rem; }
 .profile-list dd { margin: 0; }
 .entry-list { padding-left: 1.5rem; margin: .75rem 0 0; }
 .entry-list li { margin: .55rem 0; }
-.entry-list > li > span { margin-left: .35rem; font-size: .82rem; color: var(--muted); }
+.entry-list > li > span:not(.japanese-european-space) { margin-left: .35rem; font-size: .82rem; color: var(--muted); }
 .empty-state { font-size: .91rem; color: var(--muted); }
 
 .site-footer { border-top: 1px solid var(--line); padding: 1.2rem 0 2rem; color: var(--muted); }
@@ -115,9 +115,9 @@ p { margin: .6rem 0 1rem; }
   border-left: 2px solid var(--quote-line); color: var(--quote);
 }
 .reading-content .katex-display { overflow-x: auto; overflow-y: hidden; padding: .5rem 0; }
-/* Keep Japanese–European gaps at exactly one quarter of the current em. */
-.japanese-european-space { display: inline-block; width: .25em; }
-.japanese-european-space::before { content: ""; }
+/* Use a real four-per-em space so link underlines continue through the gap. */
+.japanese-european-space { display: inline; }
+.japanese-european-space::before { content: "\2005"; }
 .reading-content table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 .reading-content th, .reading-content td { border: 1px solid var(--line); padding: .25rem .6rem; }
 .source-note {
