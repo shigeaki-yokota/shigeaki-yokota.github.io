@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 740" role="img" aria-labelledby="title desc">
-  <title id="title">λ = 2 の三本の star-tree：距離と点の選び方</title>
+  <title id="title">λ = 2 の有限枝railway mm-space：距離と点の選び方</title>
   <desc id="desc">中心Oから各枝の台の始点までの破線は長さ1。白丸は台の始点で、実線の枝は無限に続く。枝1、2、3をそれぞれ確率二分の一、三分の一、六分の一で選び、独立に密度expマイナスeの指数変数Eを選んで座標sを2足すEとする。どの枝でも座標2から3までの条件付き確率は1引くexpマイナス1。異なる枝の座標3と4の間は中心経由で距離5、同じ枝の座標3と4の間は距離1となる。</desc>
   <style>
     :root {
@@ -33,7 +33,7 @@
   </style>
   <rect width="960" height="740" rx="16" fill="var(--background)"/>
   <g font-family="sans-serif" fill="var(--ink)">
-    <text x="32" y="44" font-size="28">λ = 2 の star-tree</text>
+    <text x="32" y="44" font-size="28">λ = 2 の有限枝railway mm-space</text>
     <text x="32" y="77" font-size="20">枝の座標 s と、中心からの距離 s − λ/2 を区別する</text>
   </g>
 

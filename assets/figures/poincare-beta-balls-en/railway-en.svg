@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 740" role="img" aria-labelledby="title desc">
-  <title id="title">A three-branch star tree at λ = 2: distance and sampling</title>
+  <title id="title">A finite-branch railway mm-space at λ = 2: distance and sampling</title>
   <desc id="desc">Dashed segments from O to each support start have length 1. Open circles mark support starts; solid branches continue infinitely. Choose branches 1, 2, 3 with probabilities one half, one third, one sixth, then independently E with density exp(-e), and set s=2+E. The conditional probability of coordinates 2 to 3 on any branch is 1-exp(-1). Coordinates 3 and 4 on different branches have distance 5 through the center; on one branch their distance is 1.</desc>
   <style>
     :root {
@@ -33,7 +33,7 @@
   </style>
   <rect width="960" height="740" rx="16" fill="var(--background)"/>
   <g font-family="sans-serif" fill="var(--ink)">
-    <text x="32" y="44" font-size="28">Star tree at λ = 2</text>
+    <text x="32" y="44" font-size="28">Finite-branch railway mm-space at λ = 2</text>
     <text x="32" y="77" font-size="18">Branch coordinate s differs from distance s − λ/2 to the center</text>
   </g>
 
