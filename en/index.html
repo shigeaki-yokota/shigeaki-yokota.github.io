@@ -17,17 +17,30 @@
     <div class="shell">
       <div class="home-heading"><h1>Shigeaki Yokota</h1><div class="site-options"><a href="../" lang="ja">日本語</a></div></div>
       <nav aria-label="Page navigation">
+        <a href="#research">Research</a>
         <a href="#papers">Publications</a>
         <a href="#profile">Profile</a>
         <a href="#talks">Talks</a>
+        <a href="#projects">Projects</a>
         <a href="#topics">Topics</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="shell">
-    <p class="intro">Shigeaki Yokota is a Project Researcher at Osaka University working in metric measure geometry, especially measure concentration, pyramids, observable diameter, and geometric data sets.</p>
+    <p class="intro">Shigeaki Yokota is a Project Researcher at Osaka University working in metric measure geometry.</p>
     <p>Contact: <a href="mailto:yokota.shigeaki.fat@osaka-u.ac.jp">yokota.shigeaki.fat@osaka-u.ac.jp</a></p>
+
+    <section id="research" aria-labelledby="research-heading">
+      <h2 id="research-heading">Research overview</h2>
+      <p>I study the geometry of spaces equipped with distances and probability measures, focusing on concentration, the geometry of data, and limits of high-dimensional spaces.</p>
+      <h3>Measure concentration and pyramids</h3>
+      <p>I study the limit formula for observable diameter, as well as limits and compactifications of spaces through pyramids.</p>
+      <h3>Geometric Data Sets</h3>
+      <p>I study the geometry of Geometric Data Sets, including their pyramids and compactifications.</p>
+      <h3>High-dimensional spaces and Gaussian limits</h3>
+      <p>I study Gaussian pyramids and the limits and phase transitions of measures on hyperbolic spaces. I also write about the relationship between high-dimensional spheres and Gaussian distributions.</p>
+    </section>
 
     <section id="papers" aria-labelledby="papers-heading">
       <h2 id="papers-heading">Publications</h2>
@@ -78,6 +91,7 @@
     <section id="talks" aria-labelledby="talks-heading">
       <h2 id="talks-heading">Talks</h2>
       <ul class="entry-list">
+        <li>Scheduled for 20 November 2026 — <a href="https://sites.google.com/site/tmugeometry/">TMU Geometry Seminar</a> (Minami-Osawa Campus, Building 8, Room 618; title and abstract to be announced)</li>
         <li>Mar 2024 — Young Mathematicians Conference 2024, poster: “Geometry of Geometric Data Set”</li>
         <li>Aug–Sep 2023 — 70th Symposium on Geometry, talk: “Geometry of Geometric Data Set”</li>
         <li>Aug 2023 — Geometry and Probability 2023, talk: “Geometry of Geometric Data Set”</li>
@@ -86,9 +100,19 @@
       </ul>
     </section>
 
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">Mathematical and computational projects</h2>
+      <ul class="entry-list">
+        <li><a href="https://yulang.momota.pw/">Yulang</a> — A programming language built around algebraic effects and whole-program type inference, with a browser playground.</li>
+        <li><a href="https://github.com/momota1029/chasa">chasa</a> — A parser-combinator library for Yulang, with controllable rollback and commit behavior and streaming input.</li>
+        <li><a href="https://github.com/momota1029/blog">loam-ssg</a> — A Rust static-site-generation framework that also powers this website.</li>
+      </ul>
+    </section>
+
     <section id="topics" aria-labelledby="topics-heading">
       <h2 id="topics-heading">Mathematical topics</h2>
       <p>Explore theorems and concepts through proofs, examples, and small interactive experiments.</p>
+      <p>Suggested route: <a href="topics/ricci-curvature/">Ricci curvature</a> → <a href="topics/cd-rcd-conditions/">CD and RCD conditions</a> → <a href="topics/gaussian-sphere/">high-dimensional spheres and Gaussian limits</a></p>
       <ul class="entry-list"><li><a href="topics/ricci-curvature/">What Does Ricci Curvature Add Up?</a><span>From surface curvature to transverse curvature sums and geodesic fans</span></li><li><a href="topics/cd-rcd-conditions/">CD and RCD Conditions from Ricci Curvature</a><span>Ricci bounds through transport, with the proof mechanism and the extra Riemannian condition</span></li><li><a href="topics/gaussian-sphere/">A Gaussian View of High-Dimensional Spheres</a><span>Rescale a Gaussian vector onto a sphere, then trace its coordinate and pyramid limits</span></li></ul>
     </section>
   </main>

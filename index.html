@@ -15,17 +15,30 @@
     <div class="shell">
       <div class="home-heading"><h1>横田滋亮</h1><div class="site-options"><a href="en/" lang="en">English</a></div></div>
       <nav aria-label="ページ内リンク">
+        <a href="#research">研究紹介</a>
         <a href="#papers">論文</a>
         <a href="#profile">経歴</a>
         <a href="#talks">研究発表</a>
+        <a href="#projects">プロジェクト</a>
         <a href="#topics">数学トピック</a>
       </nav>
     </div>
   </header>
 
   <main id="main" class="shell">
-    <p>大阪大学大学院理学研究科の特任研究員。測度距離幾何を専門とし、測度集中、ピラミッド、観測可能直径、幾何学的データ集合を研究している。</p>
+    <p>大阪大学大学院理学研究科の特任研究員。測度距離幾何を研究している。</p>
     <p>連絡先：<a href="mailto:yokota.shigeaki.fat@osaka-u.ac.jp">yokota.shigeaki.fat@osaka-u.ac.jp</a></p>
+
+    <section id="research" aria-labelledby="research-heading">
+      <h2 id="research-heading">研究紹介</h2>
+      <p>距離と確率分布を備えた空間の幾何を、測度集中、データの幾何、高次元の極限という観点から研究している。</p>
+      <h3>測度集中とピラミッド</h3>
+      <p>観測可能直径の極限公式や、ピラミッドによる空間の極限・コンパクト化を研究している。</p>
+      <h3>幾何学的データ集合</h3>
+      <p>Geometric Data Set（幾何学的データ集合）の幾何と、そのピラミッドやコンパクト化を研究している。</p>
+      <h3>高次元の空間と<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>極限</h3>
+      <p>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>ピラミッドや双曲空間の測度の極限・相転移を研究し、高次元球面と<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>分布の関係も解説している。</p>
+    </section>
 
     <section id="papers" aria-labelledby="papers-heading">
       <h2 id="papers-heading">論文</h2>
@@ -82,6 +95,7 @@
     <section id="talks" aria-labelledby="talks-heading">
       <h2 id="talks-heading">研究発表</h2>
       <ul class="entry-list">
+        <li>今後の予定 — 2026<span class="japanese-european-space" aria-hidden="true"></span>年<span class="japanese-european-space" aria-hidden="true"></span>11<span class="japanese-european-space" aria-hidden="true"></span>月<span class="japanese-european-space" aria-hidden="true"></span>20<span class="japanese-european-space" aria-hidden="true"></span>日、<a href="https://sites.google.com/site/tmugeometry/">東京都立大学・幾何学セミナー</a>（南大沢キャンパス<span class="japanese-european-space" aria-hidden="true"></span>8<span class="japanese-european-space" aria-hidden="true"></span>号館<span class="japanese-european-space" aria-hidden="true"></span>6<span class="japanese-european-space" aria-hidden="true"></span>階<span class="japanese-european-space" aria-hidden="true"></span>618、題目・概要は未定）</li>
         <li>2024<span class="japanese-european-space" aria-hidden="true"></span>年<span class="japanese-european-space" aria-hidden="true"></span>3<span class="japanese-european-space" aria-hidden="true"></span>月 — 若手数学者交流会（YMC）2024、ポスター「Geometric data set<span class="japanese-european-space" aria-hidden="true"></span>の幾何学」</li>
         <li>2023<span class="japanese-european-space" aria-hidden="true"></span>年<span class="japanese-european-space" aria-hidden="true"></span>8–9<span class="japanese-european-space" aria-hidden="true"></span>月 — 第<span class="japanese-european-space" aria-hidden="true"></span>70<span class="japanese-european-space" aria-hidden="true"></span>回幾何学シンポジウム、口頭発表「Geometric data set<span class="japanese-european-space" aria-hidden="true"></span>の幾何学」</li>
         <li>2023<span class="japanese-european-space" aria-hidden="true"></span>年<span class="japanese-european-space" aria-hidden="true"></span>8<span class="japanese-european-space" aria-hidden="true"></span>月 — Geometry and Probability 2023、口頭発表 “Geometry of Geometric Data Set”</li>
@@ -90,9 +104,19 @@
       </ul>
     </section>
 
+    <section id="projects" aria-labelledby="projects-heading">
+      <h2 id="projects-heading">数学・計算機科学のプロジェクト</h2>
+      <ul class="entry-list">
+        <li><a href="https://yulang.momota.pw/">Yulang</a> — 代数的<span class="japanese-european-space" aria-hidden="true"></span>effect<span class="japanese-european-space" aria-hidden="true"></span>とプログラム全体を対象にする型推論を軸に設計したプログラミング言語。ブラウザ上で試せる。</li>
+        <li><a href="https://github.com/momota1029/chasa">chasa</a> — ロールバックとコミットを制御でき、ストリーミング入力も扱うパーサーコンビネータライブラリ。Yulang<span class="japanese-european-space" aria-hidden="true"></span>のワークスペース向けに作った。</li>
+        <li><a href="https://github.com/momota1029/blog">loam-ssg</a> — Rust<span class="japanese-european-space" aria-hidden="true"></span>製の静的サイト生成フレームワーク。このサイトの生成にも使っている。</li>
+      </ul>
+    </section>
+
     <section id="topics" aria-labelledby="topics-heading">
       <h2 id="topics-heading">数学トピック</h2>
       <p>定理や概念を、証明・具体例・操作できる小さな実験と一緒に眺める。</p>
+      <p>読む道筋：<a href="topics/ricci-curvature/">Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率</a> → <a href="topics/cd-rcd-conditions/">CD・RCD<span class="japanese-european-space" aria-hidden="true"></span>条件</a> → <a href="topics/gaussian-sphere/">高次元球面と<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>極限</a></p>
       <ul class="entry-list"><li><a href="topics/ricci-curvature/">Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率は何を数えているのか</a><span>曲線・曲面の曲率から、断面曲率の和と測地線の束へ</span></li><li><a href="topics/cd-rcd-conditions/">CD<span class="japanese-european-space" aria-hidden="true"></span>条件と<span class="japanese-european-space" aria-hidden="true"></span>RCD<span class="japanese-european-space" aria-hidden="true"></span>条件を、Ricci<span class="japanese-european-space" aria-hidden="true"></span>曲率からたどる</a><span><span class="japanese-european-space" aria-hidden="true"></span>Ricci<span class="japanese-european-space" aria-hidden="true"></span>下界を確率測度の輸送で表し、RCD<span class="japanese-european-space" aria-hidden="true"></span>条件で何が加わるかを証明とともに見る</span></li><li><a href="topics/gaussian-sphere/">高次元の球面から<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>が見える</a><span>単位球面の小さな揺れを√n<span class="japanese-european-space" aria-hidden="true"></span>倍すると、何が見えるのか。座標の<span class="japanese-european-space" aria-hidden="true"></span>Gaussian<span class="japanese-european-space" aria-hidden="true"></span>極限から、観測全体の極限へ</span></li></ul>
     </section>
   </main>
