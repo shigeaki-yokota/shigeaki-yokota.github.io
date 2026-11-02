@@ -23,6 +23,12 @@
 .ricci-page .lab-head { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:.3rem 1rem; border-bottom:1px solid var(--line); padding-bottom:.5rem; margin-bottom:.8rem; }
 .ricci-page .lab-head h3 { margin:0; font-size:1.12rem; }
 .ricci-page .lab-head small { color:var(--muted); }
+.ricci-page .lab-question { margin:0 0 .8rem; padding:.55rem .8rem; border-left:4px solid var(--gold); background:var(--paper); border-radius:0 6px 6px 0; }
+.ricci-page .lab-answer { margin:.9rem 0 0; }
+.ricci-page .lab-answer p { margin:.5rem 0 0; }
+.ricci-page .controls .preset-row + .preset-row,.ricci-page .ricci-result .preset-row + .preset-row { margin-top:.4rem; }
+.ricci-page .curve-lab .preset-row,.ricci-page #fanLab > .preset-row,.ricci-page .ricci-result .preset-row { margin-top:.6rem; }
+.ricci-page .checklist ul { margin:.3rem 0; padding-left:1.2rem; }
 .ricci-page .surface-layout { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr); gap:1rem; align-items:start; }
 .ricci-page .surface-view { min-width:0; }
 .ricci-page #surfaceCanvas { display:block; width:100%; height:390px; border:1px solid var(--line); border-radius:8px; background:linear-gradient(var(--paper),var(--wash)); touch-action:none; }

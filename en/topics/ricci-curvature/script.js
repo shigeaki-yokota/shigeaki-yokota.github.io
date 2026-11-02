@@ -15,7 +15,8 @@ function drawCurve(){
   const R=Number(radius.value),s=1,turn=s/R,{c,w,h}=fitCanvas(curveCanvas);
   setSpacedText(byId('radiusOut'),R.toFixed(1));
   setSpacedText(byId('curveValue'),'κ = '+(1/R).toFixed(2));
-  const description='Arc length s=1, radius R='+R.toFixed(1)+'. Direction changes by s/R='+turn.toFixed(2)+' radians (about '+(turn*180/Math.PI).toFixed(0)+' degrees).';
+  const ratioToOne=Math.abs(R-1)<1e-9?' Same as the reference R=1.':' That is 1/'+R.toFixed(1)+' of the turn at R=1.';
+  const description='Arc length s=1, radius R='+R.toFixed(1)+'. Direction changes by s/R='+turn.toFixed(2)+' radians (about '+(turn*180/Math.PI).toFixed(0)+' degrees).'+ratioToOne;
   setSpacedText(byId('curveWords'),description);
   radius.setAttribute('aria-valuetext','Radius '+R.toFixed(1)+'. Change of direction '+turn.toFixed(2)+' radians');
   curveCanvas.setAttribute('aria-label',description+' The orange arrow is the initial unit tangent; the green arrow is the final unit tangent.');
@@ -38,14 +39,27 @@ function drawCurve(){
   c.fillText('s = 1   /   Change of direction s/R = '+turn.toFixed(2)+' rad',14,24);
 }
 radius.addEventListener('input',()=>runDemo('curve'));
+document.querySelectorAll('[data-radius]').forEach(button=>button.addEventListener('click',()=>{
+  radius.value=button.dataset.radius;runDemo('curve');
+}));
 
 const fanDistance=byId('fanDistance'),fanCanvas=byId('fanCanvas');
+// Second-order approximation of j(r)/r for constant curvature K: 1 - K r^2/6.
+function fanApprox(K,r){return 1-K*r*r/6;}
+function fanComment(r){
+  // On the unit sphere j(r)=sin r grows while j'(r)=cos r>0, i.e. for r<pi/2.
+  const growth=Math.cos(r)>0?'The spherical fan is still widening (its width peaks at r=π/2≈1.57).':'The spherical fan has passed r=π/2≈1.57 and its width is now shrinking.';
+  // Largest relative error of 1-Kr^2/6 against the exact ratios for K=+1 and K=-1.
+  const error=Math.max(Math.abs(Math.sin(r)/r-fanApprox(1,r)),Math.abs(Math.sinh(r)/r-fanApprox(-1,r)));
+  const fit=error<0.005?' The approximation 1−Kr²/6 is almost exact here: curvature appears as a small r² correction.':' At this distance the approximation 1−Kr²/6 is visibly off.';
+  return growth+fit;
+}
 function drawFan(){
   const r=Number(fanDistance.value),{c,w,h}=fitCanvas(fanCanvas);
   const models=[
-    {label:'K = +1',fn:Math.sin,color:'#246891',widthId:'fanPositive',ratioId:'fanPositiveRatio',formula:'sin(r)'},
-    {label:'K = 0',fn:t=>t,color:'#526273',widthId:'fanFlat',ratioId:'fanFlatRatio',formula:'r'},
-    {label:'K = −1',fn:Math.sinh,color:'#ad681d',widthId:'fanNegative',ratioId:'fanNegativeRatio',formula:'sinh(r)'}
+    {label:'K = +1',K:1,fn:Math.sin,color:'#246891',widthId:'fanPositive',ratioId:'fanPositiveRatio',approxId:'fanPositiveApprox',formula:'sin(r)'},
+    {label:'K = 0',K:0,fn:t=>t,color:'#526273',widthId:'fanFlat',ratioId:'fanFlatRatio',approxId:'fanFlatApprox',formula:'r'},
+    {label:'K = −1',K:-1,fn:Math.sinh,color:'#ad681d',widthId:'fanNegative',ratioId:'fanNegativeRatio',approxId:'fanNegativeApprox',formula:'sinh(r)'}
   ];
   setSpacedText(byId('fanDistanceOut'),r.toFixed(1));
   fanDistance.setAttribute('aria-valuetext','Distance '+r.toFixed(1)+', in units with curvature radius 1');
@@ -57,6 +71,7 @@ function drawFan(){
     const center=top+rowHeight*(index+.5),width=model.fn(r),ratio=width/r;
     setSpacedText(byId(model.widthId),model.formula+' = '+width.toFixed(3));
     setSpacedText(byId(model.ratioId),ratio.toFixed(3));
+    const approxCell=byId(model.approxId);if(approxCell)setSpacedText(approxCell,fanApprox(model.K,r).toFixed(3));
     c.fillStyle=palette(model.color);c.fillText(model.label,5,center+4);
     c.strokeStyle=palette('#d7e0e8');c.lineWidth=1;c.beginPath();c.moveTo(left,center);c.lineTo(right,center);c.stroke();
     function edges(fn,color,dashed){
@@ -78,11 +93,14 @@ function drawFan(){
   c.fillStyle=palette('#526273');c.fillText('Same starting point',left,14);
   c.textAlign='right';c.fillText('Horizontal: distance r (different axis scales)',right,h-7);
   c.textAlign='center';c.fillText('0',left,h-23);c.fillText(r.toFixed(1),xAt(r),h-23);
-  const description='Distance r='+r.toFixed(1)+', width relative to the plane: positive curvature '+(Math.sin(r)/r).toFixed(3)+', plane 1, negative curvature '+(Math.sinh(r)/r).toFixed(3)+'. ';
+  const description='Distance r='+r.toFixed(1)+', width relative to the plane: positive curvature '+(Math.sin(r)/r).toFixed(3)+', plane 1, negative curvature '+(Math.sinh(r)/r).toFixed(3)+'. '+fanComment(r)+' ';
   setSpacedText(byId('fanReadout'),description);
   fanCanvas.setAttribute('aria-label',description+'Each row schematically shows transverse width for the same initial angular width. Dashed curves give the planar width.');
 }
 fanDistance.addEventListener('input',()=>runDemo('fan'));
+document.querySelectorAll('[data-distance]').forEach(button=>button.addEventListener('click',()=>{
+  fanDistance.value=button.dataset.distance;runDemo('fan');
+}));
 
 const kOne=byId('kOne'),kTwo=byId('kTwo'),surface=byId('surfaceCanvas');
 let angleX=-0.55,angleY=0.72,drag=null;
@@ -111,7 +129,7 @@ function drawSurface(){
   const project=p=>({x:w/2+(p.x-cx)*scale,y:h/2-(p.y-cy)*scale,z:p.z});
   const light0=rotatePoint(-.4,.6,1),ln=Math.hypot(light0.x,light0.y,light0.z);
   const light={x:light0.x/ln,y:light0.y/ln,z:light0.z/ln};
-  const positive=a*b>.02,negative=a*b<-.02;
+  const positive=a*b>1e-8,negative=a*b<-1e-8;
   const base=positive?[65,139,177]:negative?[205,139,67]:[113,151,137];
   const faces=[];
   function face(p,q,r){
@@ -148,7 +166,9 @@ function drawSurface(){
   const K=a*b;
   setSpacedText(byId('gaussValue'),'K = '+(K>0?'+':'')+K.toFixed(2));
   let description;
-  if(K>1e-8)description='Bowl: both directions bend to the same side.';
+  if(K>1e-8&&a<0&&b<0)description='Upside-down bowl (a hilltop): both directions bend downward. Both signs are negative, but the product is positive.';
+  else if(K>1e-8&&Math.abs(a-b)>1e-8)description='Elongated bowl: both directions bend to the same side. Different bendings with the same product give the same K.';
+  else if(K>1e-8)description='Bowl: both directions bend to the same side.';
   else if(K< -1e-8)description='Saddle: the two directions bend oppositely.';
   else if(Math.abs(a)+Math.abs(b)<1e-8)description='Both directions are flat: a plane.';
   else description='Cylinder type: only one direction bends. It looks curved, but K=0 at the center.';
@@ -184,12 +204,18 @@ surface.addEventListener('keydown',event=>{
 
 const sectionOne=byId('sectionOne'),sectionTwo=byId('sectionTwo');
 function fmt(v){return (v>0?'+':'')+v.toFixed(1);}
+function ricciComment(a,b,sum){
+  if(a*b<0)return sum>0?'One section is negative, but the other outweighs it: the sum is positive.':sum<0?'One section is positive, but negative curvature outweighs it: the sum is negative.':'Positive and negative cancel exactly.';
+  if(Math.abs(a-b)<1e-9&&Math.abs(a)>1e-9)return 'The two sections are equal. Spaces whose sectional curvature is the same everywhere (spheres, hyperbolic space) look like this, with Ric = 2×(sectional curvature).';
+  if(Math.abs(a)<1e-9&&Math.abs(b)<1e-9)return 'The sum of the two transverse sectional curvatures is zero, as in flat space, or on S²×ℝ when traveling vertically.';
+  return sum>0?'The sum of the two transverse sectional curvatures is positive.':sum<0?'The sum of the two transverse sectional curvatures is negative.':'The sum of the two transverse sectional curvatures is zero.';
+}
 function drawRicci(){
   const a=Number(sectionOne.value),b=Number(sectionTwo.value),sum=a+b;
   setSpacedText(byId('sectionOneOut'),fmt(a));setSpacedText(byId('sectionTwoOut'),fmt(b));
   setSpacedText(byId('ricciSum'),'Ric(v,v) = '+fmt(sum));
   setSpacedText(byId('ricciAverage'),'Mean of the two sectional curvatures = '+fmt(sum/2));
-  setSpacedText(byId('ricciWords'),a*b<0?(sum>0?'One section is negative, but the other outweighs it: the sum is positive.':sum<0?'One section is positive, but negative curvature outweighs it: the sum is negative.':'Positive and negative cancel exactly.'):sum>0?'The sum of the two transverse sectional curvatures is positive.':sum<0?'The sum of the two transverse sectional curvatures is negative.':'The sum of the two transverse sectional curvatures is zero.');
+  setSpacedText(byId('ricciWords'),ricciComment(a,b,sum));
 }
 sectionOne.addEventListener('input',()=>runDemo('ricci'));sectionTwo.addEventListener('input',()=>runDemo('ricci'));
 document.querySelectorAll('[data-pair]').forEach(button=>button.addEventListener('click',()=>{

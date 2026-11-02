@@ -59,13 +59,36 @@
         $('cd-' + name + '-out').textContent = display;
         input.setAttribute('aria-valuetext', display);
       }
-      values('cd', { time: fmt(t, 2), mean: fmt(at, 2), width: fmt(st, 2),
-        entropy: fmt(entropy(t)), bound: fmt(bound(t)), gap: fmt(gap) });
+      // J_t = σ_t/σ_0 is the derivative of the transport map: the spacing ratio of particles.
+      const jacobian = st / s0, endpoint = t <= 0 || t >= 1, still = Math.abs(s1 - s0) < 1e-9;
+      const room = t * (1 - t) * w2;
+      let why;
+      if (endpoint) why = say('端点 t=0, 1 では、Ent・弦・上界がすべて一致する。',
+        'At the endpoints t=0 and t=1, entropy, chord, and bound all coincide.');
+      else if (still) why = say('幅が変わらないので、粒子の間隔は一定（Jₜ=1）。エントロピーの曲がりは基準測度の重みから来る分だけで、上界の補正項がそれをちょうど打ち消す。だから差は0。',
+        'The width does not change, so particle spacing stays fixed (Jₜ=1). All bending of the entropy comes from the weight of the reference measure, and the bound’s correction term cancels it exactly. The gap is 0.');
+      else why = say((s1 > s0 ? '雲が広がる途中なので' : '雲が縮む途中でも') +
+        '、間隔の倍率の対数 log Jₜ は両端を結ぶ弦より上にある（log の凹性）。その分だけ上界に余裕が出る。この差は K にも d にもよらない。',
+        (s1 > s0 ? 'The cloud is spreading, so' : 'Even while the cloud shrinks,') +
+        ' the log spacing ratio log Jₜ lies above its endpoint chord (log is concave). That is the room under the bound. The gap depends on neither K nor d.');
+      let kmax;
+      if (endpoint || room < 1e-12) kmax = say('この時刻では上界の曲率項 t(1−t)W₂² が0なので、K′ をどう選んでも等号のままだ。',
+        'Here the curvature term t(1−t)W₂² vanishes, so the bound is an equality for every K′.');
+      else if (still) kmax = say('この輸送では、上界の K を少しでも大きくすると破れる。だからこのモデルで使える曲率の値はちょうど K だ。',
+        'For this transport, any larger K in the bound fails. So K is exactly the best curvature constant for this model.');
+      else kmax = say('この一本の輸送だけなら、上界の K を K′ = ' + fmt(K + 2 * gap / room, 2) +
+        ' まで上げても成り立つ。ただし平行移動ではそれが許されないので、CD の定数は K のままだ。',
+        'For this single transport, the bound would still hold with K raised to K′ = ' + fmt(K + 2 * gap / room, 2) +
+        '. Translations allow no such increase, so the CD constant stays K.');
+      values('cd', { time: fmt(t, 2), mean: fmt(at, 2), width: fmt(st, 2), jacobian: fmt(jacobian, 2),
+        entropy: fmt(entropy(t)), bound: fmt(bound(t)), gap: fmt(gap), why, kmax });
       const cloud = $('cd-cloud');
       frame(cloud, 'cd-cloud-title', say('Gaussian分布の最適輸送', 'Optimal transport of Gaussian distributions'),
         say('時刻', 'Time ') + fmt(t, 2) + say('。平均', '. Mean ') + fmt(at, 2) +
         say('、標準偏差', ', standard deviation ') + fmt(st, 2) +
-        say('。上はdxに対する密度、下は同じ分位点を結ぶ粒子の道。', '. Density relative to dx above; matching-quantile particle paths below.'));
+        say('、粒子の間隔の倍率', ', particle spacing ratio ') + fmt(jacobian, 2) +
+        say('。上はdxに対する密度と、基準測度の重みの形（点線）。下は同じ分位点を結ぶ粒子の道。',
+          '. Density relative to dx above, with the shape of the reference weight dotted; matching-quantile particle paths below.'));
       const limit = distance / 2 + 4 * Math.max(s0, s1), x = v => 45 + (v + limit) / (2 * limit) * 410;
       const density = (v, a, s) => Math.exp(-(((v - a) / s) ** 2) / 2) / (s * Math.sqrt(2 * Math.PI));
       const peak = 1 / (Math.min(s0, s1) * Math.sqrt(2 * Math.PI)), y = v => 142 - v / peak * 103;
@@ -85,6 +108,12 @@
       });
       const current = curve(at, st);
       cloud.append(node('path', { d: path([[45, 142], ...current, [455, 142]]) + 'Z', class: 'lab-cloud-fill' }));
+      // Shape of the weight e^{−Kx²/2}, rescaled to the visible window (relative height only).
+      const weightLog = v => -K * v * v / 2, weightTop = Math.max(weightLog(0), weightLog(limit));
+      cloud.append(node('path', { class: 'lab-reference', d: path(Array.from({ length: 121 }, (_, i) => {
+        const v = -limit + 2 * limit * i / 120;
+        return [x(v), 142 - 88 * Math.exp(weightLog(v) - weightTop)];
+      })) }));
       for (const [a, s, cls] of [[a0, s0, 'lab-initial'], [a1, s1, 'lab-final'], [at, st, 'lab-current']]) {
         cloud.append(node('path', { d: path(curve(a, s)), class: cls }));
       }
@@ -99,7 +128,7 @@
         })));
       }
       ['μ₀', 'μₜ', 'μ₁'].forEach((text, i) => label(cloud, 16, rows[i] + 4, text));
-      label(cloud, 45, 320, say('灰：出発 / 青：現在 / 金：到着（密度）', 'Density: gray start / blue now / gold end'));
+      label(cloud, 45, 320, say('灰：出発 / 青：現在 / 金：到着 / 点線：m_K の重み', 'Gray start / blue now / gold end / dotted: weight of m_K'));
       const graph = $('cd-entropy');
       frame(graph, 'cd-entropy-title', say('エントロピーとCD上界', 'Entropy and the CD bound'),
         say('実際のエントロピー', 'Actual entropy ') + fmt(entropy(t)) +
@@ -149,7 +178,17 @@
       power.setAttribute('aria-valuetext', 'p = ' + pText + ', q = ' + qText);
       const verdict = p === 2 ? say('p=2：このエネルギーは平行四辺形則を満たす。', 'p=2: this energy satisfies the parallelogram identity.') :
         say('p≠2：この一組だけでも平行四辺形則が破れる。', 'p≠2: this single pair already violates the parallelogram identity.');
-      values('rcd', { p: pText, q: qText, lhs: fmt(lhs), defect: fmt(defect), verdict });
+      // ‖(1,1)‖_q = 2^{1/q}; the Euclidean value is √2, which is exactly Pythagoras.
+      const diagonal = fmt(q === Infinity ? 1 : 2 ** (1 / q));
+      const why = p === 2 ?
+        say('斜めのベクトル u+v=(1,1) の長さは √2≈1.414。長さの二乗が 1+1=2 になるピタゴラスの定理そのものなので、Δ=0。',
+          'The diagonal u+v=(1,1) has length √2≈1.414. Its squared length is 1+1=2, which is Pythagoras’ theorem, so Δ=0.') :
+        p < 2 ?
+        say('q>2 なので、斜めのベクトル u+v=(1,1) の長さ 2^{1/q}=' + diagonal + ' が円の場合の √2≈1.414 より短い。斜め方向のエネルギーが足りず、Δ<0。',
+          'Here q>2, so the diagonal u+v=(1,1) has length 2^{1/q}=' + diagonal + ', shorter than the circular √2≈1.414. The diagonal energy falls short and Δ<0.') :
+        say('q<2 なので、斜めのベクトル u+v=(1,1) の長さ 2^{1/q}=' + diagonal + ' が円の場合の √2≈1.414 より長い。斜め方向のエネルギーが多すぎて、Δ>0。',
+          'Here q<2, so the diagonal u+v=(1,1) has length 2^{1/q}=' + diagonal + ', longer than the circular √2≈1.414. The diagonal energy overshoots and Δ>0.');
+      values('rcd', { p: pText, q: qText, lhs: fmt(lhs), defect: fmt(defect), verdict, why });
       $('rcd-energy-bar').style.width = (lhs / 4 * 100) + '%';
       for (const [id, exponent, dual] of [['rcd-tangent', p, false], ['rcd-dual', q, true]]) {
         const svg = $(id);
@@ -173,7 +212,11 @@
       }
     }
     for (const input of Object.values(inputs)) input.addEventListener('input', drawGaussian);
-    const presets = { translation: [.5, 1, 3, 1, 1], spread: [.5, 0, 0, .4, 1.6], negative: [.5, -1, 3, .6, 1.2] };
+    // Order: time, K, distance, σ₀, σ₁ (the order of `inputs`).
+    const presets = {
+      translation: [.5, 1, 3, 1, 1], heavy: [.5, 2, 5, 1, 1], spread: [.5, 0, 0, .4, 1.6],
+      flat: [.5, 0, 3, .6, 1.2], negative: [.5, -1, 3, .6, 1.2]
+    };
     root.querySelectorAll('[data-cd-preset]').forEach(button => button.addEventListener('click', () => {
       const preset = presets[button.dataset.cdPreset];
       Object.values(inputs).forEach((input, i) => { input.value = preset[i]; });

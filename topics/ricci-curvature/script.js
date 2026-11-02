@@ -34,7 +34,8 @@ function drawCurve(){
   const R=Number(radius.value),s=1,turn=s/R,{c,w,h}=fitCanvas(curveCanvas);
   setSpacedText(byId('radiusOut'),R.toFixed(1));
   setSpacedText(byId('curveValue'),'κ = '+(1/R).toFixed(2));
-  const description='弧の長さs=1、半径R='+R.toFixed(1)+'。向きはs/R='+turn.toFixed(2)+'ラジアン（約'+(turn*180/Math.PI).toFixed(0)+'度）変わる。';
+  const ratioToOne=Math.abs(R-1)<1e-9?'R=1 の基準と同じ。':'R=1 のときの 1/'+R.toFixed(1)+' 倍。';
+  const description='弧の長さs=1、半径R='+R.toFixed(1)+'。向きはs/R='+turn.toFixed(2)+'ラジアン（約'+(turn*180/Math.PI).toFixed(0)+'度）変わる。'+ratioToOne;
   setSpacedText(byId('curveWords'),description);
   radius.setAttribute('aria-valuetext','半径'+R.toFixed(1)+'。向きの変化'+turn.toFixed(2)+'ラジアン');
   curveCanvas.setAttribute('aria-label',description+'橙の矢印が始点、緑の矢印が終点での単位接ベクトル。');
@@ -58,14 +59,27 @@ function drawCurve(){
   c.fillText('s = 1   /   向きの変化 s/R = '+turn.toFixed(2)+' rad',14,24);
 }
 radius.addEventListener('input',()=>activateDemo('curve',drawCurve));
+document.querySelectorAll('[data-radius]').forEach(button=>button.addEventListener('click',()=>{
+  radius.value=button.dataset.radius;activateDemo('curve',drawCurve);
+}));
 
 const fanDistance=byId('fanDistance'),fanCanvas=byId('fanCanvas');
+// Second-order approximation of j(r)/r for constant curvature K: 1 - K r^2/6.
+function fanApprox(K,r){return 1-K*r*r/6;}
+function fanComment(r){
+  // On the unit sphere j(r)=sin r grows while j'(r)=cos r>0, i.e. for r<pi/2.
+  const growth=Math.cos(r)>0?'球面の扇はまだ広がっている（幅が最大になるのは r=π/2≈1.57）。':'球面の扇は r=π/2≈1.57 を過ぎて、幅が縮み始めている。';
+  // Largest relative error of 1-Kr^2/6 against the exact ratios for K=+1 and K=-1.
+  const error=Math.max(Math.abs(Math.sin(r)/r-fanApprox(1,r)),Math.abs(Math.sinh(r)/r-fanApprox(-1,r)));
+  const fit=error<0.005?'近似 1−Kr²/6 とほぼ一致する（曲率は r² の小さな補正として現れる）。':'この距離では近似 1−Kr²/6 とのずれがはっきり見える。';
+  return growth+fit;
+}
 function drawFan(){
   const r=Number(fanDistance.value),{c,w,h}=fitCanvas(fanCanvas);
   const models=[
-    {label:'K = +1',fn:Math.sin,color:'#246891',widthId:'fanPositive',ratioId:'fanPositiveRatio',formula:'sin(r)'},
-    {label:'K = 0',fn:t=>t,color:'#526273',widthId:'fanFlat',ratioId:'fanFlatRatio',formula:'r'},
-    {label:'K = −1',fn:Math.sinh,color:'#ad681d',widthId:'fanNegative',ratioId:'fanNegativeRatio',formula:'sinh(r)'}
+    {label:'K = +1',K:1,fn:Math.sin,color:'#246891',widthId:'fanPositive',ratioId:'fanPositiveRatio',approxId:'fanPositiveApprox',formula:'sin(r)'},
+    {label:'K = 0',K:0,fn:t=>t,color:'#526273',widthId:'fanFlat',ratioId:'fanFlatRatio',approxId:'fanFlatApprox',formula:'r'},
+    {label:'K = −1',K:-1,fn:Math.sinh,color:'#ad681d',widthId:'fanNegative',ratioId:'fanNegativeRatio',approxId:'fanNegativeApprox',formula:'sinh(r)'}
   ];
   setSpacedText(byId('fanDistanceOut'),r.toFixed(1));
   fanDistance.setAttribute('aria-valuetext','距離'+r.toFixed(1)+'、曲率半径を1とした単位');
@@ -77,6 +91,7 @@ function drawFan(){
     const center=top+rowHeight*(index+.5),width=model.fn(r),ratio=width/r;
     setSpacedText(byId(model.widthId),model.formula+' = '+width.toFixed(3));
     setSpacedText(byId(model.ratioId),ratio.toFixed(3));
+    const approxCell=byId(model.approxId);if(approxCell)setSpacedText(approxCell,fanApprox(model.K,r).toFixed(3));
     c.fillStyle=canvasColor(model.color);c.fillText(model.label,5,center+4);
     c.strokeStyle=canvasColor('#d7e0e8');c.lineWidth=1;c.beginPath();c.moveTo(left,center);c.lineTo(right,center);c.stroke();
     function edges(fn,color,dashed){
@@ -98,11 +113,14 @@ function drawFan(){
   c.fillStyle=canvasColor('#526273');c.fillText('同じ出発点',left,14);
   c.textAlign='right';c.fillText('横軸：距離 r（縦横は別縮尺）',right,h-7);
   c.textAlign='center';c.fillText('0',left,h-23);c.fillText(r.toFixed(1),xAt(r),h-23);
-  const description='距離r='+r.toFixed(1)+'での平面に対する幅の比は、正の曲率で'+(Math.sin(r)/r).toFixed(3)+'、平面で1、負の曲率で'+(Math.sinh(r)/r).toFixed(3)+'。';
+  const description='距離r='+r.toFixed(1)+'での平面に対する幅の比は、正の曲率で'+(Math.sin(r)/r).toFixed(3)+'、平面で1、負の曲率で'+(Math.sinh(r)/r).toFixed(3)+'。'+fanComment(r);
   setSpacedText(byId('fanReadout'),description);
   fanCanvas.setAttribute('aria-label',description+'各段は同じ初期角度幅の扇の横断幅を表す模式図。破線は平面の幅。');
 }
 fanDistance.addEventListener('input',()=>activateDemo('fan',drawFan));
+document.querySelectorAll('[data-distance]').forEach(button=>button.addEventListener('click',()=>{
+  fanDistance.value=button.dataset.distance;activateDemo('fan',drawFan);
+}));
 
 const kOne=byId('kOne'),kTwo=byId('kTwo'),surface=byId('surfaceCanvas');
 let angleX=-0.55,angleY=0.72,drag=null;
@@ -131,7 +149,7 @@ function drawSurface(){
   const project=p=>({x:w/2+(p.x-cx)*scale,y:h/2-(p.y-cy)*scale,z:p.z});
   const light0=rotatePoint(-.4,.6,1),ln=Math.hypot(light0.x,light0.y,light0.z);
   const light={x:light0.x/ln,y:light0.y/ln,z:light0.z/ln};
-  const positive=a*b>.02,negative=a*b<-.02;
+  const positive=a*b>1e-8,negative=a*b<-1e-8;
   const base=positive?[65,139,177]:negative?[205,139,67]:[113,151,137];
   const faces=[];
   function face(p,q,r){
@@ -168,7 +186,9 @@ function drawSurface(){
   const K=a*b;
   setSpacedText(byId('gaussValue'),'K = '+(K>0?'+':'')+K.toFixed(2));
   let description;
-  if(K>1e-8)description='二方向が同じ側へ曲がる、お椀型。';
+  if(K>1e-8&&a<0&&b<0)description='二方向とも下へ曲がる、逆さのお椀（山の頂上）。符号は両方とも負だが、積は正。';
+  else if(K>1e-8&&Math.abs(a-b)>1e-8)description='二方向が同じ側へ曲がる、細長いお椀型。曲がり方が違っても、積が同じならKも同じ。';
+  else if(K>1e-8)description='二方向が同じ側へ曲がる、お椀型。';
   else if(K< -1e-8)description='二方向が逆向きに曲がる、鞍型。';
   else if(Math.abs(a)+Math.abs(b)<1e-8)description='二方向とも平ら。平面の模型。';
   else description='一方向だけに曲がる円柱型。見た目は曲がるが、中央ではK=0。';
@@ -204,12 +224,18 @@ surface.addEventListener('keydown',event=>{
 
 const sectionOne=byId('sectionOne'),sectionTwo=byId('sectionTwo');
 function fmt(v){return (v>0?'+':'')+v.toFixed(1);}
+function ricciComment(a,b,sum){
+  if(a*b<0)return sum>0?'一方の断面は負でも、もう一方がそれを上回るので和は正。':sum<0?'一方が正でも、負の断面曲率の影響が大きく、和は負。':'正と負がちょうど打ち消し合う。';
+  if(Math.abs(a-b)<1e-9&&Math.abs(a)>1e-9)return '二つの断面が等しい。断面曲率がどこでも同じ三次元の空間（球面・双曲空間など）ではこの形で、Ric = 2×（断面曲率）。';
+  if(Math.abs(a)<1e-9&&Math.abs(b)<1e-9)return '横向き二断面の和はゼロ。平らな空間でも、S²×ℝ を縦方向へ進むときもこの値。';
+  return sum>0?'この模型では横向き二断面の和は正。':sum<0?'この模型では横向き二断面の和は負。':'横向き二断面の和はゼロ。';
+}
 function drawRicci(){
   const a=Number(sectionOne.value),b=Number(sectionTwo.value),sum=a+b;
   setSpacedText(byId('sectionOneOut'),fmt(a));setSpacedText(byId('sectionTwoOut'),fmt(b));
   setSpacedText(byId('ricciSum'),'Ric(v,v) = '+fmt(sum));
   setSpacedText(byId('ricciAverage'),'二つの断面曲率の平均 = '+fmt(sum/2));
-  setSpacedText(byId('ricciWords'),a*b<0?(sum>0?'一方の断面は負でも、もう一方がそれを上回るので和は正。':sum<0?'一方が正でも、負の断面曲率の影響が大きく、和は負。':'正と負がちょうど打ち消し合う。'):sum>0?'この模型では横向き二断面の和は正。':sum<0?'この模型では横向き二断面の和は負。':'横向き二断面の和はゼロ。');
+  setSpacedText(byId('ricciWords'),ricciComment(a,b,sum));
 }
 sectionOne.addEventListener('input',()=>activateDemo('ricci',drawRicci));sectionTwo.addEventListener('input',()=>activateDemo('ricci',drawRicci));
 document.querySelectorAll('[data-pair]').forEach(button=>button.addEventListener('click',()=>{
