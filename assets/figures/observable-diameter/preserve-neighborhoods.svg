@@ -42,10 +42,10 @@
   <rect x="490" y="55" width="160" height="220" fill="var(--highlight)"/>
   <line x1="105" y1="165" x2="715" y2="165" class="axis"/>
   <line x1="170" y1="55" x2="170" y2="277" class="axis"/>
-  <text x="725" y="170">x</text><text x="148" y="57">f(x)</text>
+  <text x="725" y="170">x</text><text x="180" y="50">f(x)</text>
   <line x1="170" y1="265" x2="650" y2="265" class="guide"/>
   <line x1="170" y1="65" x2="650" y2="65" class="guide"/>
-  <text x="147" y="270" text-anchor="end">−2</text><text x="147" y="70" text-anchor="end">2</text>
+  <text x="162" y="255" text-anchor="end">−2</text><text x="162" y="60" text-anchor="end">2</text>
   <polyline points="105,265 170,265" class="collapse"/>
   <polyline points="170,265 330,165" class="preserve"/>
   <polyline points="330,165 490,165" class="collapse"/>
@@ -63,5 +63,5 @@
   <text x="250" y="92" text-anchor="middle" fill="var(--preserve)">境界 x₁ = 1</text>
   <text x="570" y="245" text-anchor="middle" fill="var(--preserve)">境界 x₂ = 5</text>
   <text x="410" y="150" text-anchor="middle">傾き 0</text>
-  <text x="410" y="329" text-anchor="middle">各標本の質量は 1/4。質量 1/2 の部分直径は、移した後も 1。</text>
+  <text x="410" y="329" text-anchor="middle">各点の質量は 1/4。質量 1/2 の部分直径は、移した後も 1。</text>
 </svg>

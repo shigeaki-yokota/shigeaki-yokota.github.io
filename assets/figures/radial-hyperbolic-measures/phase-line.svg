@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 330" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="330" viewBox="0 0 820 330" role="img" aria-labelledby="title desc">
   <title id="title">倍率の指数と二つのGaussianの相</title>
-  <desc id="desc">距離に掛ける倍率をn^(−β)とする。Riemannian Gaussianはβが1より小さいと無限散逸、1で有限直径の極限、1より大きいとLévy族になる。wrapped Gaussianは境目がβ=1/2になる。</desc>
+  <desc id="desc">距離に掛ける倍率をn^(−β)とする。Riemannian Gaussianはβが1より小さいと無限散逸、1で有限直径の極限、1より大きいとLévy族になる。wrapped Gaussianは境目がβ=1/2になる。境目ではRiemannianで直径2σ²以下、wrappedで直径2σ以下の族が残る。</desc>
   <style>
     :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --good:#337a62; --bad:#b4532a; --crit:#234e76; --goodfill:#d6eadf; --badfill:#f4ddd0; }
     @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --guide:#68737f; --good:#72c49f; --bad:#f0a070; --crit:#7fb4de; --goodfill:#1f3a2f; --badfill:#47281a; } }
@@ -24,7 +24,7 @@
   <text x="293" y="109" text-anchor="middle" class="tbad">無限散逸</text>
   <text x="643" y="109" text-anchor="middle" class="tgood">Lévy族</text>
   <line x1="526.7" y1="82" x2="526.7" y2="124" class="crit"/>
-  <text x="526.7" y="144" text-anchor="middle" class="tcrit">β = 1 で P≤2cσ²</text>
+  <text x="526.7" y="144" text-anchor="middle" class="tcrit">β = 1 で P≤2σ²</text>
 
   <text x="60" y="186" font-weight="600">wrapped Gaussian</text>
   <rect x="60" y="196" width="233.3" height="34" class="bandbad"/>
@@ -32,7 +32,7 @@
   <text x="177" y="219" text-anchor="middle" class="tbad">無限散逸</text>
   <text x="527" y="219" text-anchor="middle" class="tgood">Lévy族</text>
   <line x1="293.3" y1="192" x2="293.3" y2="234" class="crit"/>
-  <text x="293.3" y="254" text-anchor="middle" class="tcrit">β = ½ で P≤2cσ</text>
+  <text x="293.3" y="254" text-anchor="middle" class="tcrit">β = ½ で P≤2σ</text>
 
   <line x1="60" y1="272" x2="760" y2="272" class="axis"/>
   <path d="M60,266 v12 M293.3,266 v12 M526.7,266 v12 M760,266 v12" class="axis"/>
