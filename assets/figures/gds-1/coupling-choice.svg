@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" role="img" aria-labelledby="title desc">
+  <title id="title">結合を一つに決めると、二つの特徴の食い違いを同時には消せない</title>
+  <desc id="desc">二点集合Xの特徴fとf'、二点集合Yの特徴hがある。結合のパラメータpを動かすと、fとhが食い違う確率は1−2p、f'とhが食い違う確率は2pになる。大きいほうの最小値はp=1/4での1/2で、これが観測距離になる。特徴ごとに別の結合を選べるなら、fにはp=1/2、f'にはp=0で、どちらも0になる。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --muted:#55646d; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --a:#337a62; --b:#b4532a; --max:#234e76; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --muted:#b0b7c1; --border:#414750; --axis:#a2aeba; --guide:#68737f; --a:#72c49f; --b:#f0a070; --max:#7db4e0; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 20px; font-weight: 650}
+    .muted {fill: var(--muted); font-size: 14px}
+    .axis {stroke: var(--axis); stroke-width: 1.5; fill: none}
+    .guide {stroke: var(--guide); stroke-width: 1; stroke-dasharray: 4 4}
+    .la {stroke: var(--a); stroke-width: 3; fill: none}
+    .lb {stroke: var(--b); stroke-width: 3; fill: none}
+    .lmax {stroke: var(--max); stroke-width: 7; fill: none; opacity: .45}
+    .ta {fill: var(--a); font-weight: 600}
+    .tb {fill: var(--b); font-weight: 600}
+    .tm {fill: var(--max); font-weight: 650}
+    .halo {stroke: var(--background); stroke-width: 6; stroke-linejoin: round; paint-order: stroke}
+    .dot {fill: var(--max); stroke: var(--background); stroke-width: 2}
+  </style>
+  <rect x="1" y="1" width="858" height="418" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="430" y="34" text-anchor="middle" class="heading">結合を一つ選ぶと、二つの特徴は同時に合わせられない</text>
+
+  <text x="36" y="80" font-weight="600">X = {a, b}　各点の確率 1/2</text>
+  <text x="36" y="106">特徴 f　：a ↦ 0,　b ↦ 1</text>
+  <text x="36" y="130">特徴 f′：a ↦ 1,　b ↦ 0</text>
+  <text x="36" y="172" font-weight="600">Y = {c, d}　各点の確率 1/2</text>
+  <text x="36" y="198">特徴 h　：c ↦ 0,　d ↦ 1</text>
+  <text x="36" y="240" class="muted">結合：π(a,c) = π(b,d) = p,</text>
+  <text x="36" y="262" class="muted">　　　π(a,d) = π(b,c) = 1/2 − p</text>
+  <text x="36" y="298" class="muted">独立な結合は p = 1/4。</text>
+  <text x="36" y="338" class="muted">縦軸は「食い違う確率」。</text>
+  <text x="36" y="360" class="muted">差は 0 か 1 だけなので、</text>
+  <text x="36" y="382" class="muted">これがそのまま Ky Fan 距離。</text>
+
+  <!-- plot: p in [0,1/2] -> x in [400,800]; m in [0,1] -> y in [340,100] -->
+  <line x1="400" y1="340" x2="800" y2="340" class="axis"/>
+  <line x1="400" y1="340" x2="400" y2="100" class="axis"/>
+  <line x1="400" y1="220" x2="800" y2="220" class="guide"/>
+  <line x1="600" y1="340" x2="600" y2="100" class="guide"/>
+  <text x="388" y="345" text-anchor="end">0</text>
+  <text x="388" y="225" text-anchor="end">1/2</text>
+  <text x="388" y="105" text-anchor="end">1</text>
+  <text x="400" y="364" text-anchor="middle">0</text>
+  <text x="600" y="364" text-anchor="middle">1/4</text>
+  <text x="800" y="364" text-anchor="middle">1/2</text>
+  <text x="600" y="390" text-anchor="middle">結合のパラメータ p</text>
+
+  <path d="M400,100 L600,220 L800,100" class="lmax"/>
+  <path d="M400,100 L800,340" class="la"/>
+  <path d="M400,340 L800,100" class="lb"/>
+  <circle cx="600" cy="220" r="8" class="dot"/>
+  <circle cx="800" cy="340" r="6" fill="var(--a)"/>
+  <circle cx="400" cy="340" r="6" fill="var(--b)"/>
+
+  <text x="500" y="226" text-anchor="middle" class="ta">f と h：1 − 2p</text>
+  <text x="712" y="226" text-anchor="middle" class="tb">f′ と h：2p</text>
+  <text x="600" y="150" text-anchor="middle" class="tm">両方を抑える最小値 1/2</text>
+  <text x="792" y="320" text-anchor="end" class="ta">f だけなら p = 1/2 で 0</text>
+  <text x="408" y="320" class="tb">f′ だけなら p = 0 で 0</text>
+</svg>

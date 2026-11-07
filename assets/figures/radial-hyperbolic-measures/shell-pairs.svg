@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" role="img" aria-labelledby="title desc">
+  <title id="title">半径の揃った球殻で、点対の距離は二通りに分かれる</title>
+  <desc id="desc">木で模した模式図。半径log nの球殻上で、独立に選んだ二点は原点を経由するので距離2log nになり、倍率1/log nを掛けると2になる。角度が近い二点は半径(1/2)log nで枝分かれするので距離は約log nで、倍率を掛けると1になる。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --good:#337a62; --bad:#b4532a; --atom:#234e76; --atom-border:#fff; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --guide:#68737f; --good:#72c49f; --bad:#f0a070; --atom:#5a9dd0; --atom-border:#17191c; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 20px; font-weight: 650}
+    .sub {font-size: 14px}
+    .tree {stroke: var(--axis); stroke-width: 2; fill: none}
+    .guide {stroke: var(--guide); stroke-width: 1; stroke-dasharray: 4 4}
+    .path-bad {stroke: var(--bad); stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round}
+    .path-good {stroke: var(--good); stroke-width: 5; fill: none; stroke-linecap: round; stroke-linejoin: round}
+    .atom {fill: var(--atom); stroke: var(--atom-border); stroke-width: 2}
+    .good {fill: var(--good)} .bad {fill: var(--bad)}
+  </style>
+  <rect x="1" y="1" width="818" height="398" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">半径がそろった球殻の上の二点</text>
+
+  <!-- radius levels -->
+  <line x1="30" y1="100" x2="790" y2="100" class="guide"/>
+  <line x1="30" y1="215" x2="790" y2="215" class="guide"/>
+  <text x="34" y="92" class="sub">半径 ρ = log n</text>
+  <text x="34" y="207" class="sub">半径 ½ log n</text>
+  <text x="34" y="344" class="sub">原点 o</text>
+
+  <!-- left panel -->
+  <text x="270" y="66" text-anchor="middle" font-weight="600">独立に選んだ二点</text>
+  <path d="M270,330 L195,100 M270,330 L345,100" class="tree"/>
+  <path d="M195,100 L270,330 L345,100" class="path-bad"/>
+  <circle cx="270" cy="330" r="7" class="atom"/>
+  <circle cx="195" cy="100" r="9" class="atom"/>
+  <circle cx="345" cy="100" r="9" class="atom"/>
+  <text x="270" y="364" text-anchor="middle" class="bad">原点を通って往復 2 log n</text>
+  <text x="270" y="384" text-anchor="middle" class="bad">倍率 1/log n のあとで 2</text>
+
+  <!-- right panel -->
+  <text x="620" y="66" text-anchor="middle" font-weight="600">角度が近い二点</text>
+  <path d="M620,330 L620,215 L545,100 M620,215 L695,100" class="tree"/>
+  <path d="M545,100 L620,215 L695,100" class="path-good"/>
+  <circle cx="620" cy="330" r="7" class="atom"/>
+  <circle cx="545" cy="100" r="9" class="atom"/>
+  <circle cx="695" cy="100" r="9" class="atom"/>
+  <circle cx="620" cy="215" r="5" class="atom"/>
+  <text x="620" y="364" text-anchor="middle" class="good">半径 ½ log n で枝分かれし、往復約 log n</text>
+  <text x="620" y="384" text-anchor="middle" class="good">倍率 1/log n のあとで 1</text>
+</svg>

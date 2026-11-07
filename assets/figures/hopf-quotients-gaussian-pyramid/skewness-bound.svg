@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 345" role="img" aria-labelledby="title desc">
+  <title id="title">二次式のゆがみ度の上限と半正規分布</title>
+  <desc id="desc">平均0の二次式qのゆがみ度s＝E[q³]/(E[q²])^(3/2)を横軸にとる。実の二次式ではsは2√2（約2.83）以下、位相不変な二次式ではs は2以下。半正規分布|ξ|の二乗を中心化したξ²−1はs＝2√2で、位相不変の上限2を超える。位相不変な二次式の例は複素一変数の|z|²−2でs＝2。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --good:#337a62; --bad:#b4532a; --real:#234e76; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --guide:#68737f; --good:#72c49f; --bad:#f0a070; --real:#5a9dd0; } }
+    text {font-family: system-ui, "Noto Sans JP", sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 19px; font-weight: 650}
+    .axis {stroke: var(--axis); stroke-width: 1.5}
+    .guide {stroke: var(--guide); stroke-width: 1; stroke-dasharray: 4 4}
+    .bar-real {fill: var(--real)} .bar-good {fill: var(--good)}
+    .good {fill: var(--good)} .bad {fill: var(--bad)}
+    .dot-good {fill: var(--good); stroke: var(--background); stroke-width: 2}
+    .dot-bad {fill: var(--bad); stroke: var(--background); stroke-width: 2}
+  </style>
+  <rect x="1" y="1" width="818" height="343" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">二次式のゆがみ度 s = E[q³] / (E[q²])^(3/2) の上限</text>
+  <text x="80" y="66">実の二次式 q = Σ λᵢ(ξᵢ²−1)：s ≤ 2√2 ≈ 2.83</text>
+  <rect x="80" y="74" width="622" height="14" class="bar-real"/>
+  <text x="80" y="124">位相不変な二次式 q = Σ λₖ(|zₖ|²−2)：s ≤ 2</text>
+  <rect x="80" y="132" width="440" height="14" class="bar-good"/>
+  <line x1="520" y1="150" x2="520" y2="212" class="guide"/>
+  <line x1="702" y1="92" x2="702" y2="212" class="guide"/>
+  <line x1="80" y1="215" x2="750" y2="215" class="axis"/>
+  <path d="M80,209 v12 M300,209 v12 M520,209 v12 M740,209 v12" class="axis"/>
+  <text x="80" y="240" text-anchor="middle">0</text>
+  <text x="300" y="240" text-anchor="middle">1</text>
+  <text x="520" y="240" text-anchor="middle">2</text>
+  <text x="740" y="240" text-anchor="middle">3</text>
+  <circle cx="520" cy="215" r="8" class="dot-good"/>
+  <circle cx="702" cy="215" r="8" class="dot-bad"/>
+  <text x="520" y="268" text-anchor="middle" class="good">|z|² − 2 （s = 2）</text>
+  <text x="702" y="268" text-anchor="middle" class="bad">ξ² − 1 （s = 2√2）</text>
+  <text x="410" y="308" text-anchor="middle" class="bad">半正規分布 |ξ| の二乗を中心化すると ξ²−1 と同じ値になり、</text>
+  <text x="410" y="330" text-anchor="middle" class="bad">位相不変な二次式の上限 2 を超える。</text>
+</svg>

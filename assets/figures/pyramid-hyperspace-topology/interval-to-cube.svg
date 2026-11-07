@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 380" role="img" aria-labelledby="title desc">
+  <title id="title">区間[0,1]を、二点の空間の距離座標の正方形に写す</title>
+  <desc id="desc">区間[0,1]に一様な測度を入れた空間を、二点の空間Tの距離座標で正方形[0,1/2]の二乗の中へ写す。区間の左の3/8は縦線へ、右の3/8は横線へ移り、中央の1/4は斜めの線に移る。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --a:#2f6f9f; --b:#b4532a; --mid:#7a8790; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --a:#6fb0e0; --b:#f0a070; --mid:#a2aeba; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 19px; font-weight: 650}
+    .small {font-size: 13px}
+    .axis {stroke: var(--axis); stroke-width: 1.5; fill: none}
+    .sa {stroke: var(--a); stroke-width: 6; fill: none}
+    .sb {stroke: var(--b); stroke-width: 6; fill: none}
+    .sm {stroke: var(--mid); stroke-width: 6; fill: none; stroke-dasharray: 2 6; stroke-linecap: round}
+    .atomA {fill: var(--a)} .atomB {fill: var(--b)}
+    .la {fill: var(--a)} .lb {fill: var(--b)} .lm {fill: var(--mid)}
+  </style>
+  <rect x="1" y="1" width="818" height="378" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">区間を、二点の空間の「距離座標」へ写す</text>
+  <text x="40" y="70" font-weight="600">X = [0, 1]（一様な測度）</text>
+  <line x1="40" y1="130" x2="360" y2="130" class="axis"/>
+  <line x1="40" y1="122" x2="40" y2="138" class="axis"/><line x1="360" y1="122" x2="360" y2="138" class="axis"/>
+  <path d="M40,106 L160,106" class="sa"/>
+  <path d="M160,106 L240,106" class="sm"/>
+  <path d="M240,106 L360,106" class="sb"/>
+  <text x="40" y="160" class="small">0</text><text x="154" y="160" class="small">3/8</text><text x="234" y="160" class="small">5/8</text><text x="354" y="160" class="small">1</text>
+  <text x="100" y="92" text-anchor="middle" class="small la">T の点 t₁ と組にする</text>
+  <text x="200" y="198" text-anchor="middle" class="small lm">中央 1/4 は捨てる</text>
+  <text x="300" y="92" text-anchor="middle" class="small lb">T の点 t₂ と組にする</text>
+  <path d="M200,208 L200,236" stroke="var(--axis)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--axis)"/></marker></defs>
+  <text x="212" y="228" class="small">u = (u₁, u₂)</text>
+  <text x="40" y="262" font-weight="600" class="small">T = 距離 1/2 の二点（質量 1/2 ずつ）の距離座標</text>
+  <text x="40" y="282" font-weight="600" class="small">T の点は (0, 1/2) と (1/2, 0) に対応する</text>
+  <rect x="470" y="60" width="260" height="260" fill="none" stroke="var(--axis)" stroke-width="1.5"/>
+  <text x="470" y="344" text-anchor="middle" class="small">0</text><text x="730" y="344" text-anchor="middle" class="small">1/2</text>
+  <text x="456" y="324" text-anchor="end" class="small">0</text><text x="456" y="70" text-anchor="end" class="small">1/2</text>
+  <text x="600" y="360" text-anchor="middle" class="small">u₁</text>
+  <text x="426" y="196" text-anchor="middle" class="small">u₂</text>
+  <path d="M470,60 L470,190" class="sa"/>
+  <path d="M470,190 L600,320" class="sm"/>
+  <path d="M600,320 L730,320" class="sb"/>
+  <circle cx="470" cy="60" r="9" class="atomA"/>
+  <circle cx="730" cy="320" r="9" class="atomB"/>
+  <text x="488" y="80" class="small la">原子 1/8（t₁ の像）</text>
+  <text x="722" y="296" text-anchor="end" class="small lb">原子 1/8（t₂ の像）</text>
+  <text x="488" y="132" class="small la">質量 1/4 の線分</text>
+  <text x="560" y="232" class="small lm">質量 1/4 の斜めの線分</text>
+  <text x="665" y="342" text-anchor="middle" class="small lb">質量 1/4 の線分</text>
+</svg>

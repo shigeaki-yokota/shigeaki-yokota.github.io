@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" role="img" aria-labelledby="title desc">
+  <title id="title">空間の族を、有限空間からの距離で比べる</title>
+  <desc id="desc">模式図。空間全体の中に二つの族AとBがあり、どちらも一点の空間*を含んでいる。有限個の点の空間Tから各族までの距離の差を、Tの大きさで割って、すべてのTにわたって上限を取ったものが二つの族の距離になる。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --a:#2f6f9f; --a-fill:#2f6f9f33; --b:#b4532a; --b-fill:#b4532a33; --test:#293a43; --guide:#85949c; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --a:#6fb0e0; --a-fill:#6fb0e033; --b:#f0a070; --b-fill:#f0a07033; --test:#e5e7eb; --guide:#a2aeba; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 19px; font-weight: 650}
+    .small {font-size: 13px}
+    .famA {fill: var(--a-fill); stroke: var(--a); stroke-width: 2}
+    .famB {fill: var(--b-fill); stroke: var(--b); stroke-width: 2}
+    .la {fill: var(--a); font-weight: 650}
+    .lb {fill: var(--b); font-weight: 650}
+    .dA {stroke: var(--a); stroke-width: 2; stroke-dasharray: 6 4; fill: none}
+    .dB {stroke: var(--b); stroke-width: 2; stroke-dasharray: 6 4; fill: none}
+    .pt {fill: var(--test); stroke: var(--background); stroke-width: 2}
+    .frame {fill: none; stroke: var(--border)}
+  </style>
+  <rect x="1" y="1" width="818" height="398" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">族を、有限個の点の空間からの距離で比べる（模式図）</text>
+  <rect x="24" y="52" width="476" height="332" rx="10" class="frame"/>
+  <text x="38" y="74" class="small">mm空間全体</text>
+  <path d="M255,350 C140,318 82,226 108,152 C134,96 238,88 308,118 C382,150 372,270 255,350 Z" class="famA"/>
+  <path d="M255,350 C330,316 452,246 434,176 C418,116 330,108 296,146 C264,184 216,268 255,350 Z" class="famB"/>
+  <text x="130" y="206" class="la" font-size="20">族 A</text>
+  <text x="372" y="226" class="lb" font-size="20">族 B</text>
+  <circle cx="255" cy="350" r="6" class="pt"/>
+  <text x="272" y="362" class="small">一点の空間 *（どちらの族にも入る）</text>
+  <circle cx="470" cy="84" r="6" class="pt"/>
+  <text x="404" y="78" class="small">有限空間 T</text>
+  <path d="M466,88 L376,126" class="dA"/>
+  <path d="M466,90 L432,150" class="dB"/>
+  <text x="372" y="108" class="small la">□(T, A)</text>
+  <text x="446" y="130" class="small lb">□(T, B)</text>
+  <circle cx="52" cy="268" r="6" class="pt"/>
+  <text x="24" y="296" class="small">有限空間 T′</text>
+  <path d="M58,266 L102,232" class="dA"/>
+  <path d="M58,270 L234,282" class="dB"/>
+  <text x="22" y="228" class="small la">□(T′, A)</text>
+  <text x="120" y="296" class="small lb">□(T′, B)</text>
+  <text x="530" y="96" class="heading" font-size="17">二つの族の距離</text>
+  <text x="530" y="132">テスト空間 T ごとに、</text>
+  <text x="530" y="156">二つの距離の差を測る</text>
+  <text x="530" y="198" class="small">|□(T, A) − □(T, B)|</text>
+  <line x1="530" y1="210" x2="780" y2="210" stroke="var(--guide)" stroke-width="1.5"/>
+  <text x="530" y="232" class="small">#T + diam T</text>
+  <text x="530" y="278">これをすべての有限空間 T で</text>
+  <text x="530" y="302">考えて、上限を取ったものが</text>
+  <text x="530" y="326" font-weight="650">d_fin(A, B)</text>
+  <text x="530" y="360" class="small">#T は点の個数、diam T は T の直径</text>
+</svg>

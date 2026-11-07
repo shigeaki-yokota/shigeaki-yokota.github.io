@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 350" role="img" aria-labelledby="title desc">
+  <title id="title">捨てる質量κを少し増やして見ると、観測直径の列が極限に近づく</title>
+  <desc id="desc">横軸は捨てる質量κ、縦軸は観測直径。極限のデータXではκ=1/4で値が1から0に落ちる。X_8とX_16ではそれより右のκで落ちる。κ=1/4に固定するとX_nは1でXは0だが、κをεだけ右へずらすと、nが大きいX_16は0になる。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --good:#337a62; --bad:#b4532a; --blue:#234e76; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --guide:#68737f; --good:#72c49f; --bad:#f0a070; --blue:#5a9dd0; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 19px; font-weight: 650}
+    .sub {font-size: 14px}
+    .axis {stroke: var(--axis); stroke-width: 1.5}
+    .guide {stroke: var(--guide); stroke-width: 1; stroke-dasharray: 4 4}
+    .cx {stroke: var(--good); stroke-width: 7; fill: none; stroke-opacity: .55}
+    .c8 {stroke: var(--bad); stroke-width: 3; fill: none; stroke-dasharray: 11 6}
+    .c16 {stroke: var(--blue); stroke-width: 3; fill: none; stroke-dasharray: 3 6}
+    .eps {stroke: var(--ink); stroke-width: 2; fill: none}
+    .good {fill: var(--good)} .bad {fill: var(--bad)} .blue {fill: var(--blue)}
+  </style>
+  <rect x="1" y="1" width="818" height="348" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">κ を固定すると跳ぶが、少し右から見ると収束する</text>
+  <line x1="90" y1="230" x2="760" y2="230" class="axis"/>
+  <line x1="90" y1="70" x2="90" y2="230" class="axis"/>
+  <text x="80" y="95" text-anchor="end" class="sub">1</text><text x="80" y="235" text-anchor="end" class="sub">0</text>
+  <text x="46" y="160" class="sub" text-anchor="middle" transform="rotate(-90 46 160)">観測直径</text>
+  <text x="760" y="258" text-anchor="end" class="sub">捨てる質量 κ</text>
+  <line x1="410" y1="60" x2="410" y2="240" class="guide"/>
+  <text x="410" y="258" text-anchor="middle" class="sub">1/4</text>
+  <line x1="512" y1="60" x2="512" y2="240" class="guide"/>
+  <text x="520" y="258" text-anchor="start" class="sub">1/4 + ε</text>
+  <path d="M90,90 H410 M410,230 H760" class="cx"/>
+  <path d="M90,90 H570 M570,230 H760" class="c8"/>
+  <path d="M90,90 H490 M490,230 H760" class="c16"/>
+  <circle cx="410" cy="90" r="5" fill="var(--background)" stroke="var(--good)" stroke-width="3"/>
+  <circle cx="410" cy="230" r="5" class="good"/>
+  <circle cx="570" cy="90" r="5" fill="var(--background)" stroke="var(--bad)" stroke-width="3"/>
+  <circle cx="570" cy="230" r="5" class="bad"/>
+  <circle cx="490" cy="90" r="5" fill="var(--background)" stroke="var(--blue)" stroke-width="3"/>
+  <circle cx="490" cy="230" r="5" class="blue"/>
+  <path d="M410,195 H512" class="eps"/><path d="M410,189 V201 M512,189 V201" class="eps"/>
+  <text x="461" y="184" text-anchor="middle" class="sub">ε</text>
+  <path d="M110,126 H150" class="cx"/><text x="160" y="131" class="sub">極限 X（跳ぶ位置 1/4）</text>
+  <path d="M110,152 H150" class="c8"/><text x="160" y="157" class="sub">X<tspan dy="3" font-size="10">8</tspan><tspan dy="-3">（跳ぶ位置 3/8）</tspan></text>
+  <path d="M110,178 H150" class="c16"/><text x="160" y="183" class="sub">X<tspan dy="3" font-size="10">16</tspan><tspan dy="-3">（跳ぶ位置 5/16）</tspan></text>
+  <text x="410" y="294" text-anchor="middle" class="sub">κ = 1/4 に固定すると X<tspan dy="3" font-size="10">n</tspan><tspan dy="-3"> は 1、X は 0。1/4 + ε で見ると、n ≥ 1/ε の X</tspan><tspan dy="3" font-size="10">n</tspan><tspan dy="-3"> も 0 になる。</tspan></text>
+  <text x="410" y="318" text-anchor="middle" class="sub">概念図。X は a に 3/4、b に 1/4 の質量を置いた距離 1 の二点データ。X<tspan dy="3" font-size="10">n</tspan><tspan dy="-3"> は a に 3/4 − 1/n。</tspan></text>
+</svg>

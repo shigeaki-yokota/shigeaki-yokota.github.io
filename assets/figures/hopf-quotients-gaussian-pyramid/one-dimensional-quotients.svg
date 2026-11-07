@@ -1,72 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" role="img" aria-labelledby="title desc">
-  <title id="title">実数の符号商と複素数の位相商</title>
-  <desc id="desc">実一次元では二点−rとr、複素一次元では半径rの円全体が、一つの半径rに対応する。両方の商の距離は半径の差の絶対値になる。実数の商には半正規分布χ₁、複素数の商にはχ₂分布が載り、正の半径における密度はそれぞれ√(2/π) exp(−r²/2)、r exp(−r²/2)になる。ξとηは独立な標準正規変数。固定した公開arXiv v2の§1.2とLemmas 2.12–2.13に基づく独自の模式図。</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+  <title id="title">同じ半直線に載る二つの確率</title>
+  <desc id="desc">実一次元では二点−rとrが、複素一次元では半径rの円全体が、一つの半径rにまとまる。どちらの商でも距離は半径の差の絶対値になる。実数の商には半正規分布χ₁（r>0での密度は√(2/π)exp(−r²/2)）、複素数の商にはχ₂分布（密度はr exp(−r²/2)）が載る。ξとηは独立な標準正規変数。定義から描いた説明用の模式図。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#53616b"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" class="arrowhead"/>
     </marker>
-    <style>
-      text { font-family: "Noto Sans JP", "Yu Gothic", sans-serif; fill: #25323b; font-size: 21px; }
-      .heading { font-size: 25px; font-weight: 600; }
-      .small { font-size: 19px; }
-      .axis { stroke: #75808a; stroke-width: 2; fill: none; }
-      .map { stroke: #53616b; stroke-width: 2; fill: none; marker-end: url(#arrow); }
-      .orbit { stroke: #326c94; stroke-width: 3; fill: none; }
-      .point { fill: #326c94; }
-      .radius { stroke: #326c94; stroke-width: 2; stroke-dasharray: 6 5; }
-      .law { fill: #214e70; }
-    </style>
   </defs>
-  <rect width="960" height="760" rx="12" fill="#fff"/>
-  <text x="36" y="46" class="heading">一次元の商：同じ半直線に、異なる確率が載る</text>
-  <text x="36" y="80" class="small">ξ, η は独立な N(0, 1) ／ r ≥ 0</text>
+  <style>
+    :root { --background:#fff; --panel:#f3f6f8; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --atom:#234e76; --atom-border:#fff; --law:#1d5f8f; --rad:#b4532a; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --panel:#20242a; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --atom:#5a9dd0; --atom-border:#17191c; --law:#7fb8e3; --rad:#f0a070; } }
+    text {font-family: system-ui, "Noto Sans JP", sans-serif; fill: var(--ink); font-size: 20px}
+    .heading {font-size: 24px; font-weight: 650}
+    .sub {font-size: 18px}
+    .axis {stroke: var(--axis); stroke-width: 2; fill: none}
+    .map {stroke: var(--axis); stroke-width: 2; fill: none; marker-end: url(#arrow)}
+    .arrowhead {fill: var(--axis)}
+    .atom {fill: var(--atom); stroke: var(--atom-border); stroke-width: 2}
+    .orbit {stroke: var(--atom); stroke-width: 3; fill: none}
+    .arc {stroke: var(--atom); stroke-width: 2.5; fill: none; stroke-dasharray: 5 5}
+    .radius {stroke: var(--rad); stroke-width: 2.5; stroke-dasharray: 6 5}
+    .law {fill: var(--law); font-weight: 600}
+    .radtxt {fill: var(--rad)}
+  </style>
+  <rect x="1" y="1" width="958" height="598" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="480" y="38" text-anchor="middle" class="heading">同じ半直線に、異なる確率が載る</text>
 
-  <rect x="24" y="108" width="912" height="270" rx="10" fill="#f5f8fa"/>
-  <text x="44" y="145" class="heading">実1次元：符号を忘れる</text>
-  <text x="44" y="176" class="small">x と −x を同一視</text>
-  <line x1="66" y1="240" x2="364" y2="240" class="axis" marker-end="url(#arrow)"/>
-  <line x1="215" y1="234" x2="215" y2="246" class="axis"/>
-  <circle cx="125" cy="240" r="7" class="point"/>
-  <circle cx="305" cy="240" r="7" class="point"/>
-  <path d="M 125 220 Q 215 174 305 220" class="orbit" stroke-dasharray="5 5"/>
-  <text x="108" y="276">−r</text>
-  <text x="208" y="276">0</text>
-  <text x="300" y="276">r</text>
-  <text x="345" y="275" class="small">ℝ</text>
-  <path d="M 392 235 L 510 235" class="map"/>
-  <text x="400" y="211">x ↦ |x|</text>
-  <line x1="563" y1="240" x2="890" y2="240" class="axis" marker-end="url(#arrow)"/>
-  <circle cx="563" cy="240" r="4" fill="#75808a"/>
-  <circle cx="700" cy="240" r="7" class="point"/>
-  <text x="556" y="276">0</text>
-  <text x="696" y="276">r</text>
-  <text x="795" y="212">[0, ∞)</text>
-  <text x="558" y="318" class="law">χ₁：|ξ| の分布（半正規）</text>
-  <text x="558" y="350" class="small law">密度 √(2/π) exp(−r²/2),  r &gt; 0</text>
+  <rect x="24" y="58" width="912" height="240" rx="10" fill="var(--panel)"/>
+  <text x="44" y="92" class="heading">実一次元：符号を忘れる</text>
+  <text x="44" y="120" class="sub">x と −x を同じ点とみなす</text>
+  <line x1="66" y1="200" x2="364" y2="200" class="axis"/>
+  <line x1="215" y1="194" x2="215" y2="206" class="axis"/>
+  <path d="M 125 182 Q 215 140 305 182" class="arc"/>
+  <circle cx="125" cy="200" r="8" class="atom"/>
+  <circle cx="305" cy="200" r="8" class="atom"/>
+  <text x="125" y="236" text-anchor="middle">−r</text>
+  <text x="215" y="236" text-anchor="middle">0</text>
+  <text x="305" y="236" text-anchor="middle">r</text>
+  <path d="M 392 195 L 510 195" class="map"/>
+  <text x="451" y="176" text-anchor="middle">x ↦ |x|</text>
+  <line x1="563" y1="200" x2="890" y2="200" class="axis" marker-end="url(#arrow)"/>
+  <circle cx="700" cy="200" r="8" class="atom"/>
+  <text x="563" y="236" text-anchor="middle">0</text>
+  <text x="700" y="236" text-anchor="middle">r</text>
+  <text x="560" y="272" class="law">χ₁：|ξ| の分布（半正規分布）</text>
+  <text x="563" y="165" class="sub">密度 √(2/π) e^(−r²/2)</text>
 
-  <rect x="24" y="394" width="912" height="302" rx="10" fill="#f5f8fa"/>
-  <text x="44" y="431" class="heading">複素1次元（実2次元）：位相を忘れる</text>
-  <text x="44" y="462" class="small">z と exp(iθ)z を同一視</text>
-  <line x1="77" y1="566" x2="361" y2="566" class="axis" marker-end="url(#arrow)"/>
-  <line x1="215" y1="666" x2="215" y2="476" class="axis" marker-end="url(#arrow)"/>
-  <circle cx="215" cy="566" r="72" class="orbit"/>
-  <line x1="215" y1="566" x2="271" y2="521" class="radius"/>
-  <circle cx="271" cy="521" r="6" class="point"/>
-  <text x="232" y="537">r</text>
-  <text x="193" y="592">0</text>
-  <text x="278" y="509" class="small">z</text>
-  <text x="326" y="596" class="small">Re</text>
-  <text x="228" y="493" class="small">Im</text>
-  <path d="M 392 560 L 510 560" class="map"/>
-  <text x="397" y="536">z ↦ |z|</text>
-  <line x1="563" y1="566" x2="890" y2="566" class="axis" marker-end="url(#arrow)"/>
-  <circle cx="563" cy="566" r="4" fill="#75808a"/>
-  <circle cx="700" cy="566" r="7" class="point"/>
-  <text x="556" y="601">0</text>
-  <text x="696" y="601">r</text>
-  <text x="795" y="538">[0, ∞)</text>
-  <text x="558" y="643" class="law">χ₂：√(ξ² + η²) の分布</text>
-  <text x="558" y="675" class="small law">密度 r exp(−r²/2),  r &gt; 0</text>
-
-  <text x="36" y="735">どちらの商も距離は |r − s|。確率まで含めると異なる。</text>
+  <rect x="24" y="314" width="912" height="240" rx="10" fill="var(--panel)"/>
+  <text x="44" y="348" class="heading">複素一次元（実二次元）：位相を忘れる</text>
+  <text x="44" y="376" class="sub">z と e^(iθ)z を同じ点とみなす</text>
+  <line x1="95" y1="466" x2="335" y2="466" class="axis"/>
+  <line x1="215" y1="396" x2="215" y2="538" class="axis"/>
+  <circle cx="215" cy="466" r="60" class="orbit"/>
+  <line x1="215" y1="466" x2="257" y2="424" class="radius"/>
+  <circle cx="257" cy="424" r="7" class="atom"/>
+  <text x="226" y="436" class="radtxt">r</text>
+  <path d="M 392 466 L 510 466" class="map"/>
+  <text x="451" y="446" text-anchor="middle">z ↦ |z|</text>
+  <line x1="563" y1="466" x2="890" y2="466" class="axis" marker-end="url(#arrow)"/>
+  <circle cx="700" cy="466" r="8" class="atom"/>
+  <text x="563" y="502" text-anchor="middle">0</text>
+  <text x="700" y="502" text-anchor="middle">r</text>
+  <text x="560" y="535" class="law">χ₂：√(ξ²+η²) の分布</text>
+  <text x="563" y="431" class="sub">密度 r e^(−r²/2)</text>
+  <text x="480" y="582" text-anchor="middle" class="sub">どちらの商でも距離は |r − s|。確率まで含めると二つは別のものになる。</text>
 </svg>

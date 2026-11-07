@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" role="img" aria-labelledby="title desc">
+  <title id="title">距離が開く二点データの列と、その観測の集まり</title>
+  <desc id="desc">上段は距離1, 2, 4の二点データE_1, E_2, E_4で、距離が増えるほど遠ざかる。下段は、それぞれのデータから見える観測の集まりで、0からnまでの区間として描かれ、nが増えると0から無限大までの区間に近づく。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --border:#d9e0e4; --axis:#85949c; --guide:#c0cbd0; --good:#337a62; --bad:#b4532a; --atom:#234e76; --atom-border:#fff; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --border:#414750; --axis:#a2aeba; --guide:#68737f; --good:#72c49f; --bad:#f0a070; --atom:#5a9dd0; --atom-border:#17191c; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 19px; font-weight: 650}
+    .sub {font-size: 14px}
+    .axis {stroke: var(--axis); stroke-width: 1.5}
+    .guide {stroke: var(--guide); stroke-width: 1; stroke-dasharray: 4 4}
+    .span {stroke: var(--bad); stroke-width: 3; fill: none}
+    .bar {stroke: var(--atom); stroke-width: 9; stroke-linecap: round; fill: none}
+    .limit {stroke: var(--good); stroke-width: 9; stroke-linecap: round; fill: none}
+    .atom {fill: var(--atom); stroke: var(--atom-border); stroke-width: 2}
+    .good {fill: var(--good)} .bad {fill: var(--bad)}
+    .arrow {fill: var(--good)}
+  </style>
+  <rect x="1" y="1" width="818" height="398" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="410" y="32" text-anchor="middle" class="heading">データそのものは遠ざかるが、観測の集まりは収束する</text>
+
+  <text x="40" y="64" font-weight="600">データ E<tspan dy="4" font-size="11">n</tspan><tspan dy="-4">：距離 n の二点（質量は 1/2 ずつ）</tspan></text>
+  <text x="40" y="100">E<tspan dy="4" font-size="11">1</tspan></text>
+  <path d="M200,96 H290" class="span"/>
+  <circle cx="200" cy="96" r="8" class="atom"/><circle cx="290" cy="96" r="8" class="atom"/>
+  <text x="690" y="101" class="sub" text-anchor="end">観測直径 1</text>
+  <text x="40" y="132">E<tspan dy="4" font-size="11">2</tspan></text>
+  <path d="M200,128 H380" class="span"/>
+  <circle cx="200" cy="128" r="8" class="atom"/><circle cx="380" cy="128" r="8" class="atom"/>
+  <text x="690" y="133" class="sub" text-anchor="end">観測直径 2</text>
+  <text x="40" y="164">E<tspan dy="4" font-size="11">4</tspan></text>
+  <path d="M200,160 H560" class="span"/>
+  <circle cx="200" cy="160" r="8" class="atom"/><circle cx="560" cy="160" r="8" class="atom"/>
+  <text x="690" y="165" class="sub" text-anchor="end">観測直径 4</text>
+  <text x="780" y="133" class="bad" text-anchor="end" font-weight="600">発散</text>
+
+  <line x1="40" y1="190" x2="780" y2="190" class="guide"/>
+
+  <text x="40" y="218" font-weight="600">観測の集まり P<tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> = { E</tspan><tspan dy="4" font-size="11">t</tspan><tspan dy="-4"> | 0 ≤ t ≤ n }（t は距離）</tspan></text>
+  <line x1="200" y1="342" x2="780" y2="342" class="axis"/>
+  <line x1="200" y1="336" x2="200" y2="348" class="axis"/>
+  <text x="200" y="366" text-anchor="middle" class="sub">t = 0</text>
+  <line x1="290" y1="336" x2="290" y2="348" class="axis"/><text x="290" y="366" text-anchor="middle" class="sub">1</text>
+  <line x1="380" y1="336" x2="380" y2="348" class="axis"/><text x="380" y="366" text-anchor="middle" class="sub">2</text>
+  <line x1="560" y1="336" x2="560" y2="348" class="axis"/><text x="560" y="366" text-anchor="middle" class="sub">4</text>
+  <text x="40" y="250">P<tspan dy="4" font-size="11">1</tspan></text>
+  <path d="M200,246 H290" class="bar"/>
+  <text x="40" y="280">P<tspan dy="4" font-size="11">2</tspan></text>
+  <path d="M200,276 H380" class="bar"/>
+  <text x="40" y="310">P<tspan dy="4" font-size="11">4</tspan></text>
+  <path d="M200,306 H560" class="bar"/>
+  <text x="620" y="276" class="sub">n とともに伸びる</text>
+  <path d="M600,300 H742" class="limit"/>
+  <path d="M742,291 L762,300 L742,309 Z" class="arrow"/>
+  <text x="620" y="323" class="good sub" font-weight="600">極限 { E<tspan dy="3" font-size="10">t</tspan><tspan dy="-3"> | t ≥ 0 }</tspan></text>
+  <text x="410" y="389" text-anchor="middle" class="sub">概念図。E<tspan dy="3" font-size="10">t</tspan><tspan dy="-3"> は距離 t の二点データ（t = 0 は一点）。</tspan></text>
+</svg>

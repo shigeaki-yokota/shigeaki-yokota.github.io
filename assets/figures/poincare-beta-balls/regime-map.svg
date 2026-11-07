@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">β_n の大きさで、臨界極限が四つに分かれる</title>
+  <desc id="desc">横軸は点の撒き方を決める正の数β_nの増え方を表す模式図。β_n log n が有限になるほど小さい領域では中心から枝の伸びた木、β_n log n が無限大へ向かい β_n が √n より十分小さい領域では直径1以下のあらゆる空間、√n/β_n が正の定数 a に近づく領域では Gaussian を2 arsinh(at/2) でゆがめた空間、β_n が √n より十分大きい領域では Gaussian そのものが極限になる。</desc>
+  <style>
+    :root { --background:#fff; --ink:#293a43; --muted:#566872; --border:#d9e0e4; --axis:#85949c; --card:#f6f8fa; --on:#fff;
+            --c1:#246891; --c2:#9a5733; --c3:#3f7a5f; --c4:#7a5a9e; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --muted:#b0b7c1; --border:#414750; --axis:#a2aeba; --card:#22262b; --on:#17191c;
+            --c1:#6fb8e1; --c2:#e0a074; --c3:#78c797; --c4:#b9a0de; } }
+    text {font-family: system-ui, sans-serif; fill: var(--ink); font-size: 15px}
+    .heading {font-size: 20px; font-weight: 650}
+    .muted {fill: var(--muted); font-size: 14px}
+    .tick {font-size: 14px; fill: var(--muted)}
+    .num {fill: var(--on); font-size: 17px; font-weight: 700}
+    .ctitle {font-size: 17px; font-weight: 650}
+    .c1 {fill: var(--c1); stroke: var(--c1)} .c2 {fill: var(--c2); stroke: var(--c2)} .c3 {fill: var(--c3); stroke: var(--c3)} .c4 {fill: var(--c4); stroke: var(--c4)}
+    .t1 {fill: var(--c1)} .t2 {fill: var(--c2)} .t3 {fill: var(--c3)} .t4 {fill: var(--c4)}
+  </style>
+  <rect x="1" y="1" width="958" height="418" rx="12" fill="var(--background)" stroke="var(--border)"/>
+  <text x="480" y="32" text-anchor="middle" class="heading">β<tspan dy="4" font-size="13">n</tspan><tspan dy="-4"> を大きくしていくと、極限が四つに分かれる</tspan></text>
+  <text x="480" y="54" text-anchor="middle" class="muted">模式図。横軸は β<tspan dy="3" font-size="10">n</tspan><tspan dy="-3"> の増え方の目安で、目盛りの間隔は実際の比を表さない</tspan></text>
+  <line x1="125" y1="86" x2="125" y2="94" stroke="var(--axis)" stroke-width="1.5"/>
+  <text x="125" y="80" text-anchor="middle" class="tick">c / log n</text>
+  <line x1="300" y1="86" x2="300" y2="94" stroke="var(--axis)" stroke-width="1.5"/>
+  <text x="300" y="80" text-anchor="middle" class="tick">1</text>
+  <line x1="605" y1="86" x2="605" y2="94" stroke="var(--axis)" stroke-width="1.5"/>
+  <text x="605" y="80" text-anchor="middle" class="tick">c√n</text>
+  <line x1="770" y1="86" x2="770" y2="94" stroke="var(--axis)" stroke-width="1.5"/>
+  <text x="770" y="80" text-anchor="middle" class="tick">n</text>
+  <text x="934" y="80" text-anchor="end" class="tick">β<tspan dy="3" font-size="10">n</tspan><tspan dy="-3"> →</tspan></text>
+  <rect x="50" y="94" width="150" height="34" class="c1" stroke="none"/>
+  <text x="125.0" y="117" text-anchor="middle" class="num">1</text>
+  <rect x="200" y="94" width="380" height="34" class="c2" stroke="none"/>
+  <text x="390.0" y="117" text-anchor="middle" class="num">2</text>
+  <rect x="580" y="94" width="50" height="34" class="c3" stroke="none"/>
+  <text x="605.0" y="117" text-anchor="middle" class="num">3</text>
+  <rect x="630" y="94" width="280" height="34" class="c4" stroke="none"/>
+  <text x="770.0" y="117" text-anchor="middle" class="num">4</text>
+  <line x1="200" y1="94" x2="200" y2="128" stroke="var(--background)" stroke-width="2"/>
+  <line x1="580" y1="94" x2="580" y2="128" stroke="var(--background)" stroke-width="2"/>
+  <line x1="630" y1="94" x2="630" y2="128" stroke="var(--background)" stroke-width="2"/>
+  <path d="M125 128 L125 150 L129 168 L129 188" fill="none" class="c1" stroke-width="2" style="fill:none"/>
+  <path d="M390 128 L390 150 L363 168 L363 188" fill="none" class="c2" stroke-width="2" style="fill:none"/>
+  <path d="M605 128 L605 150 L597 168 L597 188" fill="none" class="c3" stroke-width="2" style="fill:none"/>
+  <path d="M770 128 L770 150 L831 168 L831 188" fill="none" class="c4" stroke-width="2" style="fill:none"/>
+  <rect x="20" y="188" width="218" height="212" rx="10" fill="var(--card)" stroke="var(--border)"/>
+  <rect x="20" y="188" width="218" height="6" rx="3" class="c1" stroke="none"/>
+  <text x="34" y="224" class="ctitle t1">1　木（railway）</text>
+  <text x="34" y="262"><tspan>β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> → 0,  β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> log n → λ</tspan></text>
+  <text x="34" y="302"><tspan>距離の倍率　β</tspan><tspan dy="4" font-size="11">n</tspan></text>
+  <text x="34" y="342"><tspan>極限　P⋆</tspan><tspan dy="4" font-size="11">λ</tspan></text>
+  <text x="34" y="384" class="muted"><tspan>半径の幅が残り、枝になる</tspan></text>
+  <rect x="254" y="188" width="218" height="212" rx="10" fill="var(--card)" stroke="var(--border)"/>
+  <rect x="254" y="188" width="218" height="6" rx="3" class="c2" stroke="none"/>
+  <text x="268" y="224" class="ctitle t2">2　直径1以下</text>
+  <text x="268" y="262"><tspan>β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> ≪ √n,  β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> log n → ∞</tspan></text>
+  <text x="268" y="302"><tspan>距離の倍率　1/𝓛</tspan><tspan dy="4" font-size="11">n</tspan></text>
+  <text x="268" y="342"><tspan>極限　P</tspan><tspan dy="4" font-size="11">≤1</tspan></text>
+  <text x="268" y="384" class="muted"><tspan>半径の幅は消える</tspan></text>
+  <rect x="488" y="188" width="218" height="212" rx="10" fill="var(--card)" stroke="var(--border)"/>
+  <rect x="488" y="188" width="218" height="6" rx="3" class="c3" stroke="none"/>
+  <text x="502" y="224" class="ctitle t3">3　非線形Gaussian</text>
+  <text x="502" y="262"><tspan>√n / β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> → a</tspan></text>
+  <text x="502" y="302"><tspan>距離の倍率　1</tspan></text>
+  <text x="502" y="342"><tspan>極限　F</tspan><tspan dy="4" font-size="11">a</tspan><tspan dy="-4">(P</tspan><tspan dy="4" font-size="11">Γ∞</tspan><tspan dy="-4">)</tspan></text>
+  <text x="502" y="384" class="muted"><tspan>半径の幅は消える</tspan></text>
+  <rect x="722" y="188" width="218" height="212" rx="10" fill="var(--card)" stroke="var(--border)"/>
+  <rect x="722" y="188" width="218" height="6" rx="3" class="c4" stroke="none"/>
+  <text x="736" y="224" class="ctitle t4">4　Gaussian</text>
+  <text x="736" y="262"><tspan>√n / β</tspan><tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> → 0</tspan></text>
+  <text x="736" y="302"><tspan>距離の倍率　1/𝓐</tspan><tspan dy="4" font-size="11">n</tspan></text>
+  <text x="736" y="342"><tspan>極限　P</tspan><tspan dy="4" font-size="11">Γ∞</tspan></text>
+  <text x="736" y="384" class="muted"><tspan>半径の幅は一座標として残る</tspan></text>
+</svg>

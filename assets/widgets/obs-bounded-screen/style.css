@@ -1,0 +1,52 @@
+/* Scoped to figure.widget[data-widget="obs-bounded-screen"]; colours come from site.css variables. */
+figure.widget { margin: 1.6rem 0; padding: .9rem 1rem 1rem; border: 1px solid var(--line); background: var(--surface); border-radius: 6px; overflow-wrap: normal; }
+figure.widget .widget-stage { display: block; }
+figure.widget .w-static, figure.widget .w-svg { display: block; width: 100%; height: auto; margin: .3rem 0; }
+figure.widget figcaption { margin: .6rem 0 0; font-size: .92rem; line-height: 1.65; color: var(--muted); }
+
+figure.widget .w-controls { display: grid; gap: .45rem .9rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: .5rem; font-size: .9rem; }
+figure.widget .w-control { display: grid; gap: .1rem; min-width: 0; }
+figure.widget .w-control input[type="range"] { width: 100%; accent-color: var(--link); }
+figure.widget .w-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .5rem .9rem; align-items: center; }
+figure.widget .w-control.inline { display: inline-flex; align-items: center; gap: .4rem; }
+figure.widget .w-presets { display: inline-flex; flex-wrap: wrap; gap: .4rem; }
+figure.widget button, figure.widget select { font: inherit; font-size: .85rem; color: var(--text); background: var(--page); border: 1px solid var(--line); border-radius: 4px; padding: .2rem .6rem; }
+figure.widget button { cursor: pointer; }
+figure.widget button:hover { border-color: var(--link); }
+figure.widget button:focus-visible, figure.widget select:focus-visible, figure.widget input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+figure.widget .w-check { display: inline-flex; align-items: center; gap: .35rem; }
+
+figure.widget .w-svg { touch-action: none; user-select: none; }
+figure.widget .w-axis { stroke: var(--muted); stroke-width: 1; }
+figure.widget .w-edge { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; opacity: .7; }
+figure.widget .w-label { fill: var(--muted); font-size: 12px; font-family: inherit; }
+figure.widget .w-band { fill: var(--link); opacity: .12; }
+figure.widget .w-curve { stroke-linecap: round; fill: none; }
+figure.widget .w-curve.kept { stroke: var(--link); stroke-width: 3.2; }
+figure.widget .w-curve.flat { stroke: var(--muted); stroke-width: 2; stroke-dasharray: 5 4; }
+figure.widget .w-guide { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; opacity: .65; }
+figure.widget .w-boundary { fill: var(--text); }
+figure.widget .w-atom { fill: var(--page); stroke: var(--link); stroke-width: 2.5; cursor: grab; }
+figure.widget .w-atom:hover, figure.widget .w-atom.dragging { fill: var(--link); }
+figure.widget .w-atom.dragging { cursor: grabbing; }
+figure.widget .w-atom:focus-visible { outline: none; stroke: var(--text); stroke-width: 3.5; }
+figure.widget .w-image { fill: var(--link); }
+figure.widget .w-shrunk { fill: none; stroke: var(--muted); stroke-width: 1.8; }
+
+figure.widget .w-readout { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .15rem; font-size: .88rem; line-height: 1.5; }
+figure.widget .w-readout li { display: flex; flex-wrap: wrap; gap: .1rem .6rem; align-items: baseline; }
+figure.widget .w-readout .k { color: var(--muted); }
+figure.widget .w-readout .v { font-variant-numeric: tabular-nums; font-weight: 600; }
+figure.widget .w-readout .note { color: var(--muted); font-size: .82rem; }
+
+@media (max-width: 560px) {
+  figure.widget { padding: .7rem .6rem .8rem; }
+  figure.widget .w-controls { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  figure.widget * { transition: none !important; animation: none !important; }
+}
+
+figure.widget .w-svg.compact .w-label { font-size: 15px; }
+figure.widget .w-svg.compact .w-atom { r: 12px; }
+figure.widget .w-svg.compact .w-image { r: 5px; }
