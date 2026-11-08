@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 574" role="img" aria-labelledby="title desc">
+  <title id="title">球の方向のブロックと profile を、木の枝に対応させる</title>
+  <desc id="desc">上の段：球面の方向全体を、互いに離れた三つのブロックA1、A2、A3（質量は1−αに重みp1、p2、p3を掛けたもの）と、捨てる小さな方向に分ける。ブロックAiに入る点(r, θ)は、中心Oから伸びる木の枝iの座標s = βn r の点へ写る。下の段：球の測定を、方向θごとの半径の関数（profile）として見る。近いprofileを三つのセルにまとめ、セルiの代表giを枝iの上の測定値a(s, i) = gi(s)として置く。セルの質量が枝の重みpiになる。</desc>
+  <style>
+    :root { --background:#f5f7fb; --ink:#26384b; --muted:#526274; --surface:#fff; --border:#dce3ec; --dashed:#77869a; --gap:#d5dbe3; --on:#fff;
+            --one:#246891; --two:#9a5733; --three:#52816c; --center:#526274; }
+    @media (prefers-color-scheme: dark) { :root { --background:#17191c; --ink:#e5e7eb; --muted:#b0b7c1; --surface:#22262b; --border:#414750; --dashed:#a0aab4; --gap:#3a4047; --on:#17191c;
+            --one:#6fb8e1; --two:#e0a074; --three:#78c797; --center:#bdc6d0; } }
+    text { font-family: system-ui, sans-serif; fill: var(--ink); font-size: 19px }
+    .title { font-size: 26px } .head { font-size: 21px; font-weight: 650 } .small { font-size: 17px; fill: var(--muted) }
+    .one { fill: var(--one); stroke: var(--one) } .two { fill: var(--two); stroke: var(--two) } .three { fill: var(--three); stroke: var(--three) }
+    .tone { fill: var(--one) } .ttwo { fill: var(--two) } .tthree { fill: var(--three) }
+    .lone { stroke: var(--one); fill: none } .ltwo { stroke: var(--two); fill: none } .lthree { stroke: var(--three); fill: none }
+  </style>
+  <defs>
+    <marker id="arone" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L10 5 L0 9 Z" class="one" stroke="none"/></marker>
+    <marker id="artwo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L10 5 L0 9 Z" class="two" stroke="none"/></marker>
+    <marker id="arthree" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 1 L10 5 L0 9 Z" class="three" stroke="none"/></marker>
+  </defs>
+  <rect width="960" height="574" rx="16" fill="var(--background)"/>
+  <text x="32" y="42" class="title">球から木へ：方向のブロックと profile を枝に対応させる</text>
+  <text x="32" y="70" class="small" style="font-size:18px">模式図。記号は本文の下側包含・上側包含のものに対応する</text>
+  <rect x="24" y="86" width="912" height="226" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+  <text x="44" y="114" class="head">下側包含：球の方向のブロックを、枝へ送る</text>
+  <text x="270" y="141" text-anchor="middle" class="small">球面の方向 θ（全体で質量1）</text>
+  <rect x="250" y="150" width="40" height="36" class="one" fill-opacity=".9" stroke="none"/>
+  <text x="240" y="175.0" text-anchor="end" class="tone">A₁：質量 (1−α)p₁</text>
+  <rect x="250" y="190" width="40" height="36" class="two" fill-opacity=".9" stroke="none"/>
+  <text x="240" y="215.0" text-anchor="end" class="ttwo">A₂：質量 (1−α)p₂</text>
+  <rect x="250" y="230" width="40" height="36" class="three" fill-opacity=".9" stroke="none"/>
+  <text x="240" y="255.0" text-anchor="end" class="tthree">A₃：質量 (1−α)p₃</text>
+  <rect x="250" y="270" width="40" height="16" fill="var(--gap)" stroke="var(--dashed)" stroke-dasharray="4 3"/>
+  <text x="240" y="284" text-anchor="end" class="small">捨てる方向：質量 α</text>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M590 218 L674.0 194.0" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 194.0 L864 138" class="lone" stroke-width="5"/>
+    <path d="M854 129 L870 138 L854 147" class="lone" stroke-width="4"/>
+    <path d="M590 218 L674.0 218.0" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 218.0 L864 218" class="ltwo" stroke-width="5"/>
+    <path d="M854 209 L870 218 L854 227" class="ltwo" stroke-width="4"/>
+    <path d="M590 218 L674.0 242.0" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 242.0 L864 298" class="lthree" stroke-width="5"/>
+    <path d="M854 289 L870 298 L854 307" class="lthree" stroke-width="4"/>
+  </g>
+  <circle cx="674.0" cy="194.0" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="674.0" cy="218.0" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="674.0" cy="242.0" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="590" cy="218" r="5" fill="var(--center)"/>
+  <text x="570" y="242">O</text>
+  <path d="M294 168.0 C440 168.0 554.0 194.0 662.0 194.0" class="lone" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 188.0 L663.0 194.0 L652.0 200.0" class="lone" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M294 208.0 C440 208.0 554.0 218.0 662.0 218.0" class="ltwo" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 212.0 L663.0 218.0 L652.0 224.0" class="ltwo" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M294 248.0 C440 248.0 554.0 242.0 662.0 242.0" class="lthree" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 236.0 L663.0 242.0 L652.0 248.0" class="lthree" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="882" y="145" class="tone" style="font-size:20px">枝1</text>
+  <text x="882" y="225" class="ttwo" style="font-size:20px">枝2</text>
+  <text x="882" y="305" class="tthree" style="font-size:20px">枝3</text>
+  <text x="560" y="304" text-anchor="middle" style="font-size:19px">θ ∈ Aᵢ の点 (r, θ) を、枝 i の座標 s = βₙ r の点へ送る</text>
+  <rect x="24" y="328" width="912" height="230" rx="12" fill="var(--surface)" stroke="var(--border)"/>
+  <text x="44" y="356" class="head">上側包含：profile をセルにまとめ、代表を枝へ置く</text>
+  <path d="M70 412 H275" stroke="var(--dashed)" stroke-width="1.5" fill="none"/>
+  <path d="M70 378 L130 386 L190 396 L260 406" class="lone" stroke-width="3" stroke-linejoin="round" opacity="1"/>
+  <path d="M70 380 L130 392 L190 398 L260 402" class="lone" stroke-width="3" stroke-linejoin="round" opacity="0.65"/>
+  <path d="M70 454 H275" stroke="var(--dashed)" stroke-width="1.5" fill="none"/>
+  <path d="M70 444 L130 436 L190 426 L260 420" class="ltwo" stroke-width="3" stroke-linejoin="round" opacity="1"/>
+  <path d="M70 448 L130 442 L190 430 L260 424" class="ltwo" stroke-width="3" stroke-linejoin="round" opacity="0.65"/>
+  <path d="M70 496 H275" stroke="var(--dashed)" stroke-width="1.5" fill="none"/>
+  <path d="M70 478 L130 470 L190 478 L260 472" class="lthree" stroke-width="3" stroke-linejoin="round" opacity="1"/>
+  <path d="M70 474 L130 474 L190 474 L260 476" class="lthree" stroke-width="3" stroke-linejoin="round" opacity="0.65"/>
+  <text x="62" y="390" text-anchor="end" class="small">g(s)</text>
+  <text x="282" y="496" class="small">s</text>
+  <text x="70" y="522" class="small" style="font-size:17px">方向 θ ごとの profile g(s)。近いものを同じセルへ</text>
+  <text x="302" y="402" class="tone">セル1</text>
+  <text x="302" y="444" class="ttwo">セル2</text>
+  <text x="302" y="486" class="tthree">セル3</text>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M590 444 L674.0 426.6" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 426.6 L864 386" class="lone" stroke-width="5"/>
+    <path d="M854 377 L870 386 L854 395" class="lone" stroke-width="4"/>
+    <path d="M590 444 L674.0 444.0" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 444.0 L864 444" class="ltwo" stroke-width="5"/>
+    <path d="M854 435 L870 444 L854 453" class="ltwo" stroke-width="4"/>
+    <path d="M590 444 L674.0 461.4" stroke="var(--dashed)" stroke-width="3" stroke-dasharray="6 7"/>
+    <path d="M674.0 461.4 L864 502" class="lthree" stroke-width="5"/>
+    <path d="M854 493 L870 502 L854 511" class="lthree" stroke-width="4"/>
+  </g>
+  <circle cx="674.0" cy="426.6" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="674.0" cy="444.0" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="674.0" cy="461.4" r="6" fill="var(--surface)" stroke="var(--center)" stroke-width="2"/>
+  <circle cx="590" cy="444" r="5" fill="var(--center)"/>
+  <text x="570" y="468">O</text>
+  <path d="M370 394 C460 394 574.0 426.6 662.0 426.6" class="lone" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 420.6 L663.0 426.6 L652.0 432.6" class="lone" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M370 436 C460 436 574.0 444.0 662.0 444.0" class="ltwo" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 438.0 L663.0 444.0 L652.0 450.0" class="ltwo" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M370 478 C460 478 574.0 461.4 662.0 461.4" class="lthree" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M652.0 455.4 L663.0 461.4 L652.0 467.4" class="lthree" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="882" y="393" class="tone" style="font-size:20px">枝1</text>
+  <text x="882" y="451" class="ttwo" style="font-size:20px">枝2</text>
+  <text x="882" y="509" class="tthree" style="font-size:20px">枝3</text>
+  <text x="480" y="546" text-anchor="middle" style="font-size:18px">セル i の代表 gᵢ を枝 i の上の測定値 a(s, i) = gᵢ(s) とし、セルの質量を枝の重み pᵢ とする</text>
+</svg>
